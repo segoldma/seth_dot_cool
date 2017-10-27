@@ -1,0 +1,313 @@
+---
+title: "Exploring Washington, D.C. Service Requests (2016)"
+date: "2017-10-27"
+output: html_document
+categories: ["R"]
+tags: ["DC", "R", "data", "311", "service requests"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, cache = TRUE, warning = FALSE)
+```
+
+I've lived in Washington for about four years, but have lived in the D.C. metropolitan area my whole life. When looking for datasets to practice [ggplot2](http://ggplot2.org/) plotting, I came across [Open Data DC](http://opendata.dc.gov/), a catalog of datasets maintained by various city government agencies. 
+
+I gravitated toward the *Newly Updated or Added* section, hoping to find a data that I haven't read much about before. I decided on Service Request Data (i.e., residents dialing 311), thinking that picking something more boring than crime or household income meant I wouldn't need to worry about stacking up against the constant stream  great work on topics like [wealth](http://storymaps.esri.com/stories/2016/wealth-divides/index.html) [and income inequality](https://districtmeasured.com/2015/06/23/ceo-pay-is-not-the-only-factor-that-accounts-for-income-inequality-in-dc-increasingly-the-corporate-ladder-youre-on-matters-more-than-where-you-are-on-the-corporate-ladder/) and [gentrification](https://www.datalensdc.com/gentrification-by-numbers.html) in the District.
+
+This isn't so much an analysis as it is practice on cleaning and transforming data in preparation for a few basic plots. I've included my code and plots below. I hope that by adding written explanations and reoganizing my code, I'll reap some of the learning and retention benefits of re-writing notes after a lecture (although supposedly [doing so on a computer](http://www.npr.org/2016/04/17/474525392/attention-students-put-your-laptops-away) is less effective).
+
+## Getting and Preparing the data
+
+*Data retrieved from DC Data Catalog [(http://data.dc.gov/)](http://data.dc.gov/)*
+
+I got started by downloading the 2016 Service Request Data as a .csv, and loading it into RStudio, alongside the dplyr, ggplot2, and scales packages.
+
+```{r city_service_reqs_2016, eval = FALSE, echo = TRUE, error = FALSE, message = FALSE }
+## Analyzing Washington, D.C. Service Requests from 2016
+## (source: http://opendata.dc.gov/datasets/city-service-requests-in-2016)
+
+## Load Packages
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+### Read in DC Service Requests Data - 2016 ###
+city_service_reqs_2016 <- read.csv("City_Service_Requests_in_2016.csv")
+```
+
+After loading the raw data, I reformatted the column headers by converting to lowercase, and renaming the variables with underscores to make my code easier to read and write. 
+
+```{r city_service_reqs_2016_headers, eval = FALSE, warning = FALSE, echo = TRUE, error = FALSE, message = FALSE }
+
+### Call 311 to Clean Up Column Headers
+lower_headers <- tolower(colnames(city_service_reqs_2016))
+colnames(city_service_reqs_2016) <- lower_headers
+rm(lower_headers)
+
+### Select Subset of Columns - named "requests_2016"
+requests_2016 <- city_service_reqs_2016 %>%
+  select("service_code" = servicecode,
+         "service_code_description" = servicecodedescription,
+         "service_type_code_description"  = servicetypecodedescription,
+         "organization" = organizationacronym,
+         "service_call_count" = servicecallcount,
+         "add_date" = adddate,
+         "resolution_date" = resolutiondate,
+         "service_due_date" = serviceduedate,
+         "service_order_date" = serviceorderdate,
+         "inspection_flag" = inspectionflag,
+         "inspection_date" = inspectiondate,
+         "service_order_status" = serviceorderstatus,
+         "status_code" = status_code,
+         "priority" = priority,
+         "street_address" = streetaddress,
+         "latitude" = latitude,
+         "longitude" = longitude,
+         "zipcode" = zipcode,
+         "ward" = ward)
+```
+
+Next, I converted the dataframe into [a tibble](https://cran.r-project.org/web/packages/tibble/index.html), because I think the print formatting looks nicer. I also coerced five of the variables to dates in the YYYY/MM/DD format.
+
+```{r city_service_reqs_2016_tibble_dates, eval = FALSE, warning = FALSE, echo = TRUE, error = FALSE, message = FALSE }
+requests_2016 <- requests_2016 %>% as_tibble() 
+
+### Format Dates as such
+requests_2016$add_date <- strtrim(requests_2016$add_date ,10) %>% as.Date("%Y-%m-%d")
+requests_2016$resolution_date <- strtrim(requests_2016$resolution_date, 10) %>% as.Date("%Y-%m-%d")
+requests_2016$service_due_date <- strtrim(requests_2016$service_due_date, 10) %>% as.Date("%Y-%m-%d")
+requests_2016$service_order_date <- strtrim(requests_2016$service_order_date, 10) %>% as.Date("%Y-%m-%d")
+requests_2016$inspection_date <- strtrim(requests_2016$inspection_date, 10) %>% as.Date("%Y-%m-%d")
+
+
+```
+
+
+#### Checking out out the structure:
+```{r city_service_reqs_2016_tibble_str, eval = TRUE, warning = FALSE, echo = FALSE, error = FALSE, message = FALSE }
+
+## Load Packages
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+### Read in DC Service Requests Data - 2016 ###
+city_service_reqs_2016 <- read.csv("City_Service_Requests_in_2016.csv")
+
+### Call 311 to Clean Up Column Headers
+lower_headers <- tolower(colnames(city_service_reqs_2016))
+colnames(city_service_reqs_2016) <- lower_headers
+rm(lower_headers)
+
+### Select Subset of Columns - named "requests_2016"
+requests_2016 <- city_service_reqs_2016 %>%
+  select("service_code" = servicecode,
+         "service_code_description" = servicecodedescription,
+         "service_type_code_description"  = servicetypecodedescription,
+         "organization" = organizationacronym,
+         "service_call_count" = servicecallcount,
+         "add_date" = adddate,
+         "resolution_date" = resolutiondate,
+         "service_due_date" = serviceduedate,
+         "service_order_date" = serviceorderdate,
+         "inspection_flag" = inspectionflag,
+         "inspection_date" = inspectiondate,
+         "service_order_status" = serviceorderstatus,
+         "status_code" = status_code,
+         "priority" = priority,
+         "street_address" = streetaddress,
+         "latitude" = latitude,
+         "longitude" = longitude,
+         "zipcode" = zipcode,
+         "ward" = ward)
+
+requests_2016 <- requests_2016 %>% as_tibble() 
+
+### Format Dates as such
+requests_2016$add_date <- strtrim(requests_2016$add_date ,10) %>% as.Date("%Y-%m-%d")
+requests_2016$resolution_date <- strtrim(requests_2016$resolution_date, 10) %>% as.Date("%Y-%m-%d")
+requests_2016$service_due_date <- strtrim(requests_2016$service_due_date, 10) %>% as.Date("%Y-%m-%d")
+requests_2016$service_order_date <- strtrim(requests_2016$service_order_date, 10) %>% as.Date("%Y-%m-%d")
+requests_2016$inspection_date <- strtrim(requests_2016$inspection_date, 10) %>% as.Date("%Y-%m-%d")
+
+str(requests_2016)
+
+```
+
+### Making a few plots
+
+#### Presumably, DC residents call 311 for a variety of reasons, submitting requests with a variety of agencies. The first plot examines the number of requests filed within each organization.
+
+As we can see, the Department of Public Works (DPW), District Department of Transportation (DDOT), Department of Motor Vehicles (DMV), and the city's volunteerism office (Serve DC) received most of the requests in 2016.
+
+``` {R requests_by_org, eval = TRUE, echo = FALSE, error = FALSE, message = FALSE}
+### Histogram of requests by Service Organization
+## Load Packages
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+### Read in DC Service Requests Data - 2016 ###
+city_service_reqs_2016 <- read.csv("City_Service_Requests_in_2016.csv")
+
+### Call 311 to Clean Up Column Headers
+lower_headers <- tolower(colnames(city_service_reqs_2016))
+colnames(city_service_reqs_2016) <- lower_headers
+rm(lower_headers)
+
+### Select Subset of Columns - named "requests_2016"
+requests_2016 <- city_service_reqs_2016 %>%
+  select("service_code" = servicecode,
+         "service_code_description" = servicecodedescription,
+         "service_type_code_description"  = servicetypecodedescription,
+         "organization" = organizationacronym,
+         "service_call_count" = servicecallcount,
+         "add_date" = adddate,
+         "resolution_date" = resolutiondate,
+         "service_due_date" = serviceduedate,
+         "service_order_date" = serviceorderdate,
+         "inspection_flag" = inspectionflag,
+         "inspection_date" = inspectiondate,
+         "service_order_status" = serviceorderstatus,
+         "status_code" = status_code,
+         "priority" = priority,
+         "street_address" = streetaddress,
+         "latitude" = latitude,
+         "longitude" = longitude,
+         "zipcode" = zipcode,
+         "ward" = ward)
+
+requests_2016 <- requests_2016 %>% as_tibble() 
+
+### Format Dates as such
+requests_2016$add_date <- strtrim(requests_2016$add_date ,10) %>% as.Date("%Y-%m-%d")
+requests_2016$resolution_date <- strtrim(requests_2016$resolution_date, 10) %>% as.Date("%Y-%m-%d")
+requests_2016$service_due_date <- strtrim(requests_2016$service_due_date, 10) %>% as.Date("%Y-%m-%d")
+requests_2016$service_order_date <- strtrim(requests_2016$service_order_date, 10) %>% as.Date("%Y-%m-%d")
+requests_2016$inspection_date <- strtrim(requests_2016$inspection_date, 10) %>% as.Date("%Y-%m-%d")
+
+
+requests_2016 %>%
+  group_by(organization) %>%
+  tally() %>%
+  ggplot(aes(x = reorder(organization, n), y = n)) +
+  geom_point() +
+  coord_flip() +
+  theme_bw() + 
+  theme(axis.text.x = element_text(hjust = 1),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  geom_text(aes(label = n), vjust = 1.4, hjust = .8) +
+  ylab("Number of Cases") +
+  xlab("Organization") + 
+  ggtitle("2016 Washington DC Service Requests by Organization",subtitle = "via DC's 311 Service Request Center")
+```
+``` {R requests_by_org_code, eval = FALSE, echo = TRUE, error = FALSE, message = FALSE}
+requests_2016 %>%
+  group_by(organization) %>%
+  tally() %>%
+  ggplot(aes(x = reorder(organization, n), y = n)) +
+  geom_point() +
+  coord_flip() +
+  theme_bw() + 
+  theme(axis.text.x = element_text(hjust = 1),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  geom_text(aes(label = n), vjust = 1.4, hjust = .8) +
+  ylab("Number of Cases") +
+  xlab("Organization") + 
+  ggtitle("2016 Washington DC Service Requests by Organization",subtitle = "via DC's 311 Service Request Center")
+```
+
+
+
+#### Next, I examined the number of requests filed within each of DC's 8 Wards.
+
+```{R requests_by_ward, echo = FALSE, eval = TRUE}
+requests_2016 %>%
+  filter(ward %in% c("1","2","3","4","5","6","7","8")) %>% 
+  group_by(ward) %>%
+  tally() %>%
+  ggplot(aes(x = ward, y = n)) +
+  geom_bar(stat = "identity") +
+  theme_bw() +
+  theme(axis.text.x = element_text(hjust = 1),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  geom_text(aes(label = n), color = "white", vjust = 2, hjust = 1, angle=45) +
+  ylab("Number of Cases") +
+  xlab("Ward") + 
+  ggtitle("2016 Washington DC Service Requests by Ward",subtitle = "via DC's 311 Service Request Center")
+
+```
+
+```{R requests_by_ward_code, ref.label = "requests_by_ward", echo = TRUE, eval = FALSE}
+```
+
+
+#### Combining the previous two segments, I plotted the number of service requests by organization, within in each Ward.
+The plot below displays the absolute number of requests, while the plot below it shows requests relative to each Ward's total.
+
+
+```{R requests_by_org_and_ward, echo = FALSE, eval = TRUE}
+
+requests_2016 %>%
+  filter(ward %in% c("1","2","3","4","5","6","7","8")) %>% 
+  group_by(ward) %>%
+  ggplot(aes(x = ward, fill = organization)) +
+  geom_bar() +
+  ylab("Number of Cases") +
+  xlab("Ward") +
+  ggtitle("2016 Washington DC Service Requests by Ward", subtitle = "Service Organization Detail")
+
+```
+ 
+```{R requests_by_org_and_ward_proportional, echo = FALSE, eval = TRUE}
+  
+requests_2016 %>%
+  filter(ward %in% c("1","2","3","4","5","6","7","8")) %>% 
+  group_by(ward) %>%
+  ggplot(aes(x = ward, fill = organization)) +
+    geom_bar(position = "fill") +
+    ylab("Number of Cases") +
+    xlab("Ward") +
+    ggtitle("2016 Washington DC Service Requests by Ward", subtitle = "Proportion of Service Organization")
+
+```
+
+
+#### Noticing that there was an organization related to snow, I wanted to examine the seasonality of service requests, if any.
+
+
+```{R requests_by_month, echo = FALSE, eval = TRUE}
+  requests_2016 %>%
+    ggplot(aes(x = add_date)) +
+    geom_bar() +
+    scale_x_date(labels = date_format("%B")) +
+    ylab("Number of Cases") +
+    xlab("") +
+    ggtitle("2016 Washington DC Service Requests", subtitle = "Calendar Year")
+```
+
+```{R requests_by_month_code, ref.label = "requests_by_month", echo = TRUE, eval = FALSE}
+```
+
+There seems to have been a huge spike in service requests in the January/February range. 
+
+*What were the top-15 request days?*
+
+```{R top_request_days, echo = TRUE, eval = FALSE}
+  requests_2016 %>%
+    group_by(add_date) %>%
+    tally() %>%
+    arrange(desc(n)) %>%
+    top_n(15)
+```
+
+```{R top_request_days_code, ref.label = "top_request_days", echo = FALSE, eval = TRUE}
+```
+
+So, the top seven request days were consecutive from January 20-27. I didn't dig into the spike any further, but I'd venture to guess that this was the week of the Presidental Inauguration. In the future, it would be interesting to explore the types of requests during the 2016 Inauguration week, and compare the 2016 data against the 2012 Inauguration.

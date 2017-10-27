@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on A Hugo website</title>
+    <link>/tags/r/</link>
+    <description>Recent content in R on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Oct 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Exploring Washington, D.C. Service Requests (2016)</title>
+      <link>/2017/10/27/exploring-washington-d.c.-service-requests-2016/</link>
+      <pubDate>Fri, 27 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/10/27/exploring-washington-d.c.-service-requests-2016/</guid>
+      <description>I’ve lived in Washington for about four years, but have lived in the D.C. metropolitan area my whole life. When looking for datasets to practice ggplot2 plotting, I came across Open Data DC, a catalog of datasets maintained by various city government agencies.
+I gravitated toward the Newly Updated or Added section, hoping to find a data that I haven’t read much about before. I decided on Service Request Data (i.</description>
+    </item>
+    
+    <item>
+      <title>Welcome to the least-cool dot-cool on the Internet</title>
+      <link>/about/</link>
+      <pubDate>Mon, 23 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>I registered the seth.cool domain a couple of years ago with no project in mind – only the misguided assumptions that (1) someone else would buy it, and (2) that I am cool. I’ve decided to finally use my first-mover’s advantage to share data-related projects as I work on them.
+A brief background on that: As my job has evolved to include more and more data analysis, I’ve found myself spending a lot of time waiting for Excel to unfreeze respond.</description>
+    </item>
+    
+    <item>
+      <title>Welcome to the least-cool dot-cool on the Internet</title>
+      <link>/2017/10/23/welcome-to-the-least-cool-dot-cool-on-the-internet/</link>
+      <pubDate>Mon, 23 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/10/23/welcome-to-the-least-cool-dot-cool-on-the-internet/</guid>
+      <description>I registered the seth.cool domain a couple of years ago with no project in mind – only the misguided assumptions that (1) someone else would buy it, and (2) that I am cool. I’ve decided to finally use my first-mover’s advantage to share data-related projects as I work on them.
+A brief background on that: As my job has evolved to include more and more data analysis, I’ve found myself spending a lot of time waiting for Excel to unfreeze respond.</description>
+    </item>
+    
+  </channel>
+</rss>

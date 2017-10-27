@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dc on A Hugo website</title>
+    <link>/tags/dc/</link>
+    <description>Recent content in Dc on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Oct 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/dc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Exploring Washington, D.C. Service Requests (2016)</title>
+      <link>/2017/10/27/exploring-washington-d.c.-service-requests-2016/</link>
+      <pubDate>Fri, 27 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/10/27/exploring-washington-d.c.-service-requests-2016/</guid>
+      <description>I’ve lived in Washington for about four years, but have lived in the D.C. metropolitan area my whole life. When looking for datasets to practice ggplot2 plotting, I came across Open Data DC, a catalog of datasets maintained by various city government agencies.
+I gravitated toward the Newly Updated or Added section, hoping to find a data that I haven’t read much about before. I decided on Service Request Data (i.</description>
+    </item>
+    
+  </channel>
+</rss>
