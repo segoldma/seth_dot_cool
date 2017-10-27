@@ -1,6 +1,6 @@
 baseurl = "/"
 languageCode = "en-us"
-title = "A Hugo website"
+title = "Seth dot cool"
 theme = "hugo-lithium-theme"
 googleAnalytics = ""
 disqusShortname = ""
@@ -27,7 +27,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     
 
 [params]
-    description = "A website built through Hugo and blogdown."
+    description = "Seth's (not so cool) data blog"
 
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.11.0"
