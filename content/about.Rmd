@@ -12,9 +12,9 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 I registered the [seth.cool](https://seth.cool) domain a couple of years ago with no project in mind -- only the misguided assumptions that (1) someone else would buy it, and (2) that I am cool. I've decided to finally use my first-mover's advantage to share data-related projects as I work on them.
 
-A brief background on that: As my job has evolved to include more and more data analysis, I've found myself spending a lot of time waiting for Excel to ~~unfreeze~~ respond. One of my wiser friends suggested that I learn R, and shared two textbooks ([R Cookbook](http://shop.oreilly.com/product/9780596809164.do) and [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do)). These, Hadley Wickham and Garret Grolemund's [R for Data Science](http://r4ds.had.co.nz/index.html), along with several [DataCamp](http://datacamp.com), [Coursera](http://coursera.com), and [edX](http://edx.org) courses have me well on my way.
+A brief background on that: As my job has evolved to include more and more data analysis, I've found myself spending a lot of time waiting for Excel to ~~unfreeze~~ respond. A longtime friend of mine suggested that I learn R, and shared two textbooks ([R Cookbook](http://shop.oreilly.com/product/9780596809164.do) and [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do)). These, Hadley Wickham and Garret Grolemund's [R for Data Science](http://r4ds.had.co.nz/index.html), along with several [DataCamp](http://datacamp.com), [Coursera](http://coursera.com), and [edX](http://edx.org) courses have me well on my way.
 
-Here's a plot illustrating my initial impetus for learning R.
+Here's a plot describing my initial impetus for learning R.
 
 ```{r seths_strife, fig.height = 5, fig.width = 5, warning=FALSE, echo = FALSE}
 library(ggplot2)
