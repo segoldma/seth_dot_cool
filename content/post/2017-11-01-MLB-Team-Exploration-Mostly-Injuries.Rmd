@@ -20,7 +20,7 @@ Although the Washington Nationals have crashed out of the MLB playoffs for the [
 * Team Pitching ([baseball reference](https://www.baseball-reference.com/leagues/MLB/2017.shtml))
 * Team Disabled List data ([spotrac](http://www.spotrac.com/mlb/disabled-list/))
 
-I have a pretty superficial understanding of modern [sabermetrics]("http://sabr.org/sabermetrics") (i.e.,  [FanGraphs](http://www.fangraphs.com) is often over my head, I couldn't tell you how to calculate weighted on-base average, but I understand the concepts behind Run Expectancy, Win Probability Added, WAR, and a handful of popular measures). All this to say: this analysis won't add much value to baseball research, but was fun to practice on.
+I have a pretty superficial understanding of modern [sabermetrics](http://sabr.org/sabermetrics) (i.e.,  [FanGraphs](http://www.fangraphs.com) is often over my head, I couldn't tell you how to calculate weighted on-base average, but I understand the concepts behind Run Expectancy, Win Probability Added, WAR, and a handful of popular measures). All this to say: this analysis won't add much value to baseball research, but was fun to practice on.
 
 With no particular goal in mind, I loaded in the 2017 Team Batting, and 2017 Team Pitching from [bbref](baseball-reference.com/leagues/MLB/2017.shtml), and an American League/National League reference table, which I created myself.
 
