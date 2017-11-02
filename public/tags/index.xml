@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on A Hugo website</title>
+    <title>Tags on Seth dot cool</title>
     <link>/tags/</link>
-    <description>Recent content in Tags on A Hugo website</description>
+    <description>Recent content in Tags on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 27 Oct 2017 00:00:00 +0000</lastBuildDate>
@@ -23,7 +23,7 @@
     <item>
       <title>Data</title>
       <link>/tags/data/</link>
-      <pubDate>Fri, 27 Oct 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/data/</guid>
       <description></description>
@@ -39,6 +39,15 @@
     </item>
     
     <item>
+      <title>Exploratory</title>
+      <link>/tags/exploratory/</link>
+      <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/exploratory/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Intro</title>
       <link>/tags/intro/</link>
       <pubDate>Mon, 23 Oct 2017 00:00:00 +0000</pubDate>
@@ -48,9 +57,18 @@
     </item>
     
     <item>
+      <title>Mlb</title>
+      <link>/tags/mlb/</link>
+      <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/mlb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>R</title>
       <link>/tags/r/</link>
-      <pubDate>Fri, 27 Oct 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/r/</guid>
       <description></description>

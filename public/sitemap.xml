@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/2017/11/01/2017-mlb-team-exploration-mostly-injuries/</loc>
+    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2017/10/27/exploring-washington-d.c.-service-requests-2016/</loc>
     <lastmod>2017-10-27T00:00:00+00:00</lastmod>
   </url>
@@ -24,19 +29,13 @@
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2017-10-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/data/</loc>
-    <lastmod>2017-10-27T00:00:00+00:00</lastmod>
+    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -47,20 +46,32 @@
   </url>
   
   <url>
+    <loc>/tags/exploratory/</loc>
+    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/intro/</loc>
     <lastmod>2017-10-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>/tags/mlb/</loc>
+    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/post/</loc>
-    <lastmod>2017-10-27T00:00:00+00:00</lastmod>
+    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/r/</loc>
-    <lastmod>2017-10-27T00:00:00+00:00</lastmod>
+    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -73,6 +84,12 @@
   <url>
     <loc>/tags/service-requests/</loc>
     <lastmod>2017-10-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

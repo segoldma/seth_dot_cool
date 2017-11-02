@@ -1,0 +1,204 @@
+---
+title: "2017 MLB Team Exploration: Mostly Injuries"
+author: "Seth Goldman"
+date: "2017-11-01"
+output: html_document
+tags: ["R", "data", "MLB", "exploratory"]
+---
+
+
+
+<p>Although the Washington Nationals have crashed out of the MLB playoffs for the <a href="http://www.espn.com/blog/washington-nationals/post/_/id/3300/curses-nationals-playoff-dreams-are-foiled-again">fourth time in four appearances</a> since 2012, I’m not ready to put the 2017 season to bed. I downloaded acouple of datasets from the 2017 MLB Regular Season to play around with while practicing exploratory data analysis and To practice exploratory data analysis plotting with <a href="http://ggplot2.tidyverse.org/reference/">ggplot2</a>:</p>
+<ul>
+<li>Team Batting (<a href="https://www.baseball-reference.com/leagues/MLB/2017.shtml">baseball reference</a>)</li>
+<li>Team Pitching (<a href="https://www.baseball-reference.com/leagues/MLB/2017.shtml">baseball reference</a>)</li>
+<li>Team Disabled List data (<a href="http://www.spotrac.com/mlb/disabled-list/">spotrac</a>)</li>
+</ul>
+<p>I have a pretty superficial understanding of modern <a href="%22http://sabr.org/sabermetrics%22">sabermetrics</a> (i.e., <a href="http://www.fangraphs.com">FanGraphs</a> is often over my head, I couldn’t tell you how to calculate weighted on-base average, but I understand the concepts behind Run Expectancy, Win Probability Added, WAR, and a handful of popular measures). All this to say: this analysis won’t add much value to baseball research, but was fun to practice on.</p>
+<p>With no particular goal in mind, I loaded in the 2017 Team Batting, and 2017 Team Pitching from <a href="baseball-reference.com/leagues/MLB/2017.shtml">bbref</a>, and an American League/National League reference table, which I created myself.</p>
+<p>Baseball Reference recently <a href="%22https://www.sports-reference.com/blog/2016/11/exporting-data/%22">re-designed</a> their table export functionality, where instead of downloading the table as a .csv, bbref displays a block of comma-separated text.</p>
+<p>I loaded the data using <a href="%22https://cran.r-project.org/web/packages/readr/%22">readr</a>’s <code>read_csv</code> function. The first three rows, below:</p>
+<pre class="r"><code>team_batting &lt;- read_csv(&quot;Tm,#Bat,BatAge,R/G,G,PA,AB,R,H,2B,3B,HR,RBI,SB,CS,BB,SO,BA,OBP,SLG,OPS,OPS+,TB,GDP,HBP,SH,SF,IBB,LOB
+ARI,45,28.3,5.01,162,6224,5525,812,1405,314,39,220,776,103,30,578,1456,.254,.329,.445,.774,93,2457,106,54,39,27,44,1118
+                         ATL,49,28.7,4.52,162,6216,5584,732,1467,289,26,165,706,77,31,474,1184,.263,.326,.412,.738,94,2303,137,66,59,32,57,1127
+                         BAL,50,28.6,4.59,162,6140,5650,743,1469,269,12,232,713,32,13,392,1412,.260,.312,.435,.747,99,2458,138,50,10,37,12,1041&quot;)                     </code></pre>
+<p>Since the team summaries from bbref included <em>average</em> and <em>sum</em> rows, I had to remove these from my data.frames, and added the AL/NL key:</p>
+<pre class="r"><code>
+team_batting &lt;- team_batting %&gt;%
+  slice(1:30) %&gt;%
+  left_join(team_league, by = &quot;Tm&quot;)
+
+team_pitching &lt;- team_pitching %&gt;%
+  slice(1:30) %&gt;%
+  left_join(team_league, by = &quot;Tm&quot;)
+</code></pre>
+<div id="player-appearances-per-team" class="section level3">
+<h3>Player Appearances per Team</h3>
+<p>As I started to examine the tables, I had to return to bbref to look up the <code>#Bat</code> and <code>#P</code> variables, which represent the number of distinct <em>batters</em> and <em>pitchers</em> that appeared for each team.</p>
+<p>To get a sense of the distribution of batters used by team, I created a box-and-whisker plot.</p>
+<pre class="r"><code>ggplot(teams_playersused_wins, aes(x = &quot;&quot;, y = n_batters)) +
+  geom_boxplot(fill = &quot;#4271AE&quot;, width = 0.1) +
+  ylab(&quot;Number of Batters Used&quot;) +
+  xlab(&quot;&quot;) +
+  ggtitle(&quot;Number of Batters Used in Games (2017)&quot;)</code></pre>
+<p><img src="/post/2017-11-01-MLB-Team-Exploration-Mostly-Injuries_files/figure-html/box_plot_of_batters-1.png" width="672" /></p>
+<p>Since pitchers have to bat in the National League, I’d expect NL teams to have 4-5 more batters on average than the AL. After plotting the two leagues side-by-side, my hunch was disproved. I hadn’t considered interleague games, which effectively reverse the effect.</p>
+<p><img src="/post/2017-11-01-MLB-Team-Exploration-Mostly-Injuries_files/figure-html/box_plot_of_batters_by_lg-1.png" width="672" /></p>
+<p>AL teams used three more batters than do NL team on average, but the outliers are intriguing.</p>
+<p><em>Which teams used the <strong>most</strong> batters in each league?</em></p>
+<pre><code>## # A tibble: 5 x 3
+##      Tm n_batters    Lg
+##   &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;
+## 1   SEA        61    AL
+## 2   TOR        60    AL
+## 3   LAA        55    AL
+## 4   OAK        54    AL
+## 5   TBR        53    AL
+## # A tibble: 5 x 3
+##      Tm n_batters    Lg
+##   &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;
+## 1   LAD        52    NL
+## 2   NYM        52    NL
+## 3   SDP        52    NL
+## 4   PHI        51    NL
+## 5   MIL        50    NL</code></pre>
+<p><em>Which teams used the <strong>fewest</strong> batters in each league?</em></p>
+<pre><code>## # A tibble: 5 x 3
+##      Tm n_batters    Lg
+##   &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;
+## 1   CLE        41    AL
+## 2   HOU        46    AL
+## 3   BOS        49    AL
+## 4   DET        49    AL
+## 5   KCR        49    AL
+## # A tibble: 6 x 3
+##      Tm n_batters    Lg
+##   &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;
+## 1   COL        41    NL
+## 2   MIA        43    NL
+## 3   ARI        45    NL
+## 4   CHC        47    NL
+## 5   CIN        47    NL
+## 6   PIT        47    NL</code></pre>
+<p>Pretty interesting: Only one team among the top-5 of each league made the Postseason (LAD), compared to six of the ten teams among their league’s bottom-5 (CLE, HOU, BOS, COL, ARI, CHC).</p>
+<div id="does-this-mean-that-teams-that-use-fewer-batters-tend-to-win-more-games" class="section level4">
+<h4>Does this mean that teams that use fewer batters tend to win more games?</h4>
+<p><img src="/post/2017-11-01-MLB-Team-Exploration-Mostly-Injuries_files/figure-html/batters_used_vs_wins-1.png" width="672" /></p>
+<p>Overall, the correlation coefficient between Batters Used and Wins is <code>-0.297201</code>, a weak negative relationship. Among AL teams it’s <code>-0.5112843</code>, and for NL teams it’s <code>-0.151149</code>.</p>
+<p>I anticipated the relationship to be stronger in the AL, with CLE, HOU, and BOS using the fewest batters in the AL, while combining for 296 wins. However, I wonder if these highly successful teams won more games with fewer players because they managed to avoid injuries, or simply had better individual hitters among on their rosters.</p>
+<p>To examine this, I found <a href="http://www.spotrac.com/mlb/disabled-list/">MLB Disabled List</a> data on <a href="http://www.spotrac.com/">Spotrac</a>. This dataset includes each team’s number of distinct players who spent time on MLB’s Disabled List, along with the corresponding number of days. It also includes summaries on these categories among <code>batters</code> as well as <code>pitchers</code>, previewed below:</p>
+<pre><code>## # A tibble: 6 x 7
+##      Tm players_on_dl days_on_dl dl_batters days_dl_batters dl_pitchers
+##   &lt;chr&gt;         &lt;int&gt;      &lt;int&gt;      &lt;int&gt;           &lt;int&gt;       &lt;int&gt;
+## 1   LAD            27       1981         10             801          17
+## 2   NYM            19       1518         10             684           9
+## 3   SEA            17       1492          5             250          12
+## 4   TOR            25       1981         13             993          12
+## 5   BOS            21       1832          7             531          13
+## 6   WSN            22       1518         11             885          11
+## # ... with 1 more variables: days_dl_pitchers &lt;int&gt;</code></pre>
+<p>Combining the 2017 Team Injury summaries with the Team <em>Players Used</em> data, I created a couple of correlation plots to examine the relationships between these variables, particularly for hitters. (This is my first time using the <code>corrplot</code> package, so they aren’t very well-formatted.)</p>
+<p><img src="/post/2017-11-01-MLB-Team-Exploration-Mostly-Injuries_files/figure-html/batter_injury_corrplot-1.png" width="672" /></p>
+<p><strong>Not so surprising:</strong></p>
+<ul>
+<li>the strongest positive correlation is between the number of players who spent time on the Disabled List, and the total number of days. <code>(0.85)</code></li>
+<li>number of batters used is slightly negatively correlated with Team Wins (although we found earlier that the relationship is stronger in the <code>AL</code> than the <code>NL</code>.)</li>
+</ul>
+<p><strong>A bit more surprising:</strong></p>
+<ul>
+<li>there seems to have been almost no relationship between a team’s number of batters on the DL, and Team Wins <code>(-0.05)</code></li>
+<li>nor is their much of any relationship between the number of days batters spent on the DL and team wins <code>(0.03)</code></li>
+</ul>
+</div>
+<div id="how-does-the-number-of-batters-a-team-used-relate-to-offense-production" class="section level4">
+<h4>How does the number of batters a team used relate to offense production?</h4>
+<p>Since there weren’t very strong relationships between disabled list activity and Team Wins, I was curious to know if teams that used more players experienced diminished offensive production overall. I used On-Base Percentage and Runs-per-game as proxies for offensive production, and created the correlation table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right"># Position Players on DL</th>
+<th align="right">Runs per Game</th>
+<th align="right">Days on DL</th>
+<th align="right"># Batters Used</th>
+<th align="right">Team Wins</th>
+<th align="right">OBP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td># Position Players on DL</td>
+<td align="right">1.0000000</td>
+<td align="right">-0.2089881</td>
+<td align="right">0.8499177</td>
+<td align="right">0.1824023</td>
+<td align="right">-0.0483877</td>
+<td align="right">-0.2293197</td>
+</tr>
+<tr class="even">
+<td>Runs per Game</td>
+<td align="right">-0.2089881</td>
+<td align="right">1.0000000</td>
+<td align="right">-0.1851563</td>
+<td align="right">-0.3955465</td>
+<td align="right">0.7217103</td>
+<td align="right">0.9069616</td>
+</tr>
+<tr class="odd">
+<td>Days on DL</td>
+<td align="right">0.8499177</td>
+<td align="right">-0.1851563</td>
+<td align="right">1.0000000</td>
+<td align="right">0.1800802</td>
+<td align="right">0.0342678</td>
+<td align="right">-0.2274695</td>
+</tr>
+<tr class="even">
+<td># Batters Used</td>
+<td align="right">0.1824023</td>
+<td align="right">-0.3955465</td>
+<td align="right">0.1800802</td>
+<td align="right">1.0000000</td>
+<td align="right">-0.2972010</td>
+<td align="right">-0.4812778</td>
+</tr>
+<tr class="odd">
+<td>Team Wins</td>
+<td align="right">-0.0483877</td>
+<td align="right">0.7217103</td>
+<td align="right">0.0342678</td>
+<td align="right">-0.2972010</td>
+<td align="right">1.0000000</td>
+<td align="right">0.7100753</td>
+</tr>
+<tr class="even">
+<td>OBP</td>
+<td align="right">-0.2293197</td>
+<td align="right">0.9069616</td>
+<td align="right">-0.2274695</td>
+<td align="right">-0.4812778</td>
+<td align="right">0.7100753</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quick and not-so-surprising insights:</strong></p>
+<ul>
+<li>slight negative correlation between position players on the DL and run production (<code>-0.21</code>) and on-base pct. (<code>-0.23</code>)</li>
+<li>on-base percentage is fairly negatively correlated with on-base percentage (<code>-0.48</code>) and runs-per-game (<code>-0.39</code>). Presumably, the additional batters perform at a lower level than the <em>starters</em>, but this would be an interesting question to analyze in the future</li>
+<li>both Runs/Game (<code>0.72</code>) and OBP(<code>0.71</code>) are strongly correlated with Team Wins</li>
+</ul>
+<p><strong>What about those top-performing teams that used so few players?</strong></p>
+<p>We found earlier that the Red Sox, Astros, and Indians combined for almost 300 wins, while among the bottom-5 in <code>batters</code> used. I created a small <code>corrplot</code> to examine the relationships between DL stints and offensive performance.</p>
+<p><img src="/post/2017-11-01-MLB-Team-Exploration-Mostly-Injuries_files/figure-html/top_team_corrplot-1.png" width="672" /></p>
+<ul>
+<li>there’s an incredibly strong relationship between <code>BOS</code>,<code>CLE</code>, and <code>HOU</code>’s few days on the DL, and a high on-base percentage (<code>-0.995</code>), and Runs/Game (<code>-0.97</code>)</li>
+<li>the ability to avoid injury goes a long way: the three teams’ <em>R</em> for days on the DL and Wins is <code>-0.81</code> compared to the league-wide coefficient of <code>0.03</code></li>
+</ul>
+</div>
+<div id="questions-for-next-time" class="section level4">
+<h4>Questions for next time</h4>
+<p>In the future, I’d like to redo this analysis for pitchers spectifically, layering in pitch data from <a href="http://m.mlb.com/statcast/leaderboard#avg-pitch-velo">Statcast</a>. A couple of recent articles piqued my interest in injury data: From 538, how the Dodgers are <a href="https://fivethirtyeight.com/features/how-the-dodgers-are-using-baseballs-new-dl-rules-to-get-an-edge/">getting creative</a> with MLB’s new Disabled List rules to gain a competitive advantage, and from WSJ, how baseball’s most successful pitching staffs tend to have <a href="https://www.wsj.com/articles/baseballs-hidden-key-to-success-throwing-slower-1508243922">more effective curveballs</a> than their less-successful competitors.</p>
+<p><em>Contact me via <a href="mailto:sethgoldman1@gmail.com">email</a></em></p>
+</div>
+</div>
