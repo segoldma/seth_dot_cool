@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Nov 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 11 Nov 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>What&#39;s the plural of Eephus?</title>
+      <link>/2017/11/11/whats-the-plural-of-eephus/</link>
+      <pubDate>Sat, 11 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/11/11/whats-the-plural-of-eephus/</guid>
+      <description>I downloaded a fairly large amount of pitch data from the MLB Statcast database: every pitch thrown during the 2017 season, with ~75 variables about each.
+What’s the plural of Eephus?For the uninitiated, the Eephus pitch is a very, very slow baseball pitch. I’d hoped that the plural of eephus would be eephucies (like matrices), but it turns out isn’t a real word at all. As far as I can tell from the Google Ngram viewer, it was first used in a baseball context around 1960.</description>
+    </item>
     
     <item>
       <title>2017 MLB Team Exploration: Mostly Injuries</title>
