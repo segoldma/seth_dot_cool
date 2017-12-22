@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ncaa on Seth dot cool</title>
+    <link>/tags/ncaa/</link>
+    <description>Recent content in Ncaa on Seth dot cool</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 21 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/ncaa/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Height and NCAA Hoops</title>
+      <link>/2017/12/21/height-and-ncaa-hoops/</link>
+      <pubDate>Thu, 21 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/12/21/height-and-ncaa-hoops/</guid>
+      <description>I’m hellbent on winning a March Madness pool this year, and have been reading up on modern basketball analytics (i.e., KenPom, Dean Oliver, Sagarin, Lopez).
+In the process, I’ve played around with scraping data from various websites, to analyze in R.
+This is a quick exploration of player height according to 2017-18 NCAA D-I Men’s Basketball Rosters.
+Average Height by TeamD-I teams tend to be around 6&#39;5&amp;quot; in average height – 8 inches taller than the average US adult male at 5&#39;9&amp;quot;.</description>
+    </item>
+    
+  </channel>
+</rss>
