@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>Basketball</title>
+      <link>/tags/basketball/</link>
+      <pubDate>Thu, 21 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/basketball/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Data</title>
       <link>/tags/data/</link>
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
@@ -66,11 +75,29 @@
     </item>
     
     <item>
+      <title>Ncaa</title>
+      <link>/tags/ncaa/</link>
+      <pubDate>Thu, 21 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ncaa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>R</title>
       <link>/tags/r/</link>
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rstats</title>
+      <link>/tags/rstats/</link>
+      <pubDate>Thu, 21 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rstats/</guid>
       <description></description>
     </item>
     

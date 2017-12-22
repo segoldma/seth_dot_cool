@@ -14,21 +14,6 @@ I registered the [seth.cool](https://seth.cool) domain a couple of years ago wit
 
 A brief background on that: As my job has evolved to include more and more data analysis, I've found myself spending a lot of time waiting for Excel to ~~unfreeze~~ respond. A longtime friend of mine suggested that I learn R, and shared two textbooks ([R Cookbook](http://shop.oreilly.com/product/9780596809164.do) and [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do)). These, Hadley Wickham and Garret Grolemund's [R for Data Science](http://r4ds.had.co.nz/index.html), along with several [DataCamp](http://datacamp.com), [Coursera](http://coursera.com), and [edX](http://edx.org) courses have me well on my way.
 
-Here's a plot describing my initial impetus for learning R.
-
-```{r seths_strife, fig.height = 5, fig.width = 5, warning=FALSE, echo = FALSE}
-library(ggplot2)
-
-data_analysis_at_work_over_time <- c(1:8)
-memory_limitations_in_excel <- c(seq(2, 16, by = 2))
-seths_strife <- as.data.frame(cbind(data_analysis_at_work_over_time, memory_limitations_in_excel))
-
-ggplot(seths_strife, aes(data_analysis_at_work_over_time, memory_limitations_in_excel)) +
-  geom_line() +
-  theme_bw() +
-  ggtitle("why seth started to learn R")
-```
-
 I plan to improve upon the aesthetics of this site in the future, which is built by Yihui Xie's new [blogdown package](https://cran.rstudio.com/web/packages/blogdown/index.html). In the meantime, I'll be honing my skills on the most interesting (_to me_) datasets I can find, and sharing my practice here. 
 
 I can be contacted via [email](mailto:sethgoldman1@gmail.com). Suggestions, corrections, and feedback are appreciated.
