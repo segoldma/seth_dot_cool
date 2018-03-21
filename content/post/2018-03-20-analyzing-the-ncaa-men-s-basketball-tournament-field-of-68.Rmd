@@ -4,7 +4,7 @@ author: Seth Goldman
 date: '2018-03-20'
 slug: analyzing-the-ncaa-men-s-basketball-tournament-field-of-68
 categories: []
-tags: []
+tags: [ncaa, rstats, ggplot2, basketball, kenpom]
 ---
 
 

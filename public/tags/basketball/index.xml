@@ -6,10 +6,20 @@
     <description>Recent content in Basketball on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 21 Dec 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 20 Mar 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/basketball/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Analyzing the NCAA Men&#39;s Basketball Tournament Field of 68</title>
+      <link>/2018/03/20/analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/</link>
+      <pubDate>Tue, 20 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/03/20/analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/</guid>
+      <description>I just returned from an event in Las Vegas, which intentionally coincided with the first weekend of the NCAA Men’s Basketball Tournament. In preparation, I attempted to analyze the 68 tournament NCAA Tournament teams, hoping to make a few profitable predictions. I went in with low expectations, thanks in part to statistics posts about how difficult it is to profit, even with better-than-the-bookmaker’s odds.
+I ended up breaking even. Here are a few of the plots I created using data from two Ken’s: Pomeroy’s Kenpom.</description>
+    </item>
     
     <item>
       <title>Height and NCAA Hoops</title>
