@@ -34,7 +34,7 @@ rm(list=c("df1","df2"))
 
 ```
 
-I just returned from an event in Las Vegas, which intentionally coincided with the first weekend of the NCAA Men's Basketball Tournament. In preparation, I attempted to analyze the 68 tournament NCAA Tournament teams, hoping to make a few profitable predictions. I went in with low expectations, thanks in part to statistics posts about how difficult it is to [profit, even with better-than-the-bookmaker's odds.] (https://statsbylopez.com/2017/06/14/evaluating-sports-predictions-against-the-market/). 
+I just returned from an event in Las Vegas, which intentionally coincided with the first weekend of the NCAA Men's Basketball Tournament. In preparation, I attempted to analyze the 68 tournament NCAA Tournament teams, hoping to make a few profitable predictions. I went in with low expectations, thanks in part to statistics posts about how difficult it is to [profit, even with better-than-the-bookmaker's odds](https://statsbylopez.com/2017/06/14/evaluating-sports-predictions-against-the-market/). 
 
 I ended up breaking even. Here are a few of the plots I created using data from two Ken's: Pomeroy's [Kenpom.com](http://kenpom.com) and Massey's [Consensus Rankings](http://masseyratings.com/cb/compare.htm).
 
