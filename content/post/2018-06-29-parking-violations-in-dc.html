@@ -1,0 +1,312 @@
+---
+title: "Parking Violations in DC"
+author: ''
+date: '2018-06-29'
+slug: parking-violations-in-dc
+tags: []
+categories: []
+---
+
+
+
+<p>I have very few complaints about living in Washington, D.C., but if I were forced to pick one, it’d be searching for on-street parking. When I found the several public <a href="http://opendata.dc.gov/datasets?q=Parking%20Violations&amp;sort=-updatedAt">Parking Violations</a> on <a href="http://opendata.dc.gov/">Open Data DC</a>, I figured I might be able to extract some insights into the best (and worst) blocks to look for a spot during high-demand times.</p>
+<p>My original intent was to try to model the parking violations to identify the optimal times and locations of available parking spots near my house. I found the <code>ISSUE_TIME</code> data to be suspicious, and settled on doing a quick exploratory analysis of the data instead.</p>
+<hr />
+<p>DC Department of Transportation <a href="http://ddot.dc.gov/">(DDOT)</a> publishes Parking Violations by Month. I downloaded the past year of monthly datasets and loaded them into R:</p>
+<p>Exploring the structure of the dataset with <code>summary</code>:</p>
+<pre class="r"><code>summary(violations)</code></pre>
+<pre><code>##        X                Y            OBJECTID          ROWID_         
+##  Min.   :-77.11   Min.   :38.81   Min.   :2749821   Length:1353955    
+##  1st Qu.:-77.04   1st Qu.:38.90   1st Qu.:3477778   Class :character  
+##  Median :-77.03   Median :38.90   Median :3879297   Mode  :character  
+##  Mean   :-77.02   Mean   :38.91   Mean   :3824396                     
+##  3rd Qu.:-77.01   3rd Qu.:38.92   3rd Qu.:4217930                     
+##  Max.   :-76.91   Max.   :38.99   Max.   :4556418                     
+##                                                                       
+##  DAY_OF_WEEK          HOLIDAY          WEEK_OF_YEAR      
+##  Length:1353955     Length:1353955     Length:1353955    
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##                                                          
+##  MONTH_OF_YEAR       ISSUE_TIME        VIOLATION_CODE    
+##  Length:1353955     Length:1353955     Length:1353955    
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##                                                          
+##  VIOLATION_DESCRIPTION   LOCATION         RP_PLATE_STATE    
+##  Length:1353955        Length:1353955     Length:1353955    
+##  Class :character      Class :character   Class :character  
+##  Mode  :character      Mode  :character   Mode  :character  
+##                                                             
+##                                                             
+##                                                             
+##                                                             
+##   BODY_STYLE          ADDRESS_ID      STREETSEGID         XCOORD      
+##  Length:1353955     Min.   :     4   Min.   :     1   Min.   :390114  
+##  Class :character   1st Qu.:801551   1st Qu.:  1731   1st Qu.:396481  
+##  Mode  :character   Median :804066   Median :  3972   Median :397655  
+##                     Mean   :769235   Mean   :  4802   Mean   :397876  
+##                     3rd Qu.:808017   3rd Qu.:  7364   3rd Qu.:399009  
+##                     Max.   :816744   Max.   :308628   Max.   :407829  
+##                                      NA&#39;s   :5826                     
+##      YCOORD       TICKET_ISSUE_DATE                day_of_week    
+##  Min.   :127328   Min.   :2017-06-01 00:00:00   Sunday   : 26869  
+##  1st Qu.:136476   1st Qu.:2017-08-29 11:16:00   Monday   :192582  
+##  Median :137269   Median :2017-11-29 17:45:00   Tuesday  :255016  
+##  Mean   :137575   Mean   :2017-12-01 18:19:45   Wednesday:273357  
+##  3rd Qu.:138634   3rd Qu.:2018-03-09 00:00:00   Thursday :273785  
+##  Max.   :147308   Max.   :2018-05-31 23:59:00   Friday   :223088  
+##                                                 Saturday :109258</code></pre>
+<div id="exploring-missing-values" class="section level4">
+<h4>Exploring missing values:</h4>
+<p>Specifically, violation descriptions, violation locations, and violation time/date:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Missing Descriptions</th>
+<th align="right">Missing Locations</th>
+<th align="right">Missing Date</th>
+<th align="left">Total Observations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">27,096</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">1,353,955</td>
+</tr>
+</tbody>
+</table>
+<p>Slightly more than 3% of violations have no <code>VIOLATION_DESCRIPTION</code>, however, they are each reported with a <code>VIOLATION CODE</code>, summarized below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">VIOLATION_CODE</th>
+<th align="left">Violations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">P076</td>
+<td align="left">26,799</td>
+</tr>
+<tr class="even">
+<td align="left">NO VIOL</td>
+<td align="left">278</td>
+</tr>
+<tr class="odd">
+<td align="left">P071</td>
+<td align="left">6</td>
+</tr>
+<tr class="even">
+<td align="left">P187</td>
+<td align="left">6</td>
+</tr>
+<tr class="odd">
+<td align="left">P067</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">P178</td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">P00</td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">P139</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">P189</td>
+<td align="left">1</td>
+</tr>
+</tbody>
+</table>
+<p>It seems like <code>P076</code> is a “<a href="https://dmv.dc.gov/sites/default/files/dc/sites/dmv/publication/attachments/AdjudicationDispositionRptJan2011.pdf">ROSA Warning,</a>” which stands for Registration of Out-of-State Automobiles. Some of the other codes were hard to find, although P187 maps to… “ROLLERBLADEINFREEDOM.” <a href="https://www.imdb.com/title/tt0162212/">Soul Skaters?</a></p>
+<p>For the rest of the exploration, I’ve replaced the missing <code>P076</code> Violation Description values with <code>ROSA WARNING</code>.</p>
+</div>
+<div id="top-10-violations-by-description" class="section level3">
+<h3>Top 10 violations by description:</h3>
+<p><img src="/post/2018-06-29-parking-violations-in-dc_files/figure-html/top_10_description-1.png" width="672" /></p>
+<div id="parking-violations-by-month" class="section level4">
+<h4>Parking Violations by Month</h4>
+<p><img src="/post/2018-06-29-parking-violations-in-dc_files/figure-html/violations_by_month-1.png" width="672" /></p>
+</div>
+<div id="top-10-violation-locations" class="section level4">
+<h4>Top 10 Violation Locations</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">LOCATION</th>
+<th align="right">Violations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">3200 BLOCK WATER ST NW SOUTH SIDE</td>
+<td align="right">3540</td>
+</tr>
+<tr class="even">
+<td align="left">1300 BLOCK H ST NE SOUTH SIDE</td>
+<td align="right">2930</td>
+</tr>
+<tr class="odd">
+<td align="left">1300 BLOCK G ST NW SOUTH SIDE</td>
+<td align="right">2641</td>
+</tr>
+<tr class="even">
+<td align="left">1300 BLOCK CONNECTICUT AVE NW EA*</td>
+<td align="right">2494</td>
+</tr>
+<tr class="odd">
+<td align="left">1300 BLOCK F ST NW NORTH SIDE</td>
+<td align="right">2372</td>
+</tr>
+<tr class="even">
+<td align="left">1300 BLOCK G ST NW NORTH SIDE</td>
+<td align="right">2279</td>
+</tr>
+<tr class="odd">
+<td align="left">900 BLOCK K ST NW NORTH SIDE</td>
+<td align="right">2075</td>
+</tr>
+<tr class="even">
+<td align="left">700 BLOCK 7TH ST NW WEST SIDE</td>
+<td align="right">2039</td>
+</tr>
+<tr class="odd">
+<td align="left">1300 BLOCK H ST NE NORTH SIDE</td>
+<td align="right">1977</td>
+</tr>
+<tr class="even">
+<td align="left">1400 BLOCK OKIE ST NE SOUTH SIDE</td>
+<td align="right">1967</td>
+</tr>
+<tr class="odd">
+<td align="left">1600 BLOCK K ST NW SOUTH SIDE</td>
+<td align="right">1967</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="violations-by-day-of-the-week" class="section level4">
+<h4>Violations by Day of the Week</h4>
+<p><img src="/post/2018-06-29-parking-violations-in-dc_files/figure-html/violations_by_day_of_week-1.png" width="672" /></p>
+</div>
+<div id="most-common-violation-on-each-day-of-the-week" class="section level4">
+<h4>Most Common Violation on each Day of the Week</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Day</th>
+<th align="left">VIOLATION_DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Friday</td>
+<td align="left">FAIL TO DISPLAY A MULTISPACE METER RECEIPT</td>
+</tr>
+<tr class="even">
+<td align="left">Monday</td>
+<td align="left">NO PARKING STREET CLEANING</td>
+</tr>
+<tr class="odd">
+<td align="left">Saturday</td>
+<td align="left">FAIL TO DISPLAY A MULTISPACE METER RECEIPT</td>
+</tr>
+<tr class="even">
+<td align="left">Sunday</td>
+<td align="left">NO PARKING ANYTIME</td>
+</tr>
+<tr class="odd">
+<td align="left">Thursday</td>
+<td align="left">FAIL TO DISPLAY A MULTISPACE METER RECEIPT</td>
+</tr>
+<tr class="even">
+<td align="left">Tuesday</td>
+<td align="left">FAIL TO DISPLAY A MULTISPACE METER RECEIPT</td>
+</tr>
+<tr class="odd">
+<td align="left">Wednesday</td>
+<td align="left">FAIL TO DISPLAY A MULTISPACE METER RECEIPT</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="violations-by-license-plate-state" class="section level4">
+<h4>Violations by License Plate State</h4>
+<p>Top 10, in descending order <img src="/post/2018-06-29-parking-violations-in-dc_files/figure-html/violations%20by%20state-1.png" width="672" /></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">State</th>
+<th align="left">Violations</th>
+<th align="left">Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MD</td>
+<td align="left">482,757</td>
+<td align="left">35.7%</td>
+</tr>
+<tr class="even">
+<td align="left">DC</td>
+<td align="left">388,274</td>
+<td align="left">28.7%</td>
+</tr>
+<tr class="odd">
+<td align="left">VA</td>
+<td align="left">315,116</td>
+<td align="left">23.3%</td>
+</tr>
+<tr class="even">
+<td align="left">PA</td>
+<td align="left">17,515</td>
+<td align="left">1.3%</td>
+</tr>
+<tr class="odd">
+<td align="left">FL</td>
+<td align="left">14,833</td>
+<td align="left">1.1%</td>
+</tr>
+<tr class="even">
+<td align="left">NY</td>
+<td align="left">13,359</td>
+<td align="left">1.0%</td>
+</tr>
+<tr class="odd">
+<td align="left">NC</td>
+<td align="left">12,649</td>
+<td align="left">0.9%</td>
+</tr>
+<tr class="even">
+<td align="left">NJ</td>
+<td align="left">12,163</td>
+<td align="left">0.9%</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">10,347</td>
+<td align="left">0.8%</td>
+</tr>
+<tr class="even">
+<td align="left">TX</td>
+<td align="left">10,084</td>
+<td align="left">0.7%</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.imdb.com/title/tt0396269/quotes/qt0329784">Crabcakes and parking violations</a>, that’s what Maryland does.</p>
+</div>
+</div>
