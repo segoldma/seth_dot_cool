@@ -6,10 +6,20 @@
     <description>Recent content on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 29 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Parking Violations in DC</title>
+      <link>/2018/06/29/parking-violations-in-dc/</link>
+      <pubDate>Fri, 29 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/06/29/parking-violations-in-dc/</guid>
+      <description>I have very few complaints about living in Washington, D.C., but if I were forced to pick one, it’d be searching for on-street parking. When I found the several public Parking Violations on Open Data DC, I figured I might be able to extract some insights into the best (and worst) blocks to look for a spot during high-demand times.
+My original intent was to try to model the parking violations to identify the optimal times and locations of available parking spots near my house.</description>
+    </item>
     
     <item>
       <title>Analyzing the NCAA Men&#39;s Basketball Tournament Field of 68</title>
