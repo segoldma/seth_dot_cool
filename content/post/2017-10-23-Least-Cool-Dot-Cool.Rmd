@@ -10,11 +10,12 @@ tags: ["Intro", "R", "data"]
 knitr::opts_chunk$set(collapse = TRUE)
 ```
 
+
 I registered the [seth.cool](https://seth.cool) domain a couple of years ago with no project in mind -- only the misguided assumptions that (1) someone else would buy it, and (2) that I am cool. I've decided to finally use my first-mover's advantage to share data-related projects as I work on them.
 
-A brief background on that: As my job has evolved to include more and more data analysis, I've found myself spending a lot of time waiting for Excel to ~~unfreeze~~ respond. A longtime friend of mine suggested that I learn R, and shared two textbooks ([R Cookbook](http://shop.oreilly.com/product/9780596809164.do) and [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do)). These, Hadley Wickham and Garrett Grolemund's [R for Data Science](http://r4ds.had.co.nz/index.html), along with several [DataCamp](http://datacamp.com), [Coursera](http://coursera.com), and [edX](http://edx.org) courses have me well on my way.
+Data analysis is a relatively new interest of mine. I started learning R after complaining to a friend about how much time I spend waiting for Excel to unfreeze at work. He got me started with two textbooks ([R Cookbook](http://shop.oreilly.com/product/9780596809164.do) and [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do)). These, Hadley Wickham and Garret Grolemund's [R for Data Science](http://r4ds.had.co.nz/index.html), along with several [DataCamp](http://datacamp.com), [Coursera](http://coursera.com), and [edX](http://edx.org) courses, along with [#rstats](https://twitter.com/search?q=%23rstats) on Twitter have me well on my way.
 
-I plan to improve upon the aesthetics of this site in the future, which is built by Yihui Xie's new [blogdown package](https://cran.rstudio.com/web/packages/blogdown/index.html). In the meantime, I'll be honing my skills on the most interesting (_to me_) datasets I can find, and sharing my practice here. 
+I plan to improve upon the aesthetics of this site in the future, which is built by Yihui Xie's excellent [blogdown R package](https://cran.rstudio.com/web/packages/blogdown/index.html). In the meantime, I'll be honing my skills on the most interesting (_to me_) datasets I can find, and sharing my practice here. 
 
 I can be contacted via [email](mailto:sethgoldman1@gmail.com). Suggestions, corrections, and feedback are appreciated.
 
