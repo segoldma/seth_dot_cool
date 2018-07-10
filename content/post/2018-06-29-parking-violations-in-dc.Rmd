@@ -199,7 +199,7 @@ violations %>%
   ggplot(aes(x=reorder(RP_PLATE_STATE, Violations), y = Violations)) +
   geom_point(stat="identity")+
   coord_flip() +
-  scale_y_continuous(labels = comma, limits = c(0,300000)) +
+  scale_y_continuous(labels = comma, breaks = seq(0,500000,50000)) +
   theme(axis.text.x = element_text(angle=60, hjust=1),
         panel.grid.major.x = element_blank(), 
         panel.grid.minor.x = element_blank(),
