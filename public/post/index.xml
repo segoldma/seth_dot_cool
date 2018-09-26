@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 29 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Using market valuations in an NFL Pick&#39;em Pool</title>
+      <link>/2018/09/20/using-market-valuations-in-an-nfl-pick-em-pool/</link>
+      <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/09/20/using-market-valuations-in-an-nfl-pick-em-pool/</guid>
+      <description>This Fall, I’m playing in an NFL Pick’em contest with some friends from college. Each week, I predict the outcome of every NFL game according to Yahoo’s point-spread. For example, during Week 1 when the Patriots hosted the Texans, Yahoo assigned the Texans a seven-point handicap. My prediction came down to whether the Patriots would beat the Texans by more than seven points, or whether I thought the Texans would lose by no more than seven points (or win outright).</description>
+    </item>
     
     <item>
       <title>Parking Violations in DC</title>

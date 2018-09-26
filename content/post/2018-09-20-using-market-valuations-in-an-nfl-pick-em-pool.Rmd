@@ -1,0 +1,174 @@
+---
+title: "Using market valuations in an NFL Pick'em Pool"
+author: "Seth Goldman"
+date: '2018-09-20'
+slug: using-market-valuations-in-an-nfl-pick-em-pool
+tags: []
+categories:
+- nfl
+- R
+---
+
+This Fall, I'm playing in an NFL Pick'em contest with some friends from college. Each week, I predict the outcome of every NFL game according to Yahoo's point-spread. For example, during Week 1 when the Patriots hosted the Texans, Yahoo assigned the Texans a seven-point handicap. My prediction came down to whether the Patriots would beat the Texans by more than seven points, or whether I thought the Texans would lose by no more than seven points (or win outright).  This post is about how I will be using data to make each of the 256 predictions over the course of the season.
+
+I remembered reading a blog post by then-statistics professor Michael Lopez about evaluating the outcomes of sporting events [against the gambling market](https://statsbylopez.com/2017/06/14/evaluating-sports-predictions-against-the-market/).
+
+I'd also read about Michael Beuoy's [Inpredictable](http://www.inpredictable.com/), which publishes team rankings based upon the implications of the sports wagering market. The thesis is that the wagering market is an efficient enough economy to derive the relative strengths and weaknesses of each team.
+
+The  methodology for the implied rankings  is on the [Inpredictable](http://www.inpredictable.com/p/methodology.html), but the basis for the rankings is on Generic Points Favored (GPF). That is, the number of points a team would be favored by against an average opponent on a neutral field.
+
+With a fairly minimal amount of code, I have been using this data to enter my predictions each week. This is a brief overview of how to do so:
+
+```{r load_packages, echo = FALSE, message=FALSE, warning=FALSE}
+library(rvest)
+library(dplyr)
+library(stringr)
+library(knitr)
+library(ggplot2)
+library(lubridate)
+
+```
+
+
+### Scrape the rankings table from Inpredictable  
+
+```{r get_ratings_table, echo = TRUE, eval = FALSE,message=FALSE, warning=FALSE}
+library(rvest)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+library(knitr)
+
+# Get NFL Rankings
+nfl_inpredictable <- read_html("http://stats.inpredictable.com/rankings/nfl.php") %>% 
+  html_nodes("table") %>% 
+  html_table(fill = TRUE) %>% 
+  as.data.frame() %>%  # Drop Ranking Columns
+  select(2,5,7,10,13,15,17,19)
+
+# Rename headers with data from row 2
+colnames(nfl_inpredictable) <- as.character(unlist(nfl_inpredictable[1,]))
+
+# Update column datatypes. Drop extra header row.
+nfl_inpredictable <- nfl_inpredictable %>% 
+  slice(2:nrow(nfl_inpredictable)) %>% 
+  mutate("Team" = str_replace(`Team`,"&nbsp",""),
+         "GPF" = as.numeric(GPF),
+         "oGPF" = as.numeric(oGPF),
+         "dGPF" = as.numeric(dGPF),
+         "Projected Seed" = as.numeric(str_replace(`Projected Seed`,"%",""))/100,
+         "pSOS" = as.numeric(pSOS),
+         "fSOS" = as.numeric(fSOS))
+
+```
+
+### This creates a dataframe that looks like this:  
+```{r inpredictable_table, echo=FALSE}
+inpredictable_table <- readRDS("inpredictable.rds")
+
+inpredictable_table %>% head() %>% kable()
+
+```
+
+Now that I have the up-to-date market-based team ratings, all that's left is to compare the ratings of teams that are playing each other in the coming week.  To do so, I loaded a schedule table, which looks like this:  
+
+```{r nfl_schedule, eval = TRUE, echo = FALSE}
+# Load NFL Schedule
+schedule <- readRDS("nfl_schedule.rds")
+
+schedule %>% head() %>% kable()
+
+```
+
+I combined the ratings with the schedule data using the `dplyr` package, and calculated each matchup's offensive, defensive, and overall ratings delta:  
+
+```{r matchup_ratings_with_schedule, eval=FALSE, echo=TRUE}
+
+# Focus on GPF, oGPF, and dGPF
+ratings <- nfl_inpredictable %>% 
+  select(Team,GPF,oGPF,dGPF)
+
+
+# Schedule Ratings: Add the market-based ratings to the nfl schedule
+ratings_schedule <- schedule %>% 
+  left_join(ratings, by = c("Away" = "Team")) %>% 
+  left_join(ratings, by = c("Home" = "Team"), suffix = c("_away","_home")) %>% 
+  mutate("deltaGPF" = GPF_away - GPF_home,
+         "deltaOGPF" = oGPF_away - oGPF_home,
+         "deltaDGPF" = dGPF_away - dGPF_home,
+         "Favorite" = case_when(GPF_away > GPF_home ~ Away,
+                                GPF_away < GPF_home ~ Home,
+                                GPF_away == GPF_home ~ "Tie"),
+         "Margin" = abs(deltaGPF),
+         "Offense" = case_when(oGPF_away > oGPF_home ~ Away,
+                               oGPF_away < oGPF_home ~ Home,
+                               oGPF_away == oGPF_home ~ "Tie"),
+         "OffMargin" = abs(deltaOGPF),
+         "Defense" = case_when(dGPF_away > dGPF_home ~ Away,
+                               dGPF_away < dGPF_home ~ Home,
+                               dGPF_away == dGPF_home ~ "Tie"),
+         "DefMargin" = abs(deltaDGPF)) 
+
+```
+
+
+This applies the market ratings to all matchups throughout the season. At this point, the table looks like this:
+
+
+```{r nfl_ratings_schedule, echo = FALSE, eval = TRUE}
+full_schedule_with_ratings <- readRDS("nfl_inpredictable.rds")
+
+full_schedule_with_ratings %>% head() %>% kable()
+
+```
+
+
+Since I am only interested in the coming week, I created a visualization with `ggplot2` to quickly illustrate the predictions I will make. I wrap this into a function called `getMarketRatings`, which takes the NFL Schedule week as an input, and provides a match-up ratings plot, and table as output:
+
+
+```{r weekly_matchup_code, echo = TRUE, eval = FALSE}
+
+getMarketRatings <- function(week = 3){
+
+  
+# Store week number
+  week_num <- week
+
+
+# Plot matchups
+ratings_schedule %>% 
+  filter(Week == week_num) %>% 
+  mutate("Matchup" = paste(Away,Home,sep = "-")) %>% 
+  ggplot(aes(x=reorder(Matchup,Margin),y=Margin))+
+  geom_text(aes(label=paste(Favorite,Margin,sep =" -")),size = 2)+
+  coord_flip() +
+  xlab("")+
+  ylab("Exp Margin of Victory")+
+  ggtitle(paste0("NFL Matchups for Week ",week_num),
+          subtitle = paste0("Run at ",now()))+
+  scale_y_continuous(breaks=seq(1,15,1))
+
+ggsave(filename = paste0("NFL week ",week_num,".png"),device = "png")
+
+# Print Table
+ratings_schedule %>% 
+  filter(Week==week_num) %>% 
+  select(Date,Away,Home,Favorite,Margin)
+}
+```
+
+The table is displayed within RStudio, while the plot is saved to my computer, and looks like this:  
+
+```{r ratings_plot, eval = TRUE, echo = FALSE}
+full_schedule_with_ratings %>% 
+   mutate("Matchup" = paste(Away,Home,sep = "-")) %>% 
+   ggplot(aes(x=reorder(Matchup,Margin),y=Margin))+
+   geom_text(aes(label=paste(Favorite,Margin,sep =" -")),size = 2)+
+   coord_flip() +
+   xlab("")+
+   ggtitle(paste0("NFL Matchups for Week 3"),
+          subtitle = paste0("Run at ",now()))+
+  scale_y_continuous(breaks=seq(1,12,.5))
+
+```
+

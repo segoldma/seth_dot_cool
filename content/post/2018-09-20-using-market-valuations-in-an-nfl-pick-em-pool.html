@@ -1,0 +1,293 @@
+---
+title: "Using market valuations in an NFL Pick'em Pool"
+author: "Seth Goldman"
+date: '2018-09-20'
+slug: using-market-valuations-in-an-nfl-pick-em-pool
+tags: []
+categories:
+- nfl
+- R
+---
+
+
+
+<p>This Fall, I’m playing in an NFL Pick’em contest with some friends from college. Each week, I predict the outcome of every NFL game according to Yahoo’s point-spread. For example, during Week 1 when the Patriots hosted the Texans, Yahoo assigned the Texans a seven-point handicap. My prediction came down to whether the Patriots would beat the Texans by more than seven points, or whether I thought the Texans would lose by no more than seven points (or win outright). This post is about how I will be using data to make each of the 256 predictions over the course of the season.</p>
+<p>I remembered reading a blog post by then-statistics professor Michael Lopez about evaluating the outcomes of sporting events <a href="https://statsbylopez.com/2017/06/14/evaluating-sports-predictions-against-the-market/">against the gambling market</a>.</p>
+<p>I’d also read about Michael Beuoy’s <a href="http://www.inpredictable.com/">Inpredictable</a>, which publishes team rankings based upon the implications of the sports wagering market. The thesis is that the wagering market is an efficient enough economy to derive the relative strengths and weaknesses of each team.</p>
+<p>The methodology for the implied rankings is on the <a href="http://www.inpredictable.com/p/methodology.html">Inpredictable</a>, but the basis for the rankings is on Generic Points Favored (GPF). That is, the number of points a team would be favored by against an average opponent on a neutral field.</p>
+<p>With a fairly minimal amount of code, I have been using this data to enter my predictions each week. This is a brief overview of how to do so:</p>
+<div id="scrape-the-rankings-table-from-inpredictable" class="section level3">
+<h3>Scrape the rankings table from Inpredictable</h3>
+<pre class="r"><code>library(rvest)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+library(knitr)
+
+# Get NFL Rankings
+nfl_inpredictable &lt;- read_html(&quot;http://stats.inpredictable.com/rankings/nfl.php&quot;) %&gt;% 
+  html_nodes(&quot;table&quot;) %&gt;% 
+  html_table(fill = TRUE) %&gt;% 
+  as.data.frame() %&gt;%  # Drop Ranking Columns
+  select(2,5,7,10,13,15,17,19)
+
+# Rename headers with data from row 2
+colnames(nfl_inpredictable) &lt;- as.character(unlist(nfl_inpredictable[1,]))
+
+# Update column datatypes. Drop extra header row.
+nfl_inpredictable &lt;- nfl_inpredictable %&gt;% 
+  slice(2:nrow(nfl_inpredictable)) %&gt;% 
+  mutate(&quot;Team&quot; = str_replace(`Team`,&quot;&amp;nbsp&quot;,&quot;&quot;),
+         &quot;GPF&quot; = as.numeric(GPF),
+         &quot;oGPF&quot; = as.numeric(oGPF),
+         &quot;dGPF&quot; = as.numeric(dGPF),
+         &quot;Projected Seed&quot; = as.numeric(str_replace(`Projected Seed`,&quot;%&quot;,&quot;&quot;))/100,
+         &quot;pSOS&quot; = as.numeric(pSOS),
+         &quot;fSOS&quot; = as.numeric(fSOS))</code></pre>
+</div>
+<div id="this-creates-a-dataframe-that-looks-like-this" class="section level3">
+<h3>This creates a dataframe that looks like this:</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Team</th>
+<th align="right">GPF</th>
+<th align="right">oGPF</th>
+<th align="right">dGPF</th>
+<th align="left">W-L</th>
+<th align="right">Projected Seed</th>
+<th align="right">pSOS</th>
+<th align="right">fSOS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">LA</td>
+<td align="right">7.9</td>
+<td align="right">5.6</td>
+<td align="right">2.3</td>
+<td align="left">3-0</td>
+<td align="right">0.996</td>
+<td align="right">-3.2</td>
+<td align="right">-0.4</td>
+</tr>
+<tr class="even">
+<td align="left">KC</td>
+<td align="right">5.0</td>
+<td align="right">8.1</td>
+<td align="right">-3.2</td>
+<td align="left">3-0</td>
+<td align="right">0.936</td>
+<td align="right">3.1</td>
+<td align="right">-0.1</td>
+</tr>
+<tr class="odd">
+<td align="left">LAC</td>
+<td align="right">4.4</td>
+<td align="right">2.8</td>
+<td align="right">1.5</td>
+<td align="left">1-2</td>
+<td align="right">0.699</td>
+<td align="right">2.9</td>
+<td align="right">-1.3</td>
+</tr>
+<tr class="even">
+<td align="left">PIT</td>
+<td align="right">4.3</td>
+<td align="right">3.2</td>
+<td align="right">1.1</td>
+<td align="left">1-1-1</td>
+<td align="right">0.538</td>
+<td align="right">1.9</td>
+<td align="right">1.3</td>
+</tr>
+<tr class="odd">
+<td align="left">BAL</td>
+<td align="right">4.1</td>
+<td align="right">2.3</td>
+<td align="right">1.8</td>
+<td align="left">2-1</td>
+<td align="right">0.667</td>
+<td align="right">-2.0</td>
+<td align="right">1.3</td>
+</tr>
+<tr class="even">
+<td align="left">NE</td>
+<td align="right">3.7</td>
+<td align="right">3.3</td>
+<td align="right">0.4</td>
+<td align="left">1-2</td>
+<td align="right">0.717</td>
+<td align="right">1.4</td>
+<td align="right">-1.0</td>
+</tr>
+</tbody>
+</table>
+<p>Now that I have the up-to-date market-based team ratings, all that’s left is to compare the ratings of teams that are playing each other in the coming week. To do so, I loaded a schedule table, which looks like this:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Week</th>
+<th align="left">Date</th>
+<th align="left">Time</th>
+<th align="left">Away</th>
+<th align="left">Home</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">September 6</td>
+<td align="left">8:20 PM</td>
+<td align="left">ATL</td>
+<td align="left">PHI</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">September 9</td>
+<td align="left">1:00 PM</td>
+<td align="left">PIT</td>
+<td align="left">CLE</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">September 9</td>
+<td align="left">1:00 PM</td>
+<td align="left">CIN</td>
+<td align="left">IND</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">September 9</td>
+<td align="left">1:00 PM</td>
+<td align="left">TEN</td>
+<td align="left">MIA</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">September 9</td>
+<td align="left">1:00 PM</td>
+<td align="left">SF</td>
+<td align="left">MIN</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">September 9</td>
+<td align="left">1:00 PM</td>
+<td align="left">TB</td>
+<td align="left">NO</td>
+</tr>
+</tbody>
+</table>
+<p>I combined the ratings with the schedule data using the <code>dplyr</code> package, and calculated each matchup’s offensive, defensive, and overall ratings delta:</p>
+<pre class="r"><code># Focus on GPF, oGPF, and dGPF
+ratings &lt;- nfl_inpredictable %&gt;% 
+  select(Team,GPF,oGPF,dGPF)
+
+
+# Schedule Ratings: Add the market-based ratings to the nfl schedule
+ratings_schedule &lt;- schedule %&gt;% 
+  left_join(ratings, by = c(&quot;Away&quot; = &quot;Team&quot;)) %&gt;% 
+  left_join(ratings, by = c(&quot;Home&quot; = &quot;Team&quot;), suffix = c(&quot;_away&quot;,&quot;_home&quot;)) %&gt;% 
+  mutate(&quot;deltaGPF&quot; = GPF_away - GPF_home,
+         &quot;deltaOGPF&quot; = oGPF_away - oGPF_home,
+         &quot;deltaDGPF&quot; = dGPF_away - dGPF_home,
+         &quot;Favorite&quot; = case_when(GPF_away &gt; GPF_home ~ Away,
+                                GPF_away &lt; GPF_home ~ Home,
+                                GPF_away == GPF_home ~ &quot;Tie&quot;),
+         &quot;Margin&quot; = abs(deltaGPF),
+         &quot;Offense&quot; = case_when(oGPF_away &gt; oGPF_home ~ Away,
+                               oGPF_away &lt; oGPF_home ~ Home,
+                               oGPF_away == oGPF_home ~ &quot;Tie&quot;),
+         &quot;OffMargin&quot; = abs(deltaOGPF),
+         &quot;Defense&quot; = case_when(dGPF_away &gt; dGPF_home ~ Away,
+                               dGPF_away &lt; dGPF_home ~ Home,
+                               dGPF_away == dGPF_home ~ &quot;Tie&quot;),
+         &quot;DefMargin&quot; = abs(deltaDGPF)) </code></pre>
+<p>This applies the market ratings to all matchups throughout the season. At this point, the table looks like this:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Date</th>
+<th align="left">Away</th>
+<th align="left">Home</th>
+<th align="left">Favorite</th>
+<th align="right">Margin</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">September 20</td>
+<td align="left">NYJ</td>
+<td align="left">CLE</td>
+<td align="left">NYJ</td>
+<td align="right">0.6</td>
+</tr>
+<tr class="even">
+<td align="left">September 23</td>
+<td align="left">NO</td>
+<td align="left">ATL</td>
+<td align="left">ATL</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="odd">
+<td align="left">September 23</td>
+<td align="left">CIN</td>
+<td align="left">CAR</td>
+<td align="left">CAR</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="even">
+<td align="left">September 23</td>
+<td align="left">NYG</td>
+<td align="left">HOU</td>
+<td align="left">HOU</td>
+<td align="right">1.8</td>
+</tr>
+<tr class="odd">
+<td align="left">September 23</td>
+<td align="left">TEN</td>
+<td align="left">JAC</td>
+<td align="left">JAC</td>
+<td align="right">6.4</td>
+</tr>
+<tr class="even">
+<td align="left">September 23</td>
+<td align="left">SF</td>
+<td align="left">KC</td>
+<td align="left">KC</td>
+<td align="right">7.0</td>
+</tr>
+</tbody>
+</table>
+<p>Since I am only interested in the coming week, I created a visualization with <code>ggplot2</code> to quickly illustrate the predictions I will make. I wrap this into a function called <code>getMarketRatings</code>, which takes the NFL Schedule week as an input, and provides a match-up ratings plot, and table as output:</p>
+<pre class="r"><code>getMarketRatings &lt;- function(week = 3){
+
+  
+# Store week number
+  week_num &lt;- week
+
+
+# Plot matchups
+ratings_schedule %&gt;% 
+  filter(Week == week_num) %&gt;% 
+  mutate(&quot;Matchup&quot; = paste(Away,Home,sep = &quot;-&quot;)) %&gt;% 
+  ggplot(aes(x=reorder(Matchup,Margin),y=Margin))+
+  geom_text(aes(label=paste(Favorite,Margin,sep =&quot; -&quot;)),size = 2)+
+  coord_flip() +
+  xlab(&quot;&quot;)+
+  ylab(&quot;Exp Margin of Victory&quot;)+
+  ggtitle(paste0(&quot;NFL Matchups for Week &quot;,week_num),
+          subtitle = paste0(&quot;Run at &quot;,now()))+
+  scale_y_continuous(breaks=seq(1,15,1))
+
+ggsave(filename = paste0(&quot;NFL week &quot;,week_num,&quot;.png&quot;),device = &quot;png&quot;)
+
+# Print Table
+ratings_schedule %&gt;% 
+  filter(Week==week_num) %&gt;% 
+  select(Date,Away,Home,Favorite,Margin)
+}</code></pre>
+<p>The table is displayed within RStudio, while the plot is saved to my computer, and looks like this:</p>
+<p><img src="/post/2018-09-20-using-market-valuations-in-an-nfl-pick-em-pool_files/figure-html/ratings_plot-1.png" width="672" /></p>
+</div>
