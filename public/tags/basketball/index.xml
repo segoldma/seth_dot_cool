@@ -6,10 +6,20 @@
     <description>Recent content in Basketball on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 30 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/basketball/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Three-pointers after offensive rebounds</title>
+      <link>/2018/12/30/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</link>
+      <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/12/30/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</guid>
+      <description>During the Duke-Kentucky college basketball season opener, after one of twelve of Duke’s made three-point shots, Jay Bilas claimed that “the best time to shoot a three is following an offensive rebound.” I’ve heard other commentators say this before, and wondered if it’s actually true. This post walks through my investigation of that claim using play-by-play data from the 2017-18 men’s college basketball season.
+Preparing the dataMy play-by-play dataset includes 2.</description>
+    </item>
     
     <item>
       <title>Analyzing the NCAA Men&#39;s Basketball Tournament Field of 68</title>

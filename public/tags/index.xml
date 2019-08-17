@@ -21,9 +21,18 @@
     </item>
     
     <item>
+      <title>Api</title>
+      <link>/tags/api/</link>
+      <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/api/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Basketball</title>
       <link>/tags/basketball/</link>
-      <pubDate>Tue, 20 Mar 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/basketball/</guid>
       <description></description>
@@ -53,6 +62,15 @@
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/exploratory/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Football</title>
+      <link>/tags/football/</link>
+      <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/football/</guid>
       <description></description>
     </item>
     
@@ -95,7 +113,7 @@
     <item>
       <title>Ncaa</title>
       <link>/tags/ncaa/</link>
-      <pubDate>Tue, 20 Mar 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/ncaa/</guid>
       <description></description>
@@ -113,7 +131,7 @@
     <item>
       <title>Rstats</title>
       <link>/tags/rstats/</link>
-      <pubDate>Tue, 20 Mar 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/rstats/</guid>
       <description></description>
