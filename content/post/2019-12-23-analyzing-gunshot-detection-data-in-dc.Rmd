@@ -229,7 +229,7 @@ time_of_day_summary %>%
   ylab("")+
   ggtitle("SpotShotter Incidents by Hour",
           subtitle = "Based on the last year of available data")+
-  guides(fill=guide_legend(title="# ofIIncidents")) +
+  guides(fill=guide_legend(title="# of Incidents")) +
   theme_bw()+
   theme_minimal()
 
