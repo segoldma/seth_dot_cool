@@ -50,7 +50,7 @@
     <item>
       <title>Dc</title>
       <link>/tags/dc/</link>
-      <pubDate>Fri, 27 Oct 2017 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/dc/</guid>
       <description></description>
@@ -120,6 +120,15 @@
     </item>
     
     <item>
+      <title>Public Datasets</title>
+      <link>/tags/public-datasets/</link>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/public-datasets/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>R</title>
       <link>/tags/r/</link>
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
@@ -131,7 +140,7 @@
     <item>
       <title>Rstats</title>
       <link>/tags/rstats/</link>
-      <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/rstats/</guid>
       <description></description>
