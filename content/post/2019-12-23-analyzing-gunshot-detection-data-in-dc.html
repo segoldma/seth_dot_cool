@@ -108,7 +108,7 @@ tags:
 <p>This is my first time working with <code>ggmap</code>, and I’m relying heavily on the examples shared in the blogpost reference earlier.</p>
 <p>This is a density map showing the relative frequency of indicents in various throughout the city.</p>
 <p><img src="/post/2019-12-23-analyzing-gunshot-detection-data-in-dc_files/figure-html/density_by_year-1.png" width="672" /></p>
-<p>This closely mirrors the summary of incidents by Source (i.e., MPD Districts), where there is a high concentration of incidents east of the Anacostia River. It’s still unclear how concentrated the sensors are, so it’s difficult this should be taken with a grain of salt.</p>
+<p>This closely mirrors the summary of incidents by Source (i.e., MPD Districts), where there is a high concentration of incidents east of the Anacostia River. It’s still unclear how concentrated the sensors are, so this should be taken with a grain of salt.</p>
 <p>Next, I want to zoom in on the region near where I live, which is within the Third District. This can be done with the same code, but by using the Maps API to center the base map on a particular neighborhood, instead of having the Maps API center the map on <em>Washington, DC</em> in general.</p>
 <p>For example:</p>
 <pre><code>neighborhood_zoom &lt;- ggmap(get_googlemap(center = &quot;park view dc&quot;,

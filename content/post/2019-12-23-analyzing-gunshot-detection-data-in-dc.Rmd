@@ -171,7 +171,7 @@ stat_density2d(data=spotshotter_data,
 
 ```
 
-This closely mirrors the summary of incidents by Source (i.e., MPD Districts), where there is a high concentration of incidents east of the Anacostia River. It's still unclear how concentrated the sensors are, so it's difficult this should be taken with a grain of salt.
+This closely mirrors the summary of incidents by Source (i.e., MPD Districts), where there is a high concentration of incidents east of the Anacostia River. It's still unclear how concentrated the sensors are, so this should be taken with a grain of salt.
 
 Next, I want to zoom in on the region near where I live, which is within the Third District. This can be done with the same code, but by using the Maps API to center the base map on a particular neighborhood, instead of having the Maps API center the map on *Washington, DC* in general.
 
