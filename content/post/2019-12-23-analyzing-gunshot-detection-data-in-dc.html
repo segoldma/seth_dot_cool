@@ -23,14 +23,14 @@ tags:
 </div>
 <div id="geolocation" class="section level4">
 <h4>Geolocation</h4>
-<p>One of the more interesting features of SpotShotter is its ability to analyze the sound waves to pinpoint the origin of a gunshot with with accuracy within 100 meters of its source. To visualize this, I am using the <code>ggmap</code> package, which combines the Google Maps API with the <code>ggplot2</code> data visualization package. Recently, Google started requiring users of this API to register via the Google Cloud Platform (GCP). There is a nice walkthrough of this process on the <a href="https://www.littlemissdata.com/blog/maps">Little Miss Data blog</a>.</p>
+<p>One of the more interesting features of SpotShotter is its ability to analyze the sound waves to pinpoint the origin of a gunshot with accuracy within 100 meters of its source. To visualize this, I am using the <code>ggmap</code> package, which combines the Google Maps API with the <code>ggplot2</code> data visualization package. Recently, Google started requiring users of this API to register via the Google Cloud Platform (GCP). There is a nice walkthrough of this process on the <a href="https://www.littlemissdata.com/blog/maps">Little Miss Data blog</a>.</p>
 </div>
 <div id="overview-of-the-data" class="section level4">
 <h4>Overview of the Data</h4>
 <p>There were 37,592 incidents reported by SpotShotter between 2014-01-01 05:00:02 and 2019-09-30 23:57:43.</p>
 <p><img src="/post/2019-12-23-analyzing-gunshot-detection-data-in-dc_files/figure-html/incidents_by_year-1.png" width="672" /></p>
 <p>It seems that there has been a decline in incidents since 2014. The 2019 total will likely surpass the 2017 and 2018 totals, as it is only including incidents recorded through September 30, 2019. Also, the documentation suggests that the SpotShotter software has improved over the years to more accurately distinguish fireworks from gunshots.</p>
-<p><img src="/post/2019-12-23-analyzing-gunshot-detection-data-in-dc_files/figure-html/incidents_by_type-1.png" width="672" /> It’s curious to see the <code>Gunshot or Firecracker</code> classification increase so signifigantly in 2019.</p>
+<p><img src="/post/2019-12-23-analyzing-gunshot-detection-data-in-dc_files/figure-html/incidents_by_type-1.png" width="672" /> It’s curious to see the <code>Gunshot or Firecracker</code> classification increase so significantly in 2019.</p>
 <p><img src="/post/2019-12-23-analyzing-gunshot-detection-data-in-dc_files/figure-html/incidents_by_month-1.png" width="672" /> July of 2014 and 2015 recorded an extremely high number of incidents. This is due to Independence Day fireworks, typically recorded after midnight (i.e., July 5). The July days with the most incidents in 2014-15 are displayed below.</p>
 <table>
 <thead>

@@ -44,7 +44,7 @@ The [data dictionary](https://mpdc.dc.gov/publication/shotspotter-data-disclaime
 
 
 #### Geolocation  
-One of the more interesting features of SpotShotter is its ability to analyze the sound waves to pinpoint the origin of a gunshot with with accuracy within 100 meters of its source. To visualize this, I am using the `ggmap` package, which combines the Google Maps API with the `ggplot2` data visualization package. Recently, Google started requiring users of this API to register via the Google Cloud Platform (GCP). There is a nice walkthrough of this process on the [Little Miss Data blog](https://www.littlemissdata.com/blog/maps).
+One of the more interesting features of SpotShotter is its ability to analyze the sound waves to pinpoint the origin of a gunshot with accuracy within 100 meters of its source. To visualize this, I am using the `ggmap` package, which combines the Google Maps API with the `ggplot2` data visualization package. Recently, Google started requiring users of this API to register via the Google Cloud Platform (GCP). There is a nice walkthrough of this process on the [Little Miss Data blog](https://www.littlemissdata.com/blog/maps).
 
 #### Overview of the Data  
 
@@ -77,7 +77,7 @@ spotshotter_data %>%
   ggtitle("SpotShotter Incidents by Type")
 
 ```
-It's curious to see the `Gunshot or Firecracker` classification increase so signifigantly in 2019. 
+It's curious to see the `Gunshot or Firecracker` classification increase so significantly in 2019. 
 
 ```{r incidents_by_month, echo = FALSE, warning = FALSE, message = FALSE}
 
