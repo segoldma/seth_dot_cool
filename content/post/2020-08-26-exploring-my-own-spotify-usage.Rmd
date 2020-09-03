@@ -1,0 +1,304 @@
+---
+title: "Product Analytics on My Own Spotify Usage"
+author: "Seth Goldman"
+date: '2020-08-26'
+slug: exploring-my-own-spotify-usage
+categories:
+- music
+- R
+- rstats
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE) 
+```
+
+
+```{r, echo = FALSE}
+library(dplyr)
+library(jsonlite)
+library(ggplot2)
+library(lubridate)
+library(scales)
+library(knitr)
+library(kableExtra)
+
+spotify_usage <- readRDS("spotify_usage.RDS") %>% 
+  mutate(endTime = with_tz(as.POSIXct(endTime),tz = "UTC"))
+
+```
+
+Spotify does an incredible job of personalizing the user experience, [using machine learning](https://engineering.atspotify.com/2020/01/16/for-your-ears-only-personalizing-spotify-home-with-machine-learning/) to curate daily playlists based on past listening habits, and surfacing new music recommendations via the Your Discover Weekly. 
+
+
+  
+Spotify's CEO recently noted on an earnings call that [their secret sauce]((https://news.alphastreet.com/spotify-technology-spot-q2-2020-earnings-call-transcript/)) is online experimentation -- running tests on its ~300M users, and using the learnings to improve its products. Two of the ways that Spotify evaluates the effectiveness of their experiments are (1) measuring increased engagement (streaming for longer periods of time), and (2) increased user retention (users returning to use Spotify's products in the future).
+
+### The Data
+
+I've requested my personal data from Spotify a couple of times, most recently a couple of days ago. Spotify has processed each request in a just a couple of days, and delivered the data via a zipped folder of JSON files. [Documentation from Spotify](https://support.spotify.com/us/account_payment_help/privacy/understanding-my-data/).
+
+One of the most interesting datasets is called `StreamingHistory`, which includes four fields:  
+* endTime: the date and time that an individually piece of streamed media ended  
+* artistName: the name of the artist or "creator" of the streamed media  
+* trackName: the name of the streamed media (i.e., a song name or podcast episode)  
+* msPlayed: the number of mili-seconds streamed  
+
+
+It's clear that Spotify can articulate my personal taste in music and podcasts (in the form of recommendations) almost as well as I can. I'm curious to see what I can eventually learn about my listening behavior by applying similar retention and engagement frameworks that Spotify uses success against my own data. For starters, I'll do a high-level exploration of this dataset by running through a general survey of some of the popular analytic patterns in product analytics.
+
+#### Previewing the Data  
+Randomly sampling 10 rows of `StreamingHistory`  
+```{r head_data}
+
+spotify_usage %>% 
+  sample_n(10) %>% 
+  kableExtra::kbl() %>% 
+  kable_paper("hover", full_width = F)
+```
+
+### Examining the timeframe    
+```{r timeframe_graph}
+
+spotify_usage %>%
+  group_by("stream_month" = lubridate::floor_date(as.Date(endTime), unit = "month")) %>% 
+  summarize("Streams" = n()) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = stream_month, y = Streams))+
+  geom_bar(stat = "identity",
+           fill = "#1DB954")+
+   theme(axis.text.x = element_text(angle = 35, hjust = 1, vjust = 1))+
+  xlab("Stream Month")+
+  ylab("# of Streams")+
+  ggtitle("Seth's Spotify Tracks Streamed",
+          subtitle = "By Month")+
+  ggthemes::theme_fivethirtyeight()
+  
+
+```
+
+The dataset includes almost two years of continuous data, from `r min(spotify_usage$endTime)` through `r max(spotify_usage$endTime)`.
+
+To put the `msPlayed` data into an easier frame of reference, I'm adding fields that convert the data into minutes and hours: `mins_streamed` and `hours_streamed`.
+
+```{r adding_mins_and_hours}
+
+spotify_usage <- spotify_usage %>% 
+  mutate(mins_streamed = msPlayed / 60000,
+         hours_streamed = mins_streamed / 60)
+
+
+```
+
+### Top 10 Artists by Streams, with hours played
+
+```{r top_10_artists}
+
+spotify_usage %>% 
+  group_by(artistName) %>% 
+  summarize("streams" = n(),
+            "total_hours" = round(sum(hours_streamed),
+                                  digits = 1)) %>%
+  ungroup() %>% 
+  mutate("% of streams" = scales::percent(streams/sum(streams)),
+         "% of hours" = scales::percent(total_hours/sum(total_hours))) %>% 
+  select(artistName, streams, `% of streams`, total_hours, `% of hours`) %>% 
+  top_n(n = 10,
+        wt = streams) %>% 
+  arrange(desc(streams)) %>% 
+  kableExtra::kbl() %>% 
+  kable_paper("hover", full_width = F)
+
+
+```
+Out of the `r scales::comma(n_distinct(spotify_usage$artistName))` distinct artists I've streamed over the last ~2 years, this top 10 accounts for 19% and 17% of all tracks streamed and hours streamed, respectively.
+
+
+### Engagement Framework  
+I'm curious to know how my engagement with Spotify has trended over time, particularly within artists that I may have discovered recently.
+
+#### Cumulative Engagement Over Time:  
+Plotting accumulating engagement over time, in terms of hours streamed, and days with at least one stream.  
+
+```{r, fig.show="hold", out.width="50%"}
+spotify_usage %>% 
+  arrange(endTime) %>% 
+  mutate("cmltv_hours" = cumsum(hours_streamed)) %>% 
+  ggplot(aes(x = endTime, y = cmltv_hours))+
+  geom_line(color = "#1DB954")+
+  ggtitle("Cumulative Hours Streamed")+
+  ggthemes::theme_fivethirtyeight()+
+  theme(axis.title = element_text()) + 
+  ylab("Cumulative Stream Time (Hrs)")+
+  xlab("Stream Date")
+
+
+spotify_usage %>% 
+  mutate("calendar_date" = as.Date(endTime),
+         "stream_date" = as.Date(endTime)) %>%
+  tidyr::complete("calendar_date" = seq.Date(from = min(calendar_date),
+                                             to = max(as.Date(calendar_date)), 
+                                             by="day")) %>% 
+  select(calendar_date, stream_date) %>% 
+  arrange(calendar_date) %>% 
+  unique() %>% 
+  mutate("is_stream_day" = !is.na(stream_date)) %>% 
+  mutate("cumulative_days" = cumsum(is_stream_day)) %>% 
+    ggplot(aes(x = calendar_date, y = cumulative_days))+
+  geom_line(color = "#1DB954")+
+  ggtitle("Cumulative Days with Streams",
+          "Counting days with at least one stream")+
+  ggthemes::theme_fivethirtyeight()+
+   theme(axis.title = element_text()) + 
+  ylab("Cumulative Days")+
+  xlab("Stream Date")
+
+
+
+```
+
+I'm not surprised to see that I use Spotify nearly daily. However, I think these plots potentially mask significant changes in my listening habits over the 2-year span, particulary amidst the transition from commuting to the office to working from home during the COVID-19 pandemic. 
+
+### Cohort Analysis 
+Typical cohort analyses involve bucketing a group of users by a common trait, such as the month that they signed up for the product. Since I am the only user in the dataset, that wouldn't be very interesting. Instead, I'm interested in analyzing cohorts of artists by the period that I first started listening to them.
+
+```{r with_first_listen}
+spotify_w_artist_first_listen <- spotify_usage %>% 
+  group_by(artistName) %>% 
+  mutate("first_listen" = min(endTime),
+         "days_since" = round(as.numeric(difftime(time1 = endTime, 
+                                 time2 = first_listen,
+                                 units = "days"))),
+         "weeks_since" = round(as.numeric(difftime(time1 = endTime, 
+                                 time2 = first_listen,
+                                 units = "weeks"))),
+         "months_since" = round(days_since / (365.25/12))) %>% 
+  ungroup()
+
+
+spotify_w_artist_first_listen %>% 
+   mutate("first_month" = floor_date(first_listen,unit = "month")) %>% 
+  group_by(first_month) %>%
+  summarize("total_artists" = n_distinct(artistName)) %>% 
+  ungroup() %>%
+  ggplot(aes(x=first_month, y = total_artists))+
+  geom_bar(stat = "identity",
+           fill = "#1DB954") +
+  ggtitle("# Artists Streamed for the First Time, by Month")+
+  ggthemes::theme_fivethirtyeight()+
+  theme(axis.title = element_text()) + 
+  ylab("# Artists")+
+  xlab("Month of First Listen")
+
+```
+
+It's useful to visualize the relative sizes of each cohort, to put the analysis into perspective. Since the data provided by Spotify only goes back as far as November 2018, it's not entirely surprising that November 2018 is the largest cohort. In other words, artists that I had listened to prior to November 2018 will first appear in the first month that data is available, which would cause some bias in the November and December cohorts. For the sake of this analysis, and to understand how I *discover* new artists on Spotify, I'll zoom in on the period between January 1, 2020 and August 23, 2020.
+
+### Engagement Cohorts  
+Using cohorts can uncover engagement insights that are difficult to understand in aggregate. This graph shows how my engagement with newly discovered artists has changed, based on the month that I first listened to those artists.
+
+```{r cohort_engagement}
+
+
+spotify_w_artist_first_listen %>% 
+  mutate("first_month" = floor_date(first_listen,unit = "month")) %>% 
+  filter(first_month >= "2019-12-31") %>% 
+  group_by(months_since, first_month) %>%
+  summarize("total_hours"=sum(hours_streamed)) %>% 
+  ungroup() %>% 
+  arrange(first_month) %>% 
+  group_by(first_month) %>% 
+  mutate("cmltv_hours" = cumsum(total_hours)) %>% 
+  ungroup() %>%
+    mutate("first_month" = factor(first_month)) %>% 
+  ggplot(aes(x=months_since, y = cmltv_hours, color = first_month))+
+    geom_line()+
+  ggtitle("Cumulative Stream Time by Artist First Listen Cohort",
+          "Each line represents the month that I first listened to artist(s)")+
+  ggthemes::theme_fivethirtyeight()+
+  theme(axis.title = element_text()) +
+  xlab("Months since First Listen")+
+  ylab("Cumulative Stream Time (Hours)")
+
+    
+
+
+```
+
+The main takeaways here are that I've discovered and listened to newly discovered artists in recent months to a much greater extent than artists I discovered earlier in 2020. For example, the separation between June/July and most of the other cohorts indicates that I listned to 2-3x as much of the newly discovered artists in my first month than other cohorts, and in the case of the June cohort, steadily increased engagement in the following two months. 
+
+As it turns out, this was the month I discovered the [Son of a Hitman](https://open.spotify.com/show/1TFCQbI94uvSlSV6Vi0zve) podcast, which represents 8 of the 26 hours streamed in Month 0. 
+
+### Retention Framework  
+Many companies now monitor user retention as an indicator of how much value their users are receiving. There are [countless](https://mixpanel.com/topics/what-is-retention-analysis/) [blog posts](https://amplitude.com/blog/2016/08/11/3-ways-measure-user-retention) on the [topic](https://www.reforge.com/blog/retention-engagement-growth-silent-killer), and I'm [slowly](https://andrewchen.co/retention-is-king/) [reading](https://www.lennyrachitsky.com/p/what-is-good-retention-issue-29) [every one](https://caseyaccidental.com/what-is-good-retention).
+
+Some companies, particularly in the media industry apply similar analyses to evaluate the relative performance of their content inventory. For example, Hulu might measure same-show retention to understand how many users who watched the first episode of the Hulu Original Series *High Fidelity* returned to watch the next episode, or even [the next season](https://variety.com/2020/tv/news/zoe-kravitz-high-fidelity-hulu-diversity-1234729635/). 
+
+I'm curious to apply the thinking to my Spotify usage data, specifically Same-Artist Retention.
+
+```{r month_arist_retention}
+
+monthly_artist_retention <- spotify_w_artist_first_listen %>% 
+  mutate("first_month" = floor_date(first_listen,unit = "month")) %>% 
+  group_by(first_month) %>%
+  mutate("total_artists_in_cohort" = n_distinct(artistName)) %>% 
+  ungroup() %>% 
+  group_by(first_month, months_since, total_artists_in_cohort) %>% 
+  summarise("artists" = n_distinct(artistName),
+            "hoursPlayed" = sum(hours_streamed)) %>% 
+  ungroup() %>% 
+  filter(first_month >= "2019-12-31") %>% 
+  group_by(first_month, months_since) %>% 
+  mutate("pct" = artists/total_artists_in_cohort) %>%
+  ungroup() %>% 
+  mutate(first_month = factor(first_month)) 
+  
+
+monthly_artist_retention %>% 
+  ggplot(aes(x=months_since, y = pct, color = first_month))+
+  geom_line()+
+  scale_y_continuous(label = percent)+
+  ggtitle("Spotify Same-Artist Retention by First Listen Month",
+          "Since Jan 1, 2020")+
+  ggthemes::theme_fivethirtyeight()+
+  theme(axis.title = element_text()) + 
+  ylab("% Retained Artists")+
+  xlab("Months since First Listen")
+
+```
+
+This graph shows that I tend to continue listening to 10-25% of artists beyond my first month of streaming them (and stop listening to the other 75-90%). The February 2020 cohort had the highest 1-month retention, with 25% of artists streamed in the next month, while it seems like the March and April cohorts had stronger retention rates by months 3 and 4.
+
+This is a summary of Month 3 same-artist retention by first-month cohort:
+```{r}
+monthly_artist_retention %>% 
+  filter(months_since == 3) %>% 
+  mutate(pct = scales::percent(pct)) %>% 
+  select("First Listen Month" = first_month, 
+         "Artists Streamed" = artists, 
+         "Total Artists in Cohort" = total_artists_in_cohort, 
+         "M3 Retention" = pct) %>% 
+  kableExtra::kbl() %>% 
+  kable_paper("hover", full_width = F)
+
+```
+
+
+
+### Making the Analytics Worth It...  
+
+#### ... for Spotify
+
+This kind of analyses are often reveal amusing tidbits, but are most powerful when they improve decision-making. 
+
+One of the strategies that Spotify uses to improve retention is to deliver fresh content (i.e., notifying users about for newly released music, automatically curated playlists, etc.) 
+
+To optimize engagement, which in Spotify's case means increasing amount of streaming time per session, they need to get users to listen to listen to more, or longer tracks. I don't know the ins-and-outs of today's music industry, but I imagine Spotify pays a fortune in licensing and royalties to artists and record labels. The amount of royalty fees incurred has even caused some of Spotify's competitors [to shut down](https://blog.8tracks.com/2019/12/26/to-everything-there-is-a-season/).  
+
+With both of these things in mind, it makes a lot of sense why Spotify has made several enormous acquisitions in the Podcasting space. By nature, fans of Podcasts will be retained each time they want to listen to a newly released episode. Podcasts are also much longer in duration than music tracks.  
+
+#### ... for Me  
+Before looking at this data, I had no doubt that I'm getting my money's worth from my Spotify subscription. I also can't think of any majorly inefficient aspects of my Spotify experience to improve using his data. Most of the actual decisions when using Spotify (i.e., what to listen to) are already fairly automated within the platform. In the future, it might be interesting to integrate information from my saved playlists, and use the engagement data to improve them. 
+
