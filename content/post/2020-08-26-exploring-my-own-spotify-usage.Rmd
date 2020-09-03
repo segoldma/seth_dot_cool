@@ -271,7 +271,7 @@ monthly_artist_retention %>%
 
 This graph shows that I tend to continue listening to 10-25% of artists beyond my first month of streaming them (and stop listening to the other 75-90%). The February 2020 cohort had the highest 1-month retention, with 25% of artists streamed in the next month, while it seems like the March and April cohorts had stronger retention rates by months 3 and 4.
 
-This is a summary of Month 3 same-artist retention by first-month cohort:
+This is a summary of Month 3 same-artist retention by first-month cohort: 
 ```{r}
 monthly_artist_retention %>% 
   filter(months_since == 3) %>% 
