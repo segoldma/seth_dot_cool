@@ -236,7 +236,7 @@ Many companies now monitor user retention as an indicator of how much value thei
 
 Some companies, particularly in the media industry, apply similar analyses to evaluate the relative performance of their content inventory. For example, Hulu might measure same-show retention to understand how many users who watched the first episode of the Hulu Original Series *High Fidelity* returned to watch the next episode, or even [the next season](https://variety.com/2020/tv/news/zoe-kravitz-high-fidelity-hulu-diversity-1234729635/). 
 
-I'm curious to apply the thinking to my Spotify usage data, in the form of Same-Artist Retention.
+I'm curious to apply the same thinking to my Spotify usage data, in the form of Same-Artist Retention.
 
 ```{r month_arist_retention}
 
