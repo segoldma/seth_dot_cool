@@ -234,9 +234,9 @@ As it turns out, this was the month I discovered the [Son of a Hitman](https://o
 ### Retention Framework  
 Many companies now monitor user retention as an indicator of how much value their users are receiving. There are [countless](https://mixpanel.com/topics/what-is-retention-analysis/) [blog posts](https://amplitude.com/blog/2016/08/11/3-ways-measure-user-retention) on the [topic](https://www.reforge.com/blog/retention-engagement-growth-silent-killer), and I'm [slowly](https://andrewchen.co/retention-is-king/) [reading](https://www.lennyrachitsky.com/p/what-is-good-retention-issue-29) [every one](https://caseyaccidental.com/what-is-good-retention).
 
-Some companies, particularly in the media industry apply similar analyses to evaluate the relative performance of their content inventory. For example, Hulu might measure same-show retention to understand how many users who watched the first episode of the Hulu Original Series *High Fidelity* returned to watch the next episode, or even [the next season](https://variety.com/2020/tv/news/zoe-kravitz-high-fidelity-hulu-diversity-1234729635/). 
+Some companies, particularly in the media industry, apply similar analyses to evaluate the relative performance of their content inventory. For example, Hulu might measure same-show retention to understand how many users who watched the first episode of the Hulu Original Series *High Fidelity* returned to watch the next episode, or even [the next season](https://variety.com/2020/tv/news/zoe-kravitz-high-fidelity-hulu-diversity-1234729635/). 
 
-I'm curious to apply the thinking to my Spotify usage data, specifically Same-Artist Retention.
+I'm curious to apply the thinking to my Spotify usage data, in the form of Same-Artist Retention.
 
 ```{r month_arist_retention}
 
@@ -291,13 +291,13 @@ monthly_artist_retention %>%
 
 #### ... for Spotify
 
-This kind of analyses are often reveal amusing tidbits, but are most powerful when they improve decision-making. 
+These kind of analyses often reveal amusing tidbits, but are most powerful when they improve decision-making. 
 
 One of the strategies that Spotify uses to improve retention is to deliver fresh content (i.e., notifying users about for newly released music, automatically curated playlists, etc.) 
 
-To optimize engagement, which in Spotify's case means increasing amount of streaming time per session, they need to get users to listen to listen to more, or longer tracks. I don't know the ins-and-outs of today's music industry, but I imagine Spotify pays a fortune in licensing and royalties to artists and record labels. The amount of royalty fees incurred has even caused some of Spotify's competitors [to shut down](https://blog.8tracks.com/2019/12/26/to-everything-there-is-a-season/).  
+To optimize engagement, which in Spotify's case means increasing amount of streaming time per session, they need to get users to listen to more, or longer tracks. I don't know the ins-and-outs of today's music industry, but I imagine Spotify pays a fortune in licensing and royalties to artists and record labels. The amount of royalty fees incurred has even caused some of Spotify's competitors [to shut down](https://blog.8tracks.com/2019/12/26/to-everything-there-is-a-season/).  
 
-With both of these things in mind, it makes a lot of sense why Spotify has made several enormous acquisitions in the Podcasting space. By nature, fans of Podcasts will be retained each time they want to listen to a newly released episode. Podcasts are also much longer in duration than music tracks.  
+With both of these things in mind, it makes a lot of sense why Spotify has made several enormous acquisitions in the Podcasting space. By nature, fans of Podcasts will be retained each time they want to listen to a newly released episode. Podcasts are also much longer in duration than music tracks.
 
 #### ... for Me  
 Before looking at this data, I had no doubt that I'm getting my money's worth from my Spotify subscription. I also can't think of any majorly inefficient aspects of my Spotify experience to improve using his data. Most of the actual decisions when using Spotify (i.e., what to listen to) are already fairly automated within the platform. In the future, it might be interesting to integrate information from my saved playlists, and use the engagement data to improve them. 
