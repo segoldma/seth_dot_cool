@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Product Analytics on My Own Spotify Usage</title>
+      <link>/2020/08/26/exploring-my-own-spotify-usage/</link>
+      <pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/08/26/exploring-my-own-spotify-usage/</guid>
+      <description>Spotify does an incredible job of personalizing the user experience, using machine learning to curate daily playlists based on past listening habits, and surfacing new music recommendations via the Your Discover Weekly.
+Spotify’s CEO recently noted on an earnings call that their secret sauce is online experimentation – running tests on its ~300M users, and using the learnings to improve its products. Two of the ways that Spotify evaluates the effectiveness of their experiments are (1) measuring increased engagement (streaming for longer periods of time), and (2) increased user retention (users returning to use Spotify’s products in the future).</description>
+    </item>
     
     <item>
       <title>Analyzing Gunshot Detection Data in DC</title>
@@ -120,15 +130,6 @@ I gravitated toward the Newly Updated or Added section, hoping to find a data th
       <guid>/2017/10/23/welcome-to-the-least-cool-dot-cool-on-the-internet/</guid>
       <description>I registered the seth.cool domain a couple of years ago with no project in mind – only the misguided assumptions that (1) someone else would buy it, and (2) that I am cool. I’ve decided to finally use my first-mover’s advantage to share data-related projects as I work on them.
 Data analysis is a relatively new interest of mine. I started learning R after complaining to a friend about how much time I spend waiting for Excel to unfreeze at work.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/1/01/01/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/1/01/01/</guid>
-      <description>Exploring My Own Spotify Usagecode{white-space: pre;}pre:not([class]) {background-color: white;}if (window.hljs) {hljs.configure({languages: []});hljs.initHighlightingOnLoad();if (document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) {window.setTimeout(function() { hljs.initHighlighting(); }, 0);}}h1 {font-size: 34px;}h1.title {font-size: 38px;}h2 {font-size: 30px;}h3 {font-size: 24px;}h4 {font-size: 18px;}h5 {font-size: 16px;}h6 {font-size: 12px;}.</description>
     </item>
     
   </channel>

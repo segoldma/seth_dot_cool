@@ -6,10 +6,20 @@
     <description>Recent content in Rstats on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/rstats/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Product Analytics on My Own Spotify Usage</title>
+      <link>/2020/08/26/exploring-my-own-spotify-usage/</link>
+      <pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/08/26/exploring-my-own-spotify-usage/</guid>
+      <description>Spotify does an incredible job of personalizing the user experience, using machine learning to curate daily playlists based on past listening habits, and surfacing new music recommendations via the Your Discover Weekly.
+Spotify’s CEO recently noted on an earnings call that their secret sauce is online experimentation – running tests on its ~300M users, and using the learnings to improve its products. Two of the ways that Spotify evaluates the effectiveness of their experiments are (1) measuring increased engagement (streaming for longer periods of time), and (2) increased user retention (users returning to use Spotify’s products in the future).</description>
+    </item>
     
     <item>
       <title>Analyzing Gunshot Detection Data in DC</title>
