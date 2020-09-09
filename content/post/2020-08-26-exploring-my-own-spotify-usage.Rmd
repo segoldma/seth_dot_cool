@@ -47,7 +47,7 @@ One of the most interesting datasets is called `StreamingHistory`, which include
 * msPlayed: the number of mili-seconds streamed  
 
 
-It's clear that Spotify can articulate my personal taste in music and podcasts (in the form of recommendations) almost as well as I can. I'm curious to see what I can eventually learn about my listening behavior by applying similar retention and engagement frameworks that Spotify uses success against my own data. For starters, I'll do a high-level exploration of this dataset by running through a general survey of some of the popular analytic patterns in product analytics.
+It's clear that Spotify can articulate my personal taste in music and podcasts (in the form of recommendations) almost as well as I can. I'm curious to see what I can eventually learn about my listening behavior by applying retention and engagement frameworks, similar to the ones that Spotify uses to measure its own success, against my own listening data. For starters, I'll do a high-level exploration of this dataset by running through a general survey of some of the popular analytic patterns in product analytics.
 
 #### Previewing the Data  
 Randomly sampling 10 rows of `StreamingHistory`  
@@ -60,7 +60,7 @@ spotify_usage %>%
 ```
 
 ### Examining the timeframe    
-```{r timeframe_graph}
+```{r timeframe_graph, out.width="90%"}
 
 spotify_usage %>%
   group_by("stream_month" = lubridate::floor_date(as.Date(endTime), unit = "month")) %>% 
@@ -164,7 +164,7 @@ I'm not surprised to see that I use Spotify nearly daily. However, I think these
 ### Cohort Analysis 
 Typical cohort analyses involve bucketing a group of users by a common trait, such as the month that they signed up for the product. Since I am the only user in the dataset, that wouldn't be very interesting. Instead, I'm interested in analyzing cohorts of artists by the period that I first started listening to them.
 
-```{r with_first_listen}
+```{r with_first_listen, out.width="90%"}
 spotify_w_artist_first_listen <- spotify_usage %>% 
   group_by(artistName) %>% 
   mutate("first_listen" = min(endTime),
@@ -199,7 +199,7 @@ It's useful to visualize the relative sizes of each cohort, to put the analysis 
 ### Engagement Cohorts  
 Using cohorts can uncover engagement insights that are difficult to understand in aggregate. This graph shows how my engagement with newly discovered artists has changed, based on the month that I first listened to those artists.
 
-```{r cohort_engagement}
+```{r cohort_engagement, out.width="90%"}
 
 
 spotify_w_artist_first_listen %>% 
@@ -238,7 +238,7 @@ Some companies, particularly in the media industry, apply similar analyses to ev
 
 I'm curious to apply the same thinking to my Spotify usage data, in the form of Same-Artist Retention.
 
-```{r month_arist_retention}
+```{r month_arist_retention, out.width="90%"}
 
 monthly_artist_retention <- spotify_w_artist_first_listen %>% 
   mutate("first_month" = floor_date(first_listen,unit = "month")) %>% 
