@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Catching up on the Tidyverse</title>
+      <link>/2020/10/03/catching-up-on-the-tidyverse/</link>
+      <pubDate>Sat, 03 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/10/03/catching-up-on-the-tidyverse/</guid>
+      <description>When I first started learning R a few years ago, I focused on picking up the fundamentals of Base R, as well as the Tidyverse set of packages, concurrently. Early on, I made a point of writing as much of my code within the Tidyverse framework as possible, favoring the readability and supportive online community.
+More recently, I’ve realized that I haven’t kept up with many of the enhancements that the Tidyverse and RStudio team have released.</description>
+    </item>
     
     <item>
       <title>Product Analytics on My Own Spotify Usage</title>
