@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>What&#39;s the plural of Eephus? | Seth dot cool</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="I downloaded a fairly large amount of pitch data from the MLB Statcast database: every pitch thrown during the 2017 season, with ~75 variables about each.
+What’s the plural of Eephus?For the uninitiated, the Eephus pitch is a very, very slow baseball pitch. I’d hoped that the plural of eephus would be eephucies (like matrices), but it turns out isn’t a real word at all. As far as I can tell from the Google Ngram viewer, it was first used in a baseball context around 1960.">
+<meta name="generator" content="Hugo 0.91.2" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">What&#39;s the plural of Eephus?</h1>
+
+    <div class="tip">
+        <time datetime="2017-11-11 00:00:00 &#43;0000 UTC">Nov 11, 2017</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          807 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4 minute read
+        </span>
+    </div>
+
+    
+    
+        
+
+    
+
+
+    <div class="content">
+      
+
+
+<hr />
+<p>I downloaded a fairly large amount of pitch data from the <a href="https://baseballsavant.mlb.com/statcast_search">MLB Statcast</a> database: every pitch thrown during the 2017 season, with ~75 variables about each.</p>
+<div id="whats-the-plural-of-eephus" class="section level3">
+<h3>What’s the plural of Eephus?</h3>
+<p>For the uninitiated, <a href="https://en.wikipedia.org/wiki/Eephus_pitch">the Eephus</a> pitch is a very, very slow baseball pitch. I’d hoped that the plural of eephus would be eephucies (like matrices), but it turns out isn’t a real word at all. As far as I can tell from the <a href="https://books.google.com/ngrams/graph?content=eephus&amp;year_start=1800&amp;year_end=2000&amp;corpus=15&amp;smoothing=3&amp;share=&amp;direct_url=t1%3B%2Ceephus%3B%2Cc0#t1%3B%2Ceephus%3B%2Cc1">Google Ngram</a> viewer, it was first used in a baseball context around 1960. More on eephuses/eephucies later.</p>
+</div>
+<div id="which-teams-threw-the-hardest-on-average" class="section level3">
+<h3>Which teams threw the hardest on average?</h3>
+<pre><code>## # A tibble: 30 x 3
+##    mlb_team `Release Speed`  rank
+##      &lt;fctr&gt;           &lt;dbl&gt; &lt;dbl&gt;
+##  1      PIT        90.34740     1
+##  2      COL        90.12726     2
+##  3      STL        89.51839     3
+##  4      MIL        89.31547     4
+##  5      NYY        89.29282     5
+##  6      WSH        89.19172     6
+##  7      DET        88.98667     7
+##  8      NYM        88.96622     8
+##  9      ARI        88.80662     9
+## 10      CIN        88.77877    10
+## # ... with 20 more rows</code></pre>
+<p>Eight of the top ten hardest throwing teams are in the National League, but since these rankings are likely buoyed by the relative velocity of fastballs thrown, I wanted to re-run the list by <code>fastballs</code> alone.</p>
+</div>
+<div id="which-teams-threw-the-fastest-fastballs-part-1" class="section level3">
+<h3>Which teams threw the fastest fastballs? (Part 1)</h3>
+<pre><code>## # A tibble: 30 x 3
+##    mlb_team `Release Speed` `fastball rank`
+##      &lt;fctr&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+##  1      PIT        94.09749               1
+##  2      NYY        93.92642               2
+##  3      COL        93.88230               3
+##  4      ATL        93.43004               4
+##  5      STL        93.41358               5
+##  6      WSH        93.20647               6
+##  7      ARI        93.19483               7
+##  8      CIN        93.14584               8
+##  9      NYM        93.09486               9
+## 10      LAD        93.06172              10
+## # ... with 20 more rows</code></pre>
+<p>Since there was a bit of variance between the overall velocity and fastball velocity rankings, I wanted to get a sense of the MLB-wide velocity by <code>pitch type</code>. I didn’t remove the <code>Null</code> or <code>unknown</code> pitch types from the dataset, but I am curious as to how <code>AJ Ramos</code> chucked <code>11</code> nulls during the 2017 season.</p>
+</div>
+<div id="average-velocity-by-pitch-type" class="section level3">
+<h3>Average velocity by pitch type</h3>
+<pre><code>## # A tibble: 18 x 2
+##            pitch_type `Release Speed`
+##                &lt;fctr&gt;           &lt;dbl&gt;
+##  1 Four-Seam Fastball        93.19466
+##  2  Two-Seam Faseball        92.46371
+##  3             Sinker        91.39196
+##  4             Cutter        88.43328
+##  5           Pitchout        87.25913
+##  6           Forkball        87.22195
+##  7               Null        87.21441
+##  8           Splitter        84.55809
+##  9             Slider        84.55298
+## 10           Changeup        84.18924
+## 11      Knuckle-Curve        80.37074
+## 12          Screwball        79.27187
+## 13          Curveball        78.07458
+## 14   Intentional Ball        77.36667
+## 15        Knuckleball        76.78297
+## 16     Automatic Ball        73.52500
+## 17             Eephus        66.63333
+## 18            Unknown        41.70000</code></pre>
+<p>Back to fastball velocity, I created a <a href="https://www.jstor.org/stable/2288400">Cleveland plot</a> to visualize the aggregated averages of Four-Seam Fastball, Two-Seam Fastball, and Sinker, by team.</p>
+</div>
+<div id="which-teams-threw-the-fastest-fastballs-part-2" class="section level3">
+<h3>Which teams threw the fastest fastballs? (Part 2)</h3>
+<p><img src="/post/2017-11-11-what-s-the-plural-of-eephus/figure-html/average_fastball_by_team_cleveland-1.png" width="672" /></p>
+</div>
+<div id="pitch-velocity-by-team-by-common-pitch-type" class="section level3">
+<h3>Pitch velocity by team (by common pitch type)</h3>
+<p>Since the cleveland plot is a nice way to compare pitch velocity by team, I added a couple of additional common pitch types:</p>
+<ul>
+<li><code>Four-Seam Fastball</code></li>
+<li><code>Slider</code></li>
+<li><code>Change-up</code></li>
+<li><code>Curveball</code></li>
+</ul>
+<p><img src="/post/2017-11-11-what-s-the-plural-of-eephus/figure-html/avg_velocity_by_pitch_type-1.png" width="672" /></p>
+<p>Before turning my attention back to eephuses, I wondered how fastball velocities varied <code>by inning</code>.</p>
+</div>
+<div id="fastball-velocity-by-inning" class="section level3">
+<h3>Fastball velocity by Inning</h3>
+<p><img src="/post/2017-11-11-what-s-the-plural-of-eephus/figure-html/average_fb_velo_by_inning-1.png" width="672" /></p>
+<p>Looks like the starting pitcher’s velocity tends to fall off as they pitch deeper into a game. As relief pitchers enter the game, the average fastball velocities shoot up. Just a hunch: the velocities between the <code>5th</code> and <code>8th innings</code> are equally affected by each game’s innings pitched by starting pitchers and the timing of the <em>typically</em> hard-throwing relief pitchers entering the game. In other words, I’d predict that the average starting pitcher’s <code>IP</code> is around <code>5 innings</code>, which is when the average fastball velocity starts to increase.</p>
+</div>
+<div id="eephuseseephucies" class="section level2">
+<h2>Eephuses/Eephucies</h2>
+<p>There were <code>147</code> eephuses thrown during the 2017 regular season.</p>
+<div id="who-threw-them" class="section level3">
+<h3>Who threw them?</h3>
+<pre><code>## # A tibble: 6 x 2
+##         player_name     n
+##              &lt;fctr&gt; &lt;int&gt;
+## 1     James Shields    70
+## 2       R.A. Dickey    44
+## 3      Zack Greinke    24
+## 4 Henderson Alvarez     7
+## 5   Hector Santiago     1
+## 6     Rick Porcello     1</code></pre>
+<p><code>RA Dickey</code> makes sense, being a knuckleballer, but I was surprised by James Shields. The <a href="https://chicago.suntimes.com/sports/slower-is-better-for-the-reinvented-james-shields/">Chicago Sun-Times</a> wrote about Shields’ <code>curveball</code> registering as an <code>eephus</code> early in the season, so these pitches may have been miscoded by <code>Statcast</code>.</p>
+</div>
+<div id="were-they-balls-strikes-or-put-in-play" class="section level3">
+<h3>Were they <code>balls</code>, <code>strikes</code>, or put <code>in-play</code>?</h3>
+<pre><code>## # A tibble: 3 x 2
+##     type     n
+##   &lt;fctr&gt; &lt;int&gt;
+## 1      B    73
+## 2      S    51
+## 3      X    23</code></pre>
+<p>The <code>x</code> denotes an <code>eephus</code> put in play by the batter… <code>16%</code> of eephuses were batted into play.</p>
+</div>
+<div id="what-were-the-outcomes-of-eephuses-put-in-play" class="section level3">
+<h3>What were the outcomes of eephuses put in-play?</h3>
+<pre><code>## # A tibble: 3 x 2
+##            description     n
+##                 &lt;fctr&gt; &lt;int&gt;
+## 1        hit_into_play    17
+## 2 hit_into_play_no_out     5
+## 3  hit_into_play_score     1</code></pre>
+<p>Shout-out to <code>Jose Peraza</code> for hitting the 2017 season’s only <code>HR</code> off of an Eephus.</p>
+<hr />
+</div>
+</div>
+
+    </div>
+
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/segoldma" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/segoldma" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2021 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Seth Goldman
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

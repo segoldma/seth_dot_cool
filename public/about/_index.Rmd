@@ -1,0 +1,27 @@
+---
+title: "Welcome to the least-cool dot-cool on the Internet"
+
+date: 2021-12-25
+categories: ["about"]
+tags: ["about", "data"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+I registered the [seth.cool](https://seth.cool) domain in 2016 with no project in mind -- only the misguided assumptions that someone else would buy it, and that I'm cool. A couple years later, I decided to use my first-mover's advantage to share data-related projects as I worked on them.
+
+At the time, data analysis was a relatively new interest of mine. While working on the customer support and renewals teams at [Discovery Education](http://discoveryeducation.com), I noticed that when I wasn't communicating with customers, I was spending the majority of my time working with pseudo-CRMs[^1] in Excel. The data grew larger (in relative spreadsheet terms), and I complained to a friend about my laptop freezing every time I ran VLOOKUPs, or tried to filter on a column. He suggested that I learn to use R, and recommended a few books[^2] for me to get started.
+
+[^1]: Customer Relationship Management, like Salesforce
+
+[^2]: [R Cookbook](http://shop.oreilly.com/product/9780596809164.do), [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do)
+
+As I learned the basics of data manipulating in R with the help of several amazing resources[^3], I realized I wanted to shift my professional focus from customer-facing to data-facing. After six months of learning, I felt I had the competency to do junior-level*-ish* data work, but no good way to prove it. In retrospect, I was lucky to have a manager who valued my Excel jockeying, and a year later, advocated for me to leave her team and join one that allowed me to focus on data. Before that lucky break, I discovered Yihui Xie's excellent [blogdown R package](https://cran.rstudio.com/web/packages/blogdown/index.html), and decided that my best option for proving my new-found data competencies would be to start a data analysis blog, completely powered by R.
+
+At some point, I plan to write a dedicated post detailing my somewhat unconventional experiences becoming a professional data practitioner. 
+
+[^3]: There's an abundance of high quality resources for learning R. I used Hadley Wickham and Garret Grolemund's [R for Data Science](http://r4ds.had.co.nz/index.html), along with several [DataCamp](http://datacamp.com), [Coursera](http://coursera.com), and [edX](http://edx.org) courses. I also learned a lot from following data practitioners, and [#rstats](https://twitter.com/search?q=%23rstats) evangelists on Twitter
+
+I can be contacted via the social links in the site header. Suggestions, corrections, and feedback are appreciated.

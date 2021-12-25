@@ -1,54 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Data on Seth dot cool</title>
-    <link>/tags/data/</link>
-    <description>Recent content in Data on Seth dot cool</description>
+    <title>data on Seth dot cool</title>
+    <link>https://seth.cool/tags/data/</link>
+    <description>Recent content in data on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Nov 2017 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/data/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Sat, 25 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://seth.cool/tags/data/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Welcome to the least-cool dot-cool on the Internet</title>
+      <link>https://seth.cool/about/</link>
+      <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://seth.cool/about/</guid>
+      <description>I registered the seth.cool domain in 2016 with no project in mind – only the misguided assumptions that someone else would buy it, and that I’m cool. A couple years later, I decided to use my first-mover’s advantage to share data-related projects as I worked on them.
+At the time, data analysis was a relatively new interest of mine. While working on the customer support and renewals teams at Discovery Education, I noticed that when I wasn’t communicating with customers, I was spending the majority of my time working with pseudo-CRMs1 in Excel.</description>
+    </item>
     
     <item>
       <title>2017 MLB Team Exploration: Mostly Injuries</title>
-      <link>/2017/11/01/2017-mlb-team-exploration-mostly-injuries/</link>
+      <link>https://seth.cool/post/2017-11-01-2017-mlb-team-exploration-mostly-injuries/2017-11-01-mlb-team-exploration-mostly-injuries/</link>
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2017/11/01/2017-mlb-team-exploration-mostly-injuries/</guid>
+      <guid>https://seth.cool/post/2017-11-01-2017-mlb-team-exploration-mostly-injuries/2017-11-01-mlb-team-exploration-mostly-injuries/</guid>
       <description>Although the Washington Nationals have crashed out of the MLB playoffs for the fourth time in four appearances since 2012, I’m not ready to put the 2017 season to bed. I downloaded acouple of datasets from the 2017 MLB Regular Season to play around with while practicing exploratory data analysis and To practice exploratory data analysis plotting with ggplot2:
 Team Batting (baseball reference)Team Pitching (baseball reference)Team Disabled List data (spotrac)I have a pretty superficial understanding of modern sabermetrics (i.</description>
     </item>
     
     <item>
       <title>Exploring Washington, D.C. Service Requests (2016)</title>
-      <link>/2017/10/27/exploring-washington-d.c.-service-requests-2016/</link>
+      <link>https://seth.cool/post/2017-10-27-exploring-washington-d-c-service-requests/2017-10-27-exploring-washington-dc-service-requests/</link>
       <pubDate>Fri, 27 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2017/10/27/exploring-washington-d.c.-service-requests-2016/</guid>
+      <guid>https://seth.cool/post/2017-10-27-exploring-washington-d-c-service-requests/2017-10-27-exploring-washington-dc-service-requests/</guid>
       <description>I’ve lived in Washington for about four years, but have lived in the D.C. metropolitan area my whole life. When looking for datasets to practice ggplot2 plotting, I came across Open Data DC, a catalog of datasets maintained by various city government agencies.
 I gravitated toward the Newly Updated or Added section, hoping to find a data that I haven’t read much about before. I decided on Service Request Data (i.</description>
-    </item>
-    
-    <item>
-      <title>Welcome to the least-cool dot-cool on the Internet</title>
-      <link>/about/</link>
-      <pubDate>Mon, 23 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/about/</guid>
-      <description>I registered the seth.cool domain a couple of years ago with no project in mind – only the misguided assumptions that (1) someone else would buy it, and (2) that I am cool. I’ve decided to finally use my first-mover’s advantage to share data-related projects as I work on them.
-Data analysis is a relatively new interest of mine. I started learning R after complaining to a friend about how much time I spend waiting for Excel to unfreeze at work.</description>
-    </item>
-    
-    <item>
-      <title>Welcome to the least-cool dot-cool on the Internet</title>
-      <link>/2017/10/23/welcome-to-the-least-cool-dot-cool-on-the-internet/</link>
-      <pubDate>Mon, 23 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/2017/10/23/welcome-to-the-least-cool-dot-cool-on-the-internet/</guid>
-      <description>I registered the seth.cool domain a couple of years ago with no project in mind – only the misguided assumptions that (1) someone else would buy it, and (2) that I am cool. I’ve decided to finally use my first-mover’s advantage to share data-related projects as I work on them.
-Data analysis is a relatively new interest of mine. I started learning R after complaining to a friend about how much time I spend waiting for Excel to unfreeze at work.</description>
     </item>
     
   </channel>

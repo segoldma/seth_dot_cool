@@ -1,230 +1,125 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
-    <loc>/2020/10/03/catching-up-on-the-tidyverse/</loc>
+    <loc>https://seth.cool/tags/about/</loc>
+    <lastmod>2021-12-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/categories/about/</loc>
+    <lastmod>2021-12-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/categories/</loc>
+    <lastmod>2021-12-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/data/</loc>
+    <lastmod>2021-12-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/</loc>
+    <lastmod>2021-12-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/</loc>
+    <lastmod>2021-12-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/about/</loc>
+    <lastmod>2021-12-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/post/2020-10-03-catching-up-on-the-tidyverse/catching-up-on-the-tidyverse/</loc>
     <lastmod>2020-10-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2020/08/26/exploring-my-own-spotify-usage/</loc>
+  </url><url>
+    <loc>https://seth.cool/post/</loc>
+    <lastmod>2020-10-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/categories/music/</loc>
     <lastmod>2020-08-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2019/12/30/analyzing-gunshot-detection-data-in-dc/</loc>
+  </url><url>
+    <loc>https://seth.cool/post/2020-08-26-product-analytics-on-my-own-spotify-usage/exploring-my-own-spotify-usage/</loc>
+    <lastmod>2020-08-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/categories/r/</loc>
+    <lastmod>2020-08-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/categories/rstats/</loc>
+    <lastmod>2020-08-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/post/2019-12-30-analyzing-gunshot-detection-data-in-dc/analyzing-gunshot-detection-data-in-dc/</loc>
     <lastmod>2019-12-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2019/08/17/using-an-api-to-get-college-football-data/</loc>
+  </url><url>
+    <loc>https://seth.cool/tags/dc/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/categories/dc/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/public-datasets/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/rstats/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/api/</loc>
     <lastmod>2019-08-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2018/12/30/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</loc>
+  </url><url>
+    <loc>https://seth.cool/tags/football/</loc>
+    <lastmod>2019-08-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/ncaa/</loc>
+    <lastmod>2019-08-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/post/2019-08-17-using-an-api-to-get-college-football-data/using-an-api-to-get-college-football-data/</loc>
+    <lastmod>2019-08-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/basketball/</loc>
     <lastmod>2018-12-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2018/09/20/using-market-valuations-in-an-nfl-pick-em-pool/</loc>
+  </url><url>
+    <loc>https://seth.cool/post/2018-12-30-three-pointers-after-offensive-rebounds/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</loc>
+    <lastmod>2018-12-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/categories/nfl/</loc>
     <lastmod>2018-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2018/06/29/parking-violations-in-dc/</loc>
+  </url><url>
+    <loc>https://seth.cool/post/2018-09-20-using-market-valuations-in-an-nfl-pick-em-pool/using-market-valuations-in-an-nfl-pick-em-pool/</loc>
+    <lastmod>2018-09-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/post/2018-06-29-parking-violations-in-dc/parking-violations-in-dc/</loc>
     <lastmod>2018-06-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2018/03/20/analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/</loc>
+  </url><url>
+    <loc>https://seth.cool/post/2018-03-20-analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/</loc>
     <lastmod>2018-03-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2017/12/21/height-and-ncaa-hoops/</loc>
+  </url><url>
+    <loc>https://seth.cool/tags/ggplot2/</loc>
+    <lastmod>2018-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/kenpom/</loc>
+    <lastmod>2018-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/post/2017-12-21-height-and-ncaa-hoops/height-and-ncaa-hoops/</loc>
     <lastmod>2017-12-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2017/11/11/whats-the-plural-of-eephus/</loc>
+  </url><url>
+    <loc>https://seth.cool/categories/ncaa/</loc>
+    <lastmod>2017-12-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/post/2017-11-11-what-s-the-plural-of-eephus/2017-11-11-pitch-data/</loc>
     <lastmod>2017-11-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2017/11/01/2017-mlb-team-exploration-mostly-injuries/</loc>
+  </url><url>
+    <loc>https://seth.cool/post/2017-11-01-2017-mlb-team-exploration-mostly-injuries/2017-11-01-mlb-team-exploration-mostly-injuries/</loc>
     <lastmod>2017-11-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2017/10/27/exploring-washington-d.c.-service-requests-2016/</loc>
+  </url><url>
+    <loc>https://seth.cool/tags/exploratory/</loc>
+    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/mlb/</loc>
+    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/r/</loc>
+    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/311/</loc>
+    <lastmod>2017-10-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/post/2017-10-27-exploring-washington-d-c-service-requests/2017-10-27-exploring-washington-dc-service-requests/</loc>
+    <lastmod>2017-10-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://seth.cool/tags/service-requests/</loc>
     <lastmod>2017-10-27T00:00:00+00:00</lastmod>
   </url>
-  
-  <url>
-    <loc>/about/</loc>
-    <lastmod>2017-10-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2017/10/23/welcome-to-the-least-cool-dot-cool-on-the-internet/</loc>
-    <lastmod>2017-10-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/311/</loc>
-    <lastmod>2017-10-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/api/</loc>
-    <lastmod>2019-08-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/basketball/</loc>
-    <lastmod>2018-12-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/data/</loc>
-    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/dc/</loc>
-    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/dc/</loc>
-    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/exploratory/</loc>
-    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/football/</loc>
-    <lastmod>2019-08-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/ggplot2/</loc>
-    <lastmod>2018-03-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/intro/</loc>
-    <lastmod>2017-10-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/kenpom/</loc>
-    <lastmod>2018-03-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/mlb/</loc>
-    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/music/</loc>
-    <lastmod>2020-08-26T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/ncaa/</loc>
-    <lastmod>2019-08-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/ncaa/</loc>
-    <lastmod>2017-12-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/nfl/</loc>
-    <lastmod>2018-09-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-10-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/public-datasets/</loc>
-    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2017-11-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/r/</loc>
-    <lastmod>2020-08-26T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/rstats/</loc>
-    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/rstats/</loc>
-    <lastmod>2020-08-26T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/service-requests/</loc>
-    <lastmod>2017-10-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2020-10-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2017-10-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
 </urlset>

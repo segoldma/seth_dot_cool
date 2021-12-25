@@ -1,22 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Service Requests on Seth dot cool</title>
-    <link>/tags/service-requests/</link>
-    <description>Recent content in Service Requests on Seth dot cool</description>
+    <title>service requests on Seth dot cool</title>
+    <link>https://seth.cool/tags/service-requests/</link>
+    <description>Recent content in service requests on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 27 Oct 2017 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/service-requests/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 27 Oct 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://seth.cool/tags/service-requests/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Exploring Washington, D.C. Service Requests (2016)</title>
-      <link>/2017/10/27/exploring-washington-d.c.-service-requests-2016/</link>
+      <link>https://seth.cool/post/2017-10-27-exploring-washington-d-c-service-requests/2017-10-27-exploring-washington-dc-service-requests/</link>
       <pubDate>Fri, 27 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2017/10/27/exploring-washington-d.c.-service-requests-2016/</guid>
+      <guid>https://seth.cool/post/2017-10-27-exploring-washington-d-c-service-requests/2017-10-27-exploring-washington-dc-service-requests/</guid>
       <description>I’ve lived in Washington for about four years, but have lived in the D.C. metropolitan area my whole life. When looking for datasets to practice ggplot2 plotting, I came across Open Data DC, a catalog of datasets maintained by various city government agencies.
 I gravitated toward the Newly Updated or Added section, hoping to find a data that I haven’t read much about before. I decided on Service Request Data (i.</description>
     </item>

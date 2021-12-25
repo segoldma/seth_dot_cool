@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Product Analytics on My Own Spotify Usage | Seth dot cool</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="Spotify does an incredible job of personalizing the user experience, using machine learning to curate daily playlists based on past listening habits, and surfacing new music recommendations via the Your Discover Weekly.
+Spotify’s CEO recently noted on an earnings call that their secret sauce is online experimentation – running tests on its ~300M users, and using the learnings to improve its products. Two of the ways that Spotify evaluates the effectiveness of their experiments are (1) measuring increased engagement (streaming for longer periods of time), and (2) increased user retention (users returning to use Spotify’s products in the future).">
+<meta name="generator" content="Hugo 0.91.2" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Product Analytics on My Own Spotify Usage</h1>
+
+    <div class="tip">
+        <time datetime="2020-08-26 00:00:00 &#43;0000 UTC">Aug 26, 2020</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1423 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          7 minute read
+        </span>
+    </div>
+
+    
+    
+        
+
+    
+
+
+    <div class="content">
+      
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<p>Spotify does an incredible job of personalizing the user experience, <a href="https://engineering.atspotify.com/2020/01/16/for-your-ears-only-personalizing-spotify-home-with-machine-learning/">using machine learning</a> to curate daily playlists based on past listening habits, and surfacing new music recommendations via the Your Discover Weekly.</p>
+<p>Spotify’s CEO recently noted on an earnings call that <a href="(https://news.alphastreet.com/spotify-technology-spot-q2-2020-earnings-call-transcript/)">their secret sauce</a> is online experimentation – running tests on its ~300M users, and using the learnings to improve its products. Two of the ways that Spotify evaluates the effectiveness of their experiments are (1) measuring increased engagement (streaming for longer periods of time), and (2) increased user retention (users returning to use Spotify’s products in the future).</p>
+<div id="the-data" class="section level3">
+<h3>The Data</h3>
+<p>I’ve requested my personal data from Spotify a couple of times, most recently a couple of days ago. Spotify has processed each request in a just a couple of days, and delivered the data via a zipped folder of JSON files. <a href="https://support.spotify.com/us/account_payment_help/privacy/understanding-my-data/">Documentation from Spotify</a>.</p>
+<p>One of the most interesting datasets is called <code>StreamingHistory</code>, which includes four fields:<br />
+* endTime: the date and time that an individually piece of streamed media ended<br />
+* artistName: the name of the artist or “creator” of the streamed media<br />
+* trackName: the name of the streamed media (i.e., a song name or podcast episode)<br />
+* msPlayed: the number of mili-seconds streamed</p>
+<p>It’s clear that Spotify can articulate my personal taste in music and podcasts (in the form of recommendations) almost as well as I can. I’m curious to see what I can eventually learn about my listening behavior by applying retention and engagement frameworks, similar to the ones that Spotify uses to measure its own success, against my own listening data. For starters, I’ll do a high-level exploration of this dataset by running through a general survey of some of the popular analytic patterns in product analytics.</p>
+<div id="previewing-the-data" class="section level4">
+<h4>Previewing the Data</h4>
+Randomly sampling 10 rows of <code>StreamingHistory</code><br />
+
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+endTime
+</th>
+<th style="text-align:left;">
+artistName
+</th>
+<th style="text-align:left;">
+trackName
+</th>
+<th style="text-align:right;">
+msPlayed
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2020-04-25 04:45:00
+</td>
+<td style="text-align:left;">
+Spencer Brown
+</td>
+<td style="text-align:left;">
+Love &amp; Pain
+</td>
+<td style="text-align:right;">
+43083
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-01-14 00:33:00
+</td>
+<td style="text-align:left;">
+The Head and the Heart
+</td>
+<td style="text-align:left;">
+Down in the Valley
+</td>
+<td style="text-align:right;">
+303653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-04-04 01:10:00
+</td>
+<td style="text-align:left;">
+Matt Fax
+</td>
+<td style="text-align:left;">
+Set Your Sails (ABGT374)
+</td>
+<td style="text-align:right;">
+298064
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-12-02 20:26:00
+</td>
+<td style="text-align:left;">
+deadmau5
+</td>
+<td style="text-align:left;">
+Monophobia
+</td>
+<td style="text-align:right;">
+214670
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-20 18:34:00
+</td>
+<td style="text-align:left;">
+Willie Nelson
+</td>
+<td style="text-align:left;">
+Come On Back Jesus
+</td>
+<td style="text-align:right;">
+127621
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-05-29 19:28:00
+</td>
+<td style="text-align:left;">
+The Daily
+</td>
+<td style="text-align:left;">
+What Actually Happened to New York’s Taxi Drivers
+</td>
+<td style="text-align:right;">
+1736956
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-01-25 00:46:00
+</td>
+<td style="text-align:left;">
+Dennis Sheperd
+</td>
+<td style="text-align:left;">
+Memoria
+</td>
+<td style="text-align:right;">
+230769
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-17 00:35:00
+</td>
+<td style="text-align:left;">
+Kygo
+</td>
+<td style="text-align:left;">
+Think About You - Galantis Remix
+</td>
+<td style="text-align:right;">
+3634
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-02 01:54:00
+</td>
+<td style="text-align:left;">
+Louis The Child
+</td>
+<td style="text-align:left;">
+Save Me From Myself (with NoMBe &amp; Big Gigantic)
+</td>
+<td style="text-align:right;">
+211685
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-11-07 20:12:00
+</td>
+<td style="text-align:left;">
+Andrew Bayer
+</td>
+<td style="text-align:left;">
+Immortal Lover - In My Next Life Mix - Edit
+</td>
+<td style="text-align:right;">
+221719
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="examining-the-timeframe" class="section level3">
+<h3>Examining the timeframe</h3>
+<p><img src="/post/2020-08-26-product-analytics-on-my-own-spotify-usage/figure-html/timeframe_graph-1.png" width="90%" /></p>
+<p>The dataset includes almost two years of continuous data, from 2018-11-01 through 2020-08-23 10:40:00.</p>
+<p>To put the <code>msPlayed</code> data into an easier frame of reference, I’m adding fields that convert the data into minutes and hours: <code>mins_streamed</code> and <code>hours_streamed</code>.</p>
+</div>
+<div id="top-10-artists-by-streams-with-hours-played" class="section level3">
+<h3>Top 10 Artists by Streams, with hours played</h3>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+artistName
+</th>
+<th style="text-align:right;">
+streams
+</th>
+<th style="text-align:left;">
+% of streams
+</th>
+<th style="text-align:right;">
+total_hours
+</th>
+<th style="text-align:left;">
+% of hours
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Above &amp; Beyond
+</td>
+<td style="text-align:right;">
+1203
+</td>
+<td style="text-align:left;">
+4%
+</td>
+<td style="text-align:right;">
+62.4
+</td>
+<td style="text-align:left;">
+3%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lane 8
+</td>
+<td style="text-align:right;">
+845
+</td>
+<td style="text-align:left;">
+3%
+</td>
+<td style="text-align:right;">
+62.6
+</td>
+<td style="text-align:left;">
+3%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Andrew Bayer
+</td>
+<td style="text-align:right;">
+813
+</td>
+<td style="text-align:left;">
+3%
+</td>
+<td style="text-align:right;">
+60.2
+</td>
+<td style="text-align:left;">
+3%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shakey Graves
+</td>
+<td style="text-align:right;">
+747
+</td>
+<td style="text-align:left;">
+3%
+</td>
+<td style="text-align:right;">
+40.3
+</td>
+<td style="text-align:left;">
+2%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ilan Bluestone
+</td>
+<td style="text-align:right;">
+399
+</td>
+<td style="text-align:left;">
+1%
+</td>
+<td style="text-align:right;">
+24.6
+</td>
+<td style="text-align:left;">
+1%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RÜFÜS DU SOL
+</td>
+<td style="text-align:right;">
+373
+</td>
+<td style="text-align:left;">
+1%
+</td>
+<td style="text-align:right;">
+23.3
+</td>
+<td style="text-align:left;">
+1%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Luttrell
+</td>
+<td style="text-align:right;">
+336
+</td>
+<td style="text-align:left;">
+1%
+</td>
+<td style="text-align:right;">
+24.4
+</td>
+<td style="text-align:left;">
+1%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gabriel &amp; Dresden
+</td>
+<td style="text-align:right;">
+333
+</td>
+<td style="text-align:left;">
+1%
+</td>
+<td style="text-align:right;">
+21.9
+</td>
+<td style="text-align:left;">
+1%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Spencer Brown
+</td>
+<td style="text-align:right;">
+333
+</td>
+<td style="text-align:left;">
+1%
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:left;">
+1%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rayland Baxter
+</td>
+<td style="text-align:right;">
+324
+</td>
+<td style="text-align:left;">
+1%
+</td>
+<td style="text-align:right;">
+17.2
+</td>
+<td style="text-align:left;">
+1%
+</td>
+</tr>
+</tbody>
+</table>
+<p>Out of the 3,022 distinct artists I’ve streamed over the last ~2 years, this top 10 accounts for 19% and 17% of all tracks streamed and hours streamed, respectively.</p>
+</div>
+<div id="engagement-framework" class="section level3">
+<h3>Engagement Framework</h3>
+<p>I’m curious to know how my engagement with Spotify has trended over time, particularly within artists that I may have discovered recently.</p>
+<div id="cumulative-engagement-over-time" class="section level4">
+<h4>Cumulative Engagement Over Time:</h4>
+<p>Plotting accumulating engagement over time, in terms of hours streamed, and days with at least one stream.</p>
+<p><img src="/post/2020-08-26-product-analytics-on-my-own-spotify-usage/figure-html/unnamed-chunk-3-1.png" width="50%" /><img src="/post/2020-08-26-product-analytics-on-my-own-spotify-usage/figure-html/unnamed-chunk-3-2.png" width="50%" /></p>
+<p>I’m not surprised to see that I use Spotify nearly daily. However, I think these plots potentially mask significant changes in my listening habits over the 2-year span, particulary amidst the transition from commuting to the office to working from home during the COVID-19 pandemic.</p>
+</div>
+</div>
+<div id="cohort-analysis" class="section level3">
+<h3>Cohort Analysis</h3>
+<p>Typical cohort analyses involve bucketing a group of users by a common trait, such as the month that they signed up for the product. Since I am the only user in the dataset, that wouldn’t be very interesting. Instead, I’m interested in analyzing cohorts of artists by the period that I first started listening to them.</p>
+<p><img src="/post/2020-08-26-product-analytics-on-my-own-spotify-usage/figure-html/with_first_listen-1.png" width="90%" /></p>
+<p>It’s useful to visualize the relative sizes of each cohort, to put the analysis into perspective. Since the data provided by Spotify only goes back as far as November 2018, it’s not entirely surprising that November 2018 is the largest cohort. In other words, artists that I had listened to prior to November 2018 will first appear in the first month that data is available, which would cause some bias in the November and December cohorts. For the sake of this analysis, and to understand how I <em>discover</em> new artists on Spotify, I’ll zoom in on the period between January 1, 2020 and August 23, 2020.</p>
+</div>
+<div id="engagement-cohorts" class="section level3">
+<h3>Engagement Cohorts</h3>
+<p>Using cohorts can uncover engagement insights that are difficult to understand in aggregate. This graph shows how my engagement with newly discovered artists has changed, based on the month that I first listened to those artists.</p>
+<p><img src="/post/2020-08-26-product-analytics-on-my-own-spotify-usage/figure-html/cohort_engagement-1.png" width="90%" /></p>
+<p>The main takeaways here are that I’ve discovered and listened to newly discovered artists in recent months to a much greater extent than artists I discovered earlier in 2020. For example, the separation between June/July and most of the other cohorts indicates that I listned to 2-3x as much of the newly discovered artists in my first month than other cohorts, and in the case of the June cohort, steadily increased engagement in the following two months.</p>
+<p>As it turns out, this was the month I discovered the <a href="https://open.spotify.com/show/1TFCQbI94uvSlSV6Vi0zve">Son of a Hitman</a> podcast, which represents 8 of the 26 hours streamed in Month 0.</p>
+</div>
+<div id="retention-framework" class="section level3">
+<h3>Retention Framework</h3>
+<p>Many companies now monitor user retention as an indicator of how much value their users are receiving. There are <a href="https://mixpanel.com/topics/what-is-retention-analysis/">countless</a> <a href="https://amplitude.com/blog/2016/08/11/3-ways-measure-user-retention">blog posts</a> on the <a href="https://www.reforge.com/blog/retention-engagement-growth-silent-killer">topic</a>, and I’m <a href="https://andrewchen.co/retention-is-king/">slowly</a> <a href="https://www.lennyrachitsky.com/p/what-is-good-retention-issue-29">reading</a> <a href="https://caseyaccidental.com/what-is-good-retention">every one</a>.</p>
+<p>Some companies, particularly in the media industry, apply similar analyses to evaluate the relative performance of their content inventory. For example, Hulu might measure same-show retention to understand how many users who watched the first episode of the Hulu Original Series <em>High Fidelity</em> returned to watch the next episode, or even <a href="https://variety.com/2020/tv/news/zoe-kravitz-high-fidelity-hulu-diversity-1234729635/">the next season</a>.</p>
+<p>I’m curious to apply the same thinking to my Spotify usage data, in the form of Same-Artist Retention.</p>
+<p><img src="/post/2020-08-26-product-analytics-on-my-own-spotify-usage/figure-html/month_arist_retention-1.png" width="90%" /></p>
+<p>This graph shows that I tend to continue listening to 10-25% of artists beyond my first month of streaming them (and stop listening to the other 75-90%). The February 2020 cohort had the highest 1-month retention, with 25% of artists streamed in the next month, while it seems like the March and April cohorts had stronger retention rates by months 3 and 4.</p>
+This is a summary of Month 3 same-artist retention by first-month cohort:
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+First Listen Month
+</th>
+<th style="text-align:right;">
+Artists Streamed
+</th>
+<th style="text-align:right;">
+Total Artists in Cohort
+</th>
+<th style="text-align:left;">
+M3 Retention
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2020-01-01
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+144
+</td>
+<td style="text-align:left;">
+6.25%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-02-01
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:left;">
+8.70%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-03-01
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+131
+</td>
+<td style="text-align:left;">
+15.27%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-04-01
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:left;">
+9.28%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-05-01
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+145
+</td>
+<td style="text-align:left;">
+7.59%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-06-01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+286
+</td>
+<td style="text-align:left;">
+0.35%
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="making-the-analytics-worth-it" class="section level3">
+<h3>Making the Analytics Worth It…</h3>
+<div id="for-spotify" class="section level4">
+<h4>… for Spotify</h4>
+<p>These kind of analyses often reveal amusing tidbits, but are most powerful when they improve decision-making.</p>
+<p>One of the strategies that Spotify uses to improve retention is to deliver fresh content (i.e., notifying users about for newly released music, automatically curated playlists, etc.)</p>
+<p>To optimize engagement, which in Spotify’s case means increasing amount of streaming time per session, they need to get users to listen to more, or longer tracks. I don’t know the ins-and-outs of today’s music industry, but I imagine Spotify pays a fortune in licensing and royalties to artists and record labels. The amount of royalty fees incurred has even caused some of Spotify’s competitors <a href="https://blog.8tracks.com/2019/12/26/to-everything-there-is-a-season/">to shut down</a>.</p>
+<p>With both of these things in mind, it makes a lot of sense why Spotify has made several enormous acquisitions in the Podcasting space. By nature, fans of Podcasts will be retained each time they want to listen to a newly released episode. Podcasts are also much longer in duration than music tracks.</p>
+</div>
+<div id="for-me" class="section level4">
+<h4>… for Me</h4>
+<p>Before looking at this data, I had no doubt that I’m getting my money’s worth from my Spotify subscription. I also can’t think of any majorly inefficient aspects of my Spotify experience to improve using his data. Most of the actual decisions when using Spotify (i.e., what to listen to) are already fairly automated within the platform. In the future, it might be interesting to integrate information from my saved playlists, and use the engagement data to improve them.</p>
+</div>
+</div>
+
+    </div>
+
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/segoldma" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/segoldma" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2021 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Seth Goldman
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

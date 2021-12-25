@@ -1,22 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Football on Seth dot cool</title>
-    <link>/tags/football/</link>
+    <link>https://seth.cool/tags/football/</link>
     <description>Recent content in Football on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 17 Aug 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/football/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 17 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://seth.cool/tags/football/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using an API to get College Football Data</title>
-      <link>/2019/08/17/using-an-api-to-get-college-football-data/</link>
+      <link>https://seth.cool/post/2019-08-17-using-an-api-to-get-college-football-data/using-an-api-to-get-college-football-data/</link>
       <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>/2019/08/17/using-an-api-to-get-college-football-data/</guid>
+      <guid>https://seth.cool/post/2019-08-17-using-an-api-to-get-college-football-data/using-an-api-to-get-college-football-data/</guid>
       <description>As I’ve started to interact with more web data at work, I’ve felt the need to get more familiar with third-party APIs. Since the college football season kicks off next weekend, I’m writing this post as I experiment with the (seemingly) simple CollegeFootballData.com API for the first time.
 The CollegeFootballData.com website has a nice interface for running reports on teams, games, drives, plays, recruiting, and more. However, some of these datasets, like plays, are very granular, which means that pulling out a full season’s worth of plays would require exporting one week of data at a time, and mashing them together in another tool.</description>
     </item>

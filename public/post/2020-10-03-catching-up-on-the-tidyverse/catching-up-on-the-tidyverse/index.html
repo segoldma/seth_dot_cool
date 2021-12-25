@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Catching up on the Tidyverse | Seth dot cool</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="When I first started learning R a few years ago, I focused on picking up the fundamentals of Base R, as well as the Tidyverse set of packages, concurrently. Early on, I made a point of writing as much of my code within the Tidyverse framework as possible, favoring the readability and supportive online community.
+More recently, I’ve realized that I haven’t kept up with many of the enhancements that the Tidyverse and RStudio team have released.">
+<meta name="generator" content="Hugo 0.91.2" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Catching up on the Tidyverse</h1>
+
+    <div class="tip">
+        <time datetime="2020-10-03 00:00:00 &#43;0000 UTC">Oct 3, 2020</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1673 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          8 minute read
+        </span>
+    </div>
+
+    
+    
+        
+
+    
+
+
+    <div class="content">
+      
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<p>When I first started learning R a few years ago, I focused on picking up the fundamentals of Base R, as well as the <a href="https://tidyverse.org">Tidyverse</a> set of packages, concurrently. Early on, I made a point of writing as much of my code within the Tidyverse framework as possible, favoring the readability and supportive online community.</p>
+<p>More recently, I’ve realized that I haven’t kept up with many of the enhancements that the Tidyverse and RStudio team have released. The two types of functionality I’d like to catch up on via this post are <code>tidyselect</code> and dplyr’s <code>across()</code>.</p>
+<div id="tidyselect" class="section level2">
+<h2>Tidyselect</h2>
+<p>Tidy selection refers to the the tidy evaluation method of choosing variables, and is used in functions like <code>select()</code>, <code>rename()</code>, <code>pull()</code>, and <code>across()</code>. There’s a great primer on <em>tidy evaluation</em> in the <a href="https://dplyr.tidyverse.org/articles/programming.html"><code>vignette("programming")</code></a>.</p>
+<p>Many functions that use tidy selection will include a <code>&lt;tidy-select&gt;</code> parameter, which means that inputs must be provided in the <strong>tidyselect specification</strong>.</p>
+<p>Using the <code>dplyr</code>’s <a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html"><code>tidy-select reference</code></a>, I’ll test some of this functionality on <code>dplyr</code>’s built-in <em>storms</em> dataset.</p>
+<div id="the-storms-dataset" class="section level5">
+<h5>The Storms Dataset</h5>
+<p>Sample of 5 rows:</p>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+month
+</th>
+<th style="text-align:right;">
+day
+</th>
+<th style="text-align:right;">
+hour
+</th>
+<th style="text-align:right;">
+lat
+</th>
+<th style="text-align:right;">
+long
+</th>
+<th style="text-align:left;">
+status
+</th>
+<th style="text-align:left;">
+category
+</th>
+<th style="text-align:right;">
+wind
+</th>
+<th style="text-align:right;">
+pressure
+</th>
+<th style="text-align:right;">
+ts_diameter
+</th>
+<th style="text-align:right;">
+hu_diameter
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Emily
+</td>
+<td style="text-align:right;">
+1993
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+31.8
+</td>
+<td style="text-align:right;">
+-71.4
+</td>
+<td style="text-align:left;">
+hurricane
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+975
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Katia
+</td>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+38.5
+</td>
+<td style="text-align:right;">
+-67.1
+</td>
+<td style="text-align:left;">
+hurricane
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+961
+</td>
+<td style="text-align:right;">
+437.2964
+</td>
+<td style="text-align:right;">
+120.8319
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Debby
+</td>
+<td style="text-align:right;">
+2006
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+18.4
+</td>
+<td style="text-align:right;">
+-33.9
+</td>
+<td style="text-align:left;">
+tropical storm
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+80.5546
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Maria
+</td>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+13.2
+</td>
+<td style="text-align:right;">
+-52.1
+</td>
+<td style="text-align:left;">
+tropical storm
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+1004
+</td>
+<td style="text-align:right;">
+155.3553
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Danny
+</td>
+<td style="text-align:right;">
+1991
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+10.4
+</td>
+<td style="text-align:right;">
+-25.8
+</td>
+<td style="text-align:left;">
+tropical depression
+</td>
+<td style="text-align:left;">
+-1
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+1010
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="selection-helpers" class="section level3">
+<h3>Selection Helpers</h3>
+</div>
+<div id="everything" class="section level3">
+<h3><code>everything()</code></h3>
+<p>Select all variables.</p>
+<pre class="r"><code>storm_sample %&gt;% 
+  select(everything()) </code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+month
+</th>
+<th style="text-align:right;">
+day
+</th>
+<th style="text-align:right;">
+hour
+</th>
+<th style="text-align:right;">
+lat
+</th>
+<th style="text-align:right;">
+long
+</th>
+<th style="text-align:left;">
+status
+</th>
+<th style="text-align:left;">
+category
+</th>
+<th style="text-align:right;">
+wind
+</th>
+<th style="text-align:right;">
+pressure
+</th>
+<th style="text-align:right;">
+ts_diameter
+</th>
+<th style="text-align:right;">
+hu_diameter
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Emily
+</td>
+<td style="text-align:right;">
+1993
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+31.8
+</td>
+<td style="text-align:right;">
+-71.4
+</td>
+<td style="text-align:left;">
+hurricane
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+975
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Katia
+</td>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+38.5
+</td>
+<td style="text-align:right;">
+-67.1
+</td>
+<td style="text-align:left;">
+hurricane
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+961
+</td>
+<td style="text-align:right;">
+437.2964
+</td>
+<td style="text-align:right;">
+120.8319
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Debby
+</td>
+<td style="text-align:right;">
+2006
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+18.4
+</td>
+<td style="text-align:right;">
+-33.9
+</td>
+<td style="text-align:left;">
+tropical storm
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+80.5546
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Maria
+</td>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+13.2
+</td>
+<td style="text-align:right;">
+-52.1
+</td>
+<td style="text-align:left;">
+tropical storm
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+1004
+</td>
+<td style="text-align:right;">
+155.3553
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Danny
+</td>
+<td style="text-align:right;">
+1991
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+10.4
+</td>
+<td style="text-align:right;">
+-25.8
+</td>
+<td style="text-align:left;">
+tropical depression
+</td>
+<td style="text-align:left;">
+-1
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+1010
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="last_col" class="section level3">
+<h3><code>last_col()</code></h3>
+<p>Select variable that matches the last column.</p>
+<pre class="r"><code>storm_sample %&gt;% 
+  select(last_col())</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:right;">
+hu_diameter
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+120.8319
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="using-last_col-with-an-offset" class="section level3">
+<h3>Using <code>last_col()</code>, with an offset</h3>
+<p>Select the last column, with an offset by position (i.e., the three positions from last column – the fourth from last).</p>
+<pre class="r"><code>storm_sample %&gt;% 
+  select(last_col(offset = 3))</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:right;">
+wind
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+75
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+75
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+45
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="selection-with-pattern-matching" class="section level2">
+<h2>Selection with Pattern Matching</h2>
+<div id="starts_with" class="section level3">
+<h3>starts_with()</h3>
+<p>Select variables that start with a given prefix.</p>
+<pre class="r"><code>storm_sample %&gt;% 
+  select(starts_with(&quot;l&quot;))</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:right;">
+lat
+</th>
+<th style="text-align:right;">
+long
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+31.8
+</td>
+<td style="text-align:right;">
+-71.4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+38.5
+</td>
+<td style="text-align:right;">
+-67.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+18.4
+</td>
+<td style="text-align:right;">
+-33.9
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13.2
+</td>
+<td style="text-align:right;">
+-52.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10.4
+</td>
+<td style="text-align:right;">
+-25.8
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="ends_with" class="section level3">
+<h3>ends_with()</h3>
+<p>Select variables that end with a given suffix.</p>
+<pre class="r"><code>storm_sample %&gt;% 
+  select(ends_with(&quot;r&quot;))</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+hour
+</th>
+<th style="text-align:right;">
+ts_diameter
+</th>
+<th style="text-align:right;">
+hu_diameter
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1993
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+437.2964
+</td>
+<td style="text-align:right;">
+120.8319
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2006
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+80.5546
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+155.3553
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1991
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="contains" class="section level3">
+<h3>contains()</h3>
+<p>Select varibles that contain a literal string.</p>
+<pre class="r"><code>storm_sample %&gt;% 
+  select(contains(&quot;sure&quot;))</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:right;">
+pressure
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+975
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+961
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1004
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1010
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="matches" class="section level3">
+<h3>matches()</h3>
+<p>Select variables that match a regular expression.</p>
+<pre class="r"><code>storm_sample %&gt;% 
+  select(matches(&quot;[aeiou]&quot;))</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+month
+</th>
+<th style="text-align:right;">
+day
+</th>
+<th style="text-align:right;">
+hour
+</th>
+<th style="text-align:right;">
+lat
+</th>
+<th style="text-align:right;">
+long
+</th>
+<th style="text-align:left;">
+status
+</th>
+<th style="text-align:left;">
+category
+</th>
+<th style="text-align:right;">
+wind
+</th>
+<th style="text-align:right;">
+pressure
+</th>
+<th style="text-align:right;">
+ts_diameter
+</th>
+<th style="text-align:right;">
+hu_diameter
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Emily
+</td>
+<td style="text-align:right;">
+1993
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+31.8
+</td>
+<td style="text-align:right;">
+-71.4
+</td>
+<td style="text-align:left;">
+hurricane
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+975
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Katia
+</td>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+38.5
+</td>
+<td style="text-align:right;">
+-67.1
+</td>
+<td style="text-align:left;">
+hurricane
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+961
+</td>
+<td style="text-align:right;">
+437.2964
+</td>
+<td style="text-align:right;">
+120.8319
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Debby
+</td>
+<td style="text-align:right;">
+2006
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+18.4
+</td>
+<td style="text-align:right;">
+-33.9
+</td>
+<td style="text-align:left;">
+tropical storm
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+80.5546
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Maria
+</td>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+13.2
+</td>
+<td style="text-align:right;">
+-52.1
+</td>
+<td style="text-align:left;">
+tropical storm
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+1004
+</td>
+<td style="text-align:right;">
+155.3553
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Danny
+</td>
+<td style="text-align:right;">
+1991
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+10.4
+</td>
+<td style="text-align:right;">
+-25.8
+</td>
+<td style="text-align:left;">
+tropical depression
+</td>
+<td style="text-align:left;">
+-1
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+1010
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="num_range" class="section level3">
+<h3>num_range()</h3>
+<p>Select variables that match a numerical range, like x01, x02, x03.</p>
+<pre class="r"><code>storm_sample %&gt;% 
+  mutate(&quot;some_string1&quot; = 1,
+         &quot;some_string2&quot; = 0) %&gt;% 
+  select(num_range(prefix = &quot;some_string&quot;,
+                   range = 1:5))</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:right;">
+some_string1
+</th>
+<th style="text-align:right;">
+some_string2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="selection-using-character-vectors" class="section level2">
+<h2>Selection using character vectors</h2>
+<div id="all_of" class="section level3">
+<h3>all_of()</h3>
+<p>Matches variable names in a character vector. All names must be present, otherwise an out-of-bounds error is thrown.</p>
+<pre class="r"><code># Assign a vector of arbitrary variables to vrbls
+vrbls &lt;- c(&quot;year&quot;,&quot;wind&quot;,&quot;status&quot;)
+
+storm_sample %&gt;% 
+  select(all_of(vrbls))</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+wind
+</th>
+<th style="text-align:left;">
+status
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1993
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:left;">
+hurricane
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:left;">
+hurricane
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2006
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:left;">
+tropical storm
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:left;">
+tropical storm
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1991
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:left;">
+tropical depression
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="any_of" class="section level3">
+<h3>any_of()</h3>
+<p>Same as all_of(), except that no error is thrown for names that don’t exist.</p>
+<pre class="r"><code># Add a variable outside the scope of the dataset
+vrbls2 &lt;- c(vrbls, &quot;dog&quot;)
+
+storm_sample %&gt;% 
+  select(any_of(vrbls2))</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+wind
+</th>
+<th style="text-align:left;">
+status
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1993
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:left;">
+hurricane
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:left;">
+hurricane
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2006
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:left;">
+tropical storm
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:left;">
+tropical storm
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1991
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:left;">
+tropical depression
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="selection-of-variables-within-a-function" class="section level2">
+<h2>Selection of variables within a function</h2>
+<div id="where" class="section level3">
+<h3>where()</h3>
+<p>Applies a function to all variables and selects those for which the function returns TRUE.</p>
+<p>Common use case: selecting columns of a specific data type</p>
+<pre class="r"><code>storm_sample %&gt;% 
+  select(where(is.factor))</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:left;">
+category
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+-1
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="embracing-i.e.-var" class="section level2">
+<h2>Embracing (i.e., {{var}})</h2>
+<p>Using <code>{{ double curly brace }}</code> syntax (<a href="https://www.tidyverse.org/blog/2019/06/rlang-0-4-0/#a-simpler-interpolation-pattern-with">pronounced ‘curly curly’</a>) allows users to provide a variable that can be passed into a function that uses data masking or tidy selection. This helps make functions much more extensible to many types of inputs.</p>
+<pre class="r"><code>calculateMean &lt;- function(data, variable){
+  
+  data %&gt;% 
+    summarize(&quot;mean&quot; = mean({{variable}}))
+  
+}
+
+calculateMean(storm_sample, pressure)</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##    mean
+##   &lt;dbl&gt;
+## 1   990</code></pre>
+<p>This example allows a user to pass an entire dataframe into a function, and randomly sample a number of rows, as provided by the user.</p>
+<pre class="r"><code>mySample &lt;- function(df, n_rows){
+  
+  {{df}} %&gt;% 
+    sample_n(size = {{n_rows}})
+}
+
+mySample(storms, 3)</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+month
+</th>
+<th style="text-align:right;">
+day
+</th>
+<th style="text-align:right;">
+hour
+</th>
+<th style="text-align:right;">
+lat
+</th>
+<th style="text-align:right;">
+long
+</th>
+<th style="text-align:left;">
+status
+</th>
+<th style="text-align:left;">
+category
+</th>
+<th style="text-align:right;">
+wind
+</th>
+<th style="text-align:right;">
+pressure
+</th>
+<th style="text-align:right;">
+ts_diameter
+</th>
+<th style="text-align:right;">
+hu_diameter
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Georges
+</td>
+<td style="text-align:right;">
+1980
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+16.8
+</td>
+<td style="text-align:right;">
+-42.1
+</td>
+<td style="text-align:left;">
+tropical depression
+</td>
+<td style="text-align:left;">
+-1
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+1010
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iris
+</td>
+<td style="text-align:right;">
+1995
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+23.8
+</td>
+<td style="text-align:right;">
+-61.8
+</td>
+<td style="text-align:left;">
+hurricane
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+977
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Emily
+</td>
+<td style="text-align:right;">
+1987
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+-72.0
+</td>
+<td style="text-align:left;">
+tropical storm
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+1002
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="across" class="section level1">
+<h1>Across</h1>
+<p>According to the <a href="https://dplyr.tidyverse.org/reference/across.html">dplyr documentation</a>, <code>across()</code> provides an easy interface to apply the same transformation to multiple columns.</p>
+<div id="apply-a-calculation-function-to-multiple-columns" class="section level3">
+<h3>Apply a calculation function to multiple columns</h3>
+<p>Calculating the mean of all Integer columns, grouping by the Storm’s category:</p>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:left;">
+category
+</th>
+<th style="text-align:right;">
+day
+</th>
+<th style="text-align:right;">
+wind
+</th>
+<th style="text-align:right;">
+pressure
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+-1
+</td>
+<td style="text-align:right;">
+15.95953
+</td>
+<td style="text-align:right;">
+27.26916
+</td>
+<td style="text-align:right;">
+1007.6259
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+15.71553
+</td>
+<td style="text-align:right;">
+45.80037
+</td>
+<td style="text-align:right;">
+999.3291
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+16.22433
+</td>
+<td style="text-align:right;">
+70.91098
+</td>
+<td style="text-align:right;">
+981.5181
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+16.23089
+</td>
+<td style="text-align:right;">
+89.43471
+</td>
+<td style="text-align:right;">
+967.4729
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+15.55647
+</td>
+<td style="text-align:right;">
+104.64187
+</td>
+<td style="text-align:right;">
+953.5289
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:right;">
+14.39655
+</td>
+<td style="text-align:right;">
+121.55172
+</td>
+<td style="text-align:right;">
+939.5345
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:right;">
+18.00000
+</td>
+<td style="text-align:right;">
+145.07353
+</td>
+<td style="text-align:right;">
+916.4265
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="transform-all-columns-of-a-certain-datatype-to-another-datatype" class="section level3">
+<h3>Transform all columns of a certain datatype to another datatype</h3>
+<p>Coercing all <strong>factor</strong> columns to <strong>string</strong> datatypes:</p>
+<pre class="r"><code>storms %&gt;% 
+  mutate(across(is.factor,as.character)) %&gt;% 
+  glimpse()</code></pre>
+<pre><code>## Rows: 10,010
+## Columns: 13
+## $ name        &lt;chr&gt; &quot;Amy&quot;, &quot;Amy&quot;, &quot;Amy&quot;, &quot;Amy&quot;, &quot;Amy&quot;, &quot;Amy&quot;, &quot;Amy&quot;, &quot;Amy&quot;,...
+## $ year        &lt;dbl&gt; 1975, 1975, 1975, 1975, 1975, 1975, 1975, 1975, 1975, 1...
+## $ month       &lt;dbl&gt; 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7...
+## $ day         &lt;int&gt; 27, 27, 27, 27, 28, 28, 28, 28, 29, 29, 29, 29, 30, 30,...
+## $ hour        &lt;dbl&gt; 0, 6, 12, 18, 0, 6, 12, 18, 0, 6, 12, 18, 0, 6, 12, 18,...
+## $ lat         &lt;dbl&gt; 27.5, 28.5, 29.5, 30.5, 31.5, 32.4, 33.3, 34.0, 34.4, 3...
+## $ long        &lt;dbl&gt; -79.0, -79.0, -79.0, -79.0, -78.8, -78.7, -78.0, -77.0,...
+## $ status      &lt;chr&gt; &quot;tropical depression&quot;, &quot;tropical depression&quot;, &quot;tropical...
+## $ category    &lt;chr&gt; &quot;-1&quot;, &quot;-1&quot;, &quot;-1&quot;, &quot;-1&quot;, &quot;-1&quot;, &quot;-1&quot;, &quot;-1&quot;, &quot;-1&quot;, &quot;0&quot;, &quot;0...
+## $ wind        &lt;int&gt; 25, 25, 25, 25, 25, 25, 25, 30, 35, 40, 45, 50, 50, 55,...
+## $ pressure    &lt;int&gt; 1013, 1013, 1013, 1013, 1012, 1012, 1011, 1006, 1004, 1...
+## $ ts_diameter &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ hu_diameter &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...</code></pre>
+</div>
+<div id="running-multiple-named-functions-on-multiple-columns" class="section level3">
+<h3>Running multiple named functions on multiple columns:</h3>
+<p>Calculating the minimum, maximum, standard deviation, and mean of columns that start with the letter “L.”</p>
+<pre class="r"><code>storms %&gt;% 
+  group_by(category) %&gt;% 
+  summarize(across(starts_with(&quot;l&quot;), list(min_val = min,
+                                         max_val = max,
+                                         std_dev = sd,
+                                         avg = mean)))</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:left;">
+category
+</th>
+<th style="text-align:right;">
+lat_min_val
+</th>
+<th style="text-align:right;">
+lat_max_val
+</th>
+<th style="text-align:right;">
+lat_std_dev
+</th>
+<th style="text-align:right;">
+lat_avg
+</th>
+<th style="text-align:right;">
+long_min_val
+</th>
+<th style="text-align:right;">
+long_max_val
+</th>
+<th style="text-align:right;">
+long_std_dev
+</th>
+<th style="text-align:right;">
+long_avg
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+-1
+</td>
+<td style="text-align:right;">
+7.2
+</td>
+<td style="text-align:right;">
+46.5
+</td>
+<td style="text-align:right;">
+8.186093
+</td>
+<td style="text-align:right;">
+22.59057
+</td>
+<td style="text-align:right;">
+-109.3
+</td>
+<td style="text-align:right;">
+-6.0
+</td>
+<td style="text-align:right;">
+22.91269
+</td>
+<td style="text-align:right;">
+-66.72035
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+8.9
+</td>
+<td style="text-align:right;">
+51.9
+</td>
+<td style="text-align:right;">
+8.684703
+</td>
+<td style="text-align:right;">
+24.79042
+</td>
+<td style="text-align:right;">
+-102.6
+</td>
+<td style="text-align:right;">
+-12.8
+</td>
+<td style="text-align:right;">
+19.33437
+</td>
+<td style="text-align:right;">
+-63.21717
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+9.5
+</td>
+<td style="text-align:right;">
+50.8
+</td>
+<td style="text-align:right;">
+8.647063
+</td>
+<td style="text-align:right;">
+28.31751
+</td>
+<td style="text-align:right;">
+-99.2
+</td>
+<td style="text-align:right;">
+-18.5
+</td>
+<td style="text-align:right;">
+17.02850
+</td>
+<td style="text-align:right;">
+-61.39223
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+9.8
+</td>
+<td style="text-align:right;">
+45.3
+</td>
+<td style="text-align:right;">
+7.687820
+</td>
+<td style="text-align:right;">
+26.94252
+</td>
+<td style="text-align:right;">
+-97.8
+</td>
+<td style="text-align:right;">
+-30.6
+</td>
+<td style="text-align:right;">
+16.85885
+</td>
+<td style="text-align:right;">
+-63.10127
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+10.2
+</td>
+<td style="text-align:right;">
+43.5
+</td>
+<td style="text-align:right;">
+6.377100
+</td>
+<td style="text-align:right;">
+24.27906
+</td>
+<td style="text-align:right;">
+-97.8
+</td>
+<td style="text-align:right;">
+-31.4
+</td>
+<td style="text-align:right;">
+14.48734
+</td>
+<td style="text-align:right;">
+-67.95785
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:right;">
+10.6
+</td>
+<td style="text-align:right;">
+38.8
+</td>
+<td style="text-align:right;">
+4.483112
+</td>
+<td style="text-align:right;">
+20.50259
+</td>
+<td style="text-align:right;">
+-98.0
+</td>
+<td style="text-align:right;">
+-32.2
+</td>
+<td style="text-align:right;">
+13.38570
+</td>
+<td style="text-align:right;">
+-67.89425
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:right;">
+13.7
+</td>
+<td style="text-align:right;">
+27.2
+</td>
+<td style="text-align:right;">
+3.822346
+</td>
+<td style="text-align:right;">
+19.73382
+</td>
+<td style="text-align:right;">
+-97.1
+</td>
+<td style="text-align:right;">
+-54.6
+</td>
+<td style="text-align:right;">
+10.35117
+</td>
+<td style="text-align:right;">
+-78.14559
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="row-wise-calculations-with-c_across" class="section level3">
+<h3>Row-wise calculations with <strong>c_across()</strong></h3>
+<p>Though uncommon, there may be instances where we need to do calculations on a row-by-row basis. <code>dplyr</code> provides a variation of <code>across()</code> to accomplish this: <code>c_across()</code>.</p>
+<p>Starting with a simple transform of the <code>storms</code> dataset, where each row will be a year, each column will be the category of storm, and each value represents the average wind speed for the corresponding year and category. The transformed dataset will be called <code>windy_years</code>.</p>
+<p>For the sake of example, calculate a somewhat meaningless row-wise mean on each row of this table – assigning the value to <code>avg</code>.</p>
+<pre class="r"><code>windy_years %&gt;% 
+  sample_n(10) %&gt;% # sample 10 rows
+  rowwise() %&gt;% 
+  mutate(&quot;avg&quot; = mean(
+              c_across(everything()),
+              na.rm = TRUE)
+         ) %&gt;% 
+  kableExtra::kbl() %&gt;% 
+  kable_paper(&quot;hover&quot;, full_width = F)</code></pre>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+-1
+</th>
+<th style="text-align:right;">
+0
+</th>
+<th style="text-align:right;">
+1
+</th>
+<th style="text-align:right;">
+2
+</th>
+<th style="text-align:right;">
+3
+</th>
+<th style="text-align:right;">
+4
+</th>
+<th style="text-align:right;">
+5
+</th>
+<th style="text-align:right;">
+avg
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1997
+</td>
+<td style="text-align:right;">
+25.93023
+</td>
+<td style="text-align:right;">
+43.28571
+</td>
+<td style="text-align:right;">
+68.75000
+</td>
+<td style="text-align:right;">
+92.50000
+</td>
+<td style="text-align:right;">
+106.6667
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+389.0221
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1994
+</td>
+<td style="text-align:right;">
+24.86111
+</td>
+<td style="text-align:right;">
+43.89535
+</td>
+<td style="text-align:right;">
+68.33333
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+532.7724
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1979
+</td>
+<td style="text-align:right;">
+25.03788
+</td>
+<td style="text-align:right;">
+45.12048
+</td>
+<td style="text-align:right;">
+70.90000
+</td>
+<td style="text-align:right;">
+87.30769
+</td>
+<td style="text-align:right;">
+103.3333
+</td>
+<td style="text-align:right;">
+122.3077
+</td>
+<td style="text-align:right;">
+145.7143
+</td>
+<td style="text-align:right;">
+322.3402
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1977
+</td>
+<td style="text-align:right;">
+25.93750
+</td>
+<td style="text-align:right;">
+45.00000
+</td>
+<td style="text-align:right;">
+70.35714
+</td>
+<td style="text-align:right;">
+87.50000
+</td>
+<td style="text-align:right;">
+110.0000
+</td>
+<td style="text-align:right;">
+120.0000
+</td>
+<td style="text-align:right;">
+145.0000
+</td>
+<td style="text-align:right;">
+322.5993
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1981
+</td>
+<td style="text-align:right;">
+25.86957
+</td>
+<td style="text-align:right;">
+45.96154
+</td>
+<td style="text-align:right;">
+71.62162
+</td>
+<td style="text-align:right;">
+89.11765
+</td>
+<td style="text-align:right;">
+103.1250
+</td>
+<td style="text-align:right;">
+115.0000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+347.3851
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:right;">
+28.12500
+</td>
+<td style="text-align:right;">
+48.33333
+</td>
+<td style="text-align:right;">
+70.41667
+</td>
+<td style="text-align:right;">
+89.56522
+</td>
+<td style="text-align:right;">
+100.0000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+391.4067
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1992
+</td>
+<td style="text-align:right;">
+27.85714
+</td>
+<td style="text-align:right;">
+46.32353
+</td>
+<td style="text-align:right;">
+71.47059
+</td>
+<td style="text-align:right;">
+89.60000
+</td>
+<td style="text-align:right;">
+105.0000
+</td>
+<td style="text-align:right;">
+122.0833
+</td>
+<td style="text-align:right;">
+145.0000
+</td>
+<td style="text-align:right;">
+324.9168
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2001
+</td>
+<td style="text-align:right;">
+27.17593
+</td>
+<td style="text-align:right;">
+47.43671
+</td>
+<td style="text-align:right;">
+71.81159
+</td>
+<td style="text-align:right;">
+89.68750
+</td>
+<td style="text-align:right;">
+103.8889
+</td>
+<td style="text-align:right;">
+119.0000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+351.4287
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1993
+</td>
+<td style="text-align:right;">
+28.39623
+</td>
+<td style="text-align:right;">
+45.27778
+</td>
+<td style="text-align:right;">
+70.76923
+</td>
+<td style="text-align:right;">
+89.00000
+</td>
+<td style="text-align:right;">
+100.0000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+387.7405
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1990
+</td>
+<td style="text-align:right;">
+27.56637
+</td>
+<td style="text-align:right;">
+45.51020
+</td>
+<td style="text-align:right;">
+69.13333
+</td>
+<td style="text-align:right;">
+89.00000
+</td>
+<td style="text-align:right;">
+101.2500
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+387.0767
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="wrapping-up" class="section level2">
+<h2>Wrapping up</h2>
+<p>Though I expect to benefit from all of these enhancements, I think tidy selection will have the most immediate impact. Many of my analysis workflows involve transforming large datasets with many columns into easier-to-work-with tables with the columns that are relevant to my analysis. Tidy selection makes it possible to do this with limited hard-coding. I also expect to use across() in place of repetitive code where I calculate measures on multiple columns. Finally, I think I’ll be able to make many of my analysis scripts more concise, combining many existing functions into fewer generalized functions – all thanks to my new friend <code>{{ curly curly }}</code> syntax.</p>
+</div>
+</div>
+
+    </div>
+
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/segoldma" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/segoldma" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2021 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Seth Goldman
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

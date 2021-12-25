@@ -1,22 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Exploratory on Seth dot cool</title>
-    <link>/tags/exploratory/</link>
-    <description>Recent content in Exploratory on Seth dot cool</description>
+    <title>exploratory on Seth dot cool</title>
+    <link>https://seth.cool/tags/exploratory/</link>
+    <description>Recent content in exploratory on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Nov 2017 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/exploratory/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 01 Nov 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://seth.cool/tags/exploratory/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>2017 MLB Team Exploration: Mostly Injuries</title>
-      <link>/2017/11/01/2017-mlb-team-exploration-mostly-injuries/</link>
+      <link>https://seth.cool/post/2017-11-01-2017-mlb-team-exploration-mostly-injuries/2017-11-01-mlb-team-exploration-mostly-injuries/</link>
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2017/11/01/2017-mlb-team-exploration-mostly-injuries/</guid>
+      <guid>https://seth.cool/post/2017-11-01-2017-mlb-team-exploration-mostly-injuries/2017-11-01-mlb-team-exploration-mostly-injuries/</guid>
       <description>Although the Washington Nationals have crashed out of the MLB playoffs for the fourth time in four appearances since 2012, I’m not ready to put the 2017 season to bed. I downloaded acouple of datasets from the 2017 MLB Regular Season to play around with while practicing exploratory data analysis and To practice exploratory data analysis plotting with ggplot2:
 Team Batting (baseball reference)Team Pitching (baseball reference)Team Disabled List data (spotrac)I have a pretty superficial understanding of modern sabermetrics (i.</description>
     </item>
