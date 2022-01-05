@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>nfl on Seth dot cool</title>
-    <link>https://seth.cool/categories/nfl/</link>
+    <link>/categories/nfl/</link>
     <description>Recent content in nfl on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 20 Sep 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://seth.cool/categories/nfl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Sep 2018 00:00:00 +0000</lastBuildDate><atom:link href="/categories/nfl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using market valuations in an NFL Pick&#39;em Pool</title>
-      <link>https://seth.cool/post/2018-09-20-using-market-valuations-in-an-nfl-pick-em-pool/using-market-valuations-in-an-nfl-pick-em-pool/</link>
+      <link>/post/2018-09-20-using-market-valuations-in-an-nfl-pick-em-pool/using-market-valuations-in-an-nfl-pick-em-pool/</link>
       <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://seth.cool/post/2018-09-20-using-market-valuations-in-an-nfl-pick-em-pool/using-market-valuations-in-an-nfl-pick-em-pool/</guid>
+      <guid>/post/2018-09-20-using-market-valuations-in-an-nfl-pick-em-pool/using-market-valuations-in-an-nfl-pick-em-pool/</guid>
       <description>This Fall, I’m playing in an NFL Pick’em contest with some friends from college. Each week, I predict the outcome of every NFL game according to Yahoo’s point-spread. For example, during Week 1 when the Patriots hosted the Texans, Yahoo assigned the Texans a seven-point handicap. My prediction came down to whether the Patriots would beat the Texans by more than seven points, or whether I thought the Texans would lose by no more than seven points (or win outright).</description>
     </item>
     

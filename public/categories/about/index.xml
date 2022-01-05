@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>about on Seth dot cool</title>
-    <link>https://seth.cool/categories/about/</link>
+    <link>/categories/about/</link>
     <description>Recent content in about on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://seth.cool/categories/about/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/about/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Welcome to the least-cool dot-cool on the Internet</title>
-      <link>https://seth.cool/about/</link>
+      <link>/about/</link>
       <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://seth.cool/about/</guid>
+      <guid>/about/</guid>
       <description>I registered the seth.cool domain in 2016 with no project in mind – only the misguided assumptions that someone else would buy it, and that I’m cool. A couple years later, I decided to use my first-mover’s advantage to share data-related projects as I worked on them.
 At the time, data analysis was a relatively new interest of mine. While working on the customer support and renewals teams at Discovery Education, I noticed that when I wasn’t communicating with customers, I was spending the majority of my time working with pseudo-CRMs1 in Excel.</description>
     </item>

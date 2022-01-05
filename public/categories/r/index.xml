@@ -2,56 +2,56 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on Seth dot cool</title>
-    <link>https://seth.cool/categories/r/</link>
+    <link>/categories/r/</link>
     <description>Recent content in R on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://seth.cool/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Product Analytics on My Own Spotify Usage</title>
-      <link>https://seth.cool/post/2020-08-26-product-analytics-on-my-own-spotify-usage/exploring-my-own-spotify-usage/</link>
+      <link>/post/2020-08-26-product-analytics-on-my-own-spotify-usage/exploring-my-own-spotify-usage/</link>
       <pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://seth.cool/post/2020-08-26-product-analytics-on-my-own-spotify-usage/exploring-my-own-spotify-usage/</guid>
+      <guid>/post/2020-08-26-product-analytics-on-my-own-spotify-usage/exploring-my-own-spotify-usage/</guid>
       <description>Spotify does an incredible job of personalizing the user experience, using machine learning to curate daily playlists based on past listening habits, and surfacing new music recommendations via the Your Discover Weekly.
 Spotify’s CEO recently noted on an earnings call that their secret sauce is online experimentation – running tests on its ~300M users, and using the learnings to improve its products. Two of the ways that Spotify evaluates the effectiveness of their experiments are (1) measuring increased engagement (streaming for longer periods of time), and (2) increased user retention (users returning to use Spotify’s products in the future).</description>
     </item>
     
     <item>
       <title>Using an API to get College Football Data</title>
-      <link>https://seth.cool/post/2019-08-17-using-an-api-to-get-college-football-data/using-an-api-to-get-college-football-data/</link>
+      <link>/post/2019-08-17-using-an-api-to-get-college-football-data/using-an-api-to-get-college-football-data/</link>
       <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://seth.cool/post/2019-08-17-using-an-api-to-get-college-football-data/using-an-api-to-get-college-football-data/</guid>
+      <guid>/post/2019-08-17-using-an-api-to-get-college-football-data/using-an-api-to-get-college-football-data/</guid>
       <description>As I’ve started to interact with more web data at work, I’ve felt the need to get more familiar with third-party APIs. Since the college football season kicks off next weekend, I’m writing this post as I experiment with the (seemingly) simple CollegeFootballData.com API for the first time.
 The CollegeFootballData.com website has a nice interface for running reports on teams, games, drives, plays, recruiting, and more. However, some of these datasets, like plays, are very granular, which means that pulling out a full season’s worth of plays would require exporting one week of data at a time, and mashing them together in another tool.</description>
     </item>
     
     <item>
       <title>Three-pointers after offensive rebounds</title>
-      <link>https://seth.cool/post/2018-12-30-three-pointers-after-offensive-rebounds/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</link>
+      <link>/post/2018-12-30-three-pointers-after-offensive-rebounds/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://seth.cool/post/2018-12-30-three-pointers-after-offensive-rebounds/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</guid>
+      <guid>/post/2018-12-30-three-pointers-after-offensive-rebounds/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</guid>
       <description>During the Duke-Kentucky college basketball season opener, after one of twelve of Duke’s made three-point shots, Jay Bilas claimed that “the best time to shoot a three is following an offensive rebound.” I’ve heard other commentators say this before, and wondered if it’s actually true. This post walks through my investigation of that claim using play-by-play data from the 2017-18 men’s college basketball season.
 Preparing the dataMy play-by-play dataset includes 2.</description>
     </item>
     
     <item>
       <title>Using market valuations in an NFL Pick&#39;em Pool</title>
-      <link>https://seth.cool/post/2018-09-20-using-market-valuations-in-an-nfl-pick-em-pool/using-market-valuations-in-an-nfl-pick-em-pool/</link>
+      <link>/post/2018-09-20-using-market-valuations-in-an-nfl-pick-em-pool/using-market-valuations-in-an-nfl-pick-em-pool/</link>
       <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://seth.cool/post/2018-09-20-using-market-valuations-in-an-nfl-pick-em-pool/using-market-valuations-in-an-nfl-pick-em-pool/</guid>
+      <guid>/post/2018-09-20-using-market-valuations-in-an-nfl-pick-em-pool/using-market-valuations-in-an-nfl-pick-em-pool/</guid>
       <description>This Fall, I’m playing in an NFL Pick’em contest with some friends from college. Each week, I predict the outcome of every NFL game according to Yahoo’s point-spread. For example, during Week 1 when the Patriots hosted the Texans, Yahoo assigned the Texans a seven-point handicap. My prediction came down to whether the Patriots would beat the Texans by more than seven points, or whether I thought the Texans would lose by no more than seven points (or win outright).</description>
     </item>
     
     <item>
       <title>Height and NCAA Hoops</title>
-      <link>https://seth.cool/post/2017-12-21-height-and-ncaa-hoops/height-and-ncaa-hoops/</link>
+      <link>/post/2017-12-21-height-and-ncaa-hoops/height-and-ncaa-hoops/</link>
       <pubDate>Thu, 21 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://seth.cool/post/2017-12-21-height-and-ncaa-hoops/height-and-ncaa-hoops/</guid>
+      <guid>/post/2017-12-21-height-and-ncaa-hoops/height-and-ncaa-hoops/</guid>
       <description>I’m hellbent on winning a March Madness pool this year, and have been reading up on modern basketball analytics (i.e., KenPom, Dean Oliver, Sagarin, Lopez).
 In the process, I’ve played around with scraping data from various websites, to analyze in R.
 This is a quick exploration of player height according to 2017-18 NCAA D-I Men’s Basketball Rosters.
@@ -60,10 +60,10 @@ Average Height by TeamD-I teams tend to be around 6&#39;5&amp;quot; in average 
     
     <item>
       <title>Exploring Washington, D.C. Service Requests (2016)</title>
-      <link>https://seth.cool/post/2017-10-27-exploring-washington-d-c-service-requests/2017-10-27-exploring-washington-dc-service-requests/</link>
+      <link>/post/2017-10-27-exploring-washington-d-c-service-requests/2017-10-27-exploring-washington-dc-service-requests/</link>
       <pubDate>Fri, 27 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://seth.cool/post/2017-10-27-exploring-washington-d-c-service-requests/2017-10-27-exploring-washington-dc-service-requests/</guid>
+      <guid>/post/2017-10-27-exploring-washington-d-c-service-requests/2017-10-27-exploring-washington-dc-service-requests/</guid>
       <description>I’ve lived in Washington for about four years, but have lived in the D.C. metropolitan area my whole life. When looking for datasets to practice ggplot2 plotting, I came across Open Data DC, a catalog of datasets maintained by various city government agencies.
 I gravitated toward the Newly Updated or Added section, hoping to find a data that I haven’t read much about before. I decided on Service Request Data (i.</description>
     </item>
