@@ -107,7 +107,7 @@ For the first couple months, I leaned on my R experience to compensate for my la
 
 Once again, automating the boring stuff helped me unlock blocks of time to learn new skills, and work on more impactful projects.
 
-# Strategic Laziness and 20x Productivity Gains
+# Strategic Laziness and 30x Productivity Gains
 
 About nine months into my Data Manager role, I was asked to temporarily support the Research and Analytics team work through a massive backlog of customer-facing usage report requests, during a particularly busy renewal season. The process of generating usage reports at the time was a doozy: generating data visualizations in Microsoft PowerBI, which pulled data from a linked Excel file, which itself was refreshed by several SQL Server stored procedures, then copying the visualizations into slides and/or documents, then sending the output to the district's customer success rep. The start-to-finish process of generating a single report was extremely manual, and took about an hour.
 
@@ -137,7 +137,7 @@ I went back and forth with the stakeholder(s) to agree on a standardized format,
 
 So, why is this section called *Strategic Laziness?*
 
-This 3x productivity commitment was met with excitement, but was actually a pretty conservative estimate. The old process took me about an hour end-to-end, while the new process could generate a report in under three minutes⚡. As I started using the process, I ended up delivering between 25 and 40 reports a day: a 5-8x+ productivity gain. If I dedicated a whole day generating reports, I think I could have easily pumped out 100 reports: a 20x gain, but I never did this, and I think for good reason.
+This 3x productivity commitment was met with excitement, but was actually a pretty conservative estimate. The old process took me about an hour end-to-end, while the new process could generate a report in under three minutes⚡. As I started using the process, I ended up delivering between 25 and 40 reports a day: an 8-13x+ productivity gain. If I dedicated a whole day generating reports, I think I could have easily pumped out 100 reports: a 30x gain, but I never did this, and I think for good reason.
 
 Sometimes doing *less* of your assigned work can lead to an increased impact, if the reserved capacity is reinvested in high-leverage projects. This seems counterintuitive, and could be mistaken for laziness or poor performance if managed incorrectly. I recently heard Matt Greenberg[^13], CTO of [Reforge](https://www.reforge.com/), refer to this pattern as "modulating your output."
 

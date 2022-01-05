@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>basketball on Seth dot cool</title>
-    <link>/tags/basketball/</link>
+    <link>https://seth.cool/tags/basketball/</link>
     <description>Recent content in basketball on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Dec 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/basketball/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Dec 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://seth.cool/tags/basketball/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Three-pointers after offensive rebounds</title>
-      <link>/post/2018-12-30-three-pointers-after-offensive-rebounds/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</link>
+      <link>https://seth.cool/post/2018-12-30-three-pointers-after-offensive-rebounds/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018-12-30-three-pointers-after-offensive-rebounds/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</guid>
+      <guid>https://seth.cool/post/2018-12-30-three-pointers-after-offensive-rebounds/is-the-best-time-to-shoot-a-three-pointer-after-an-offensive-rebound/</guid>
       <description>During the Duke-Kentucky college basketball season opener, after one of twelve of Duke’s made three-point shots, Jay Bilas claimed that “the best time to shoot a three is following an offensive rebound.” I’ve heard other commentators say this before, and wondered if it’s actually true. This post walks through my investigation of that claim using play-by-play data from the 2017-18 men’s college basketball season.
 Preparing the dataMy play-by-play dataset includes 2.</description>
     </item>
     
     <item>
       <title>Analyzing the NCAA Men&#39;s Basketball Tournament Field of 68</title>
-      <link>/post/2018-03-20-analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/</link>
+      <link>https://seth.cool/post/2018-03-20-analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/</link>
       <pubDate>Tue, 20 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018-03-20-analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/</guid>
+      <guid>https://seth.cool/post/2018-03-20-analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/analyzing-the-ncaa-men-s-basketball-tournament-field-of-68/</guid>
       <description>I just returned from an event in Las Vegas, which intentionally coincided with the first weekend of the NCAA Men’s Basketball Tournament. In preparation, I attempted to analyze the 68 tournament NCAA Tournament teams, hoping to make a few profitable predictions. I went in with low expectations, thanks in part to statistics posts about how difficult it is to profit, even with better-than-the-bookmaker’s odds.
 I ended up breaking even. Here are a few of the plots I created using data from two Ken’s: Pomeroy’s Kenpom.</description>
     </item>
     
     <item>
       <title>Height and NCAA Hoops</title>
-      <link>/post/2017-12-21-height-and-ncaa-hoops/height-and-ncaa-hoops/</link>
+      <link>https://seth.cool/post/2017-12-21-height-and-ncaa-hoops/height-and-ncaa-hoops/</link>
       <pubDate>Thu, 21 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/2017-12-21-height-and-ncaa-hoops/height-and-ncaa-hoops/</guid>
+      <guid>https://seth.cool/post/2017-12-21-height-and-ncaa-hoops/height-and-ncaa-hoops/</guid>
       <description>I’m hellbent on winning a March Madness pool this year, and have been reading up on modern basketball analytics (i.e., KenPom, Dean Oliver, Sagarin, Lopez).
 In the process, I’ve played around with scraping data from various websites, to analyze in R.
 This is a quick exploration of player height according to 2017-18 NCAA D-I Men’s Basketball Rosters.

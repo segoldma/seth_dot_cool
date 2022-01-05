@@ -2,170 +2,170 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Seth dot cool</title>
-    <link>/tags/</link>
+    <link>https://seth.cool/tags/</link>
     <description>Recent content in Tags on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://seth.cool/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>career</title>
-      <link>/tags/career/</link>
+      <link>https://seth.cool/tags/career/</link>
       <pubDate>Wed, 05 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>/tags/career/</guid>
+      <guid>https://seth.cool/tags/career/</guid>
       <description></description>
     </item>
     
     <item>
       <title>learning</title>
-      <link>/tags/learning/</link>
+      <link>https://seth.cool/tags/learning/</link>
       <pubDate>Wed, 05 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>/tags/learning/</guid>
+      <guid>https://seth.cool/tags/learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>about</title>
-      <link>/tags/about/</link>
+      <link>https://seth.cool/tags/about/</link>
       <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>/tags/about/</guid>
+      <guid>https://seth.cool/tags/about/</guid>
       <description></description>
     </item>
     
     <item>
       <title>data</title>
-      <link>/tags/data/</link>
+      <link>https://seth.cool/tags/data/</link>
       <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>/tags/data/</guid>
+      <guid>https://seth.cool/tags/data/</guid>
       <description></description>
     </item>
     
     <item>
       <title>DC</title>
-      <link>/tags/dc/</link>
+      <link>https://seth.cool/tags/dc/</link>
       <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/dc/</guid>
+      <guid>https://seth.cool/tags/dc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>public datasets</title>
-      <link>/tags/public-datasets/</link>
+      <link>https://seth.cool/tags/public-datasets/</link>
       <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/public-datasets/</guid>
+      <guid>https://seth.cool/tags/public-datasets/</guid>
       <description></description>
     </item>
     
     <item>
       <title>rstats</title>
-      <link>/tags/rstats/</link>
+      <link>https://seth.cool/tags/rstats/</link>
       <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/rstats/</guid>
+      <guid>https://seth.cool/tags/rstats/</guid>
       <description></description>
     </item>
     
     <item>
       <title>API</title>
-      <link>/tags/api/</link>
+      <link>https://seth.cool/tags/api/</link>
       <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/api/</guid>
+      <guid>https://seth.cool/tags/api/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Football</title>
-      <link>/tags/football/</link>
+      <link>https://seth.cool/tags/football/</link>
       <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/football/</guid>
+      <guid>https://seth.cool/tags/football/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ncaa</title>
-      <link>/tags/ncaa/</link>
+      <link>https://seth.cool/tags/ncaa/</link>
       <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/ncaa/</guid>
+      <guid>https://seth.cool/tags/ncaa/</guid>
       <description></description>
     </item>
     
     <item>
       <title>basketball</title>
-      <link>/tags/basketball/</link>
+      <link>https://seth.cool/tags/basketball/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/basketball/</guid>
+      <guid>https://seth.cool/tags/basketball/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ggplot2</title>
-      <link>/tags/ggplot2/</link>
+      <link>https://seth.cool/tags/ggplot2/</link>
       <pubDate>Tue, 20 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/ggplot2/</guid>
+      <guid>https://seth.cool/tags/ggplot2/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kenpom</title>
-      <link>/tags/kenpom/</link>
+      <link>https://seth.cool/tags/kenpom/</link>
       <pubDate>Tue, 20 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/kenpom/</guid>
+      <guid>https://seth.cool/tags/kenpom/</guid>
       <description></description>
     </item>
     
     <item>
       <title>exploratory</title>
-      <link>/tags/exploratory/</link>
+      <link>https://seth.cool/tags/exploratory/</link>
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/exploratory/</guid>
+      <guid>https://seth.cool/tags/exploratory/</guid>
       <description></description>
     </item>
     
     <item>
       <title>MLB</title>
-      <link>/tags/mlb/</link>
+      <link>https://seth.cool/tags/mlb/</link>
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/mlb/</guid>
+      <guid>https://seth.cool/tags/mlb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/tags/r/</link>
+      <link>https://seth.cool/tags/r/</link>
       <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/r/</guid>
+      <guid>https://seth.cool/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>311</title>
-      <link>/tags/311/</link>
+      <link>https://seth.cool/tags/311/</link>
       <pubDate>Fri, 27 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/311/</guid>
+      <guid>https://seth.cool/tags/311/</guid>
       <description></description>
     </item>
     
     <item>
       <title>service requests</title>
-      <link>/tags/service-requests/</link>
+      <link>https://seth.cool/tags/service-requests/</link>
       <pubDate>Fri, 27 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/service-requests/</guid>
+      <guid>https://seth.cool/tags/service-requests/</guid>
       <description></description>
     </item>
     

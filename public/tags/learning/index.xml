@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>learning on Seth dot cool</title>
-    <link>/tags/learning/</link>
+    <link>https://seth.cool/tags/learning/</link>
     <description>Recent content in learning on Seth dot cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/learning/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://seth.cool/tags/learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A Pretty Weird Path into Data</title>
-      <link>/post/my-pretty-weird-path-into-data/</link>
+      <link>https://seth.cool/post/my-pretty-weird-path-into-data/</link>
       <pubDate>Wed, 05 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>/post/my-pretty-weird-path-into-data/</guid>
+      <guid>https://seth.cool/post/my-pretty-weird-path-into-data/</guid>
       <description>Sometime last year, I was interviewing for a lead analyst role at a really cool start-up1. I didn&amp;rsquo;t get the job, but during one of the rounds I got to speak with an executive who while scanning my LinkedIn during the call said something like:
 So you were doing customer success for a few years, and then became a data manager&amp;hellip; that&amp;rsquo;s pretty weird. How did that happen?
 After summarizing how it happened, he said: You should be selling this story a lot harder.</description>
